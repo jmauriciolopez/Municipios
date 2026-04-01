@@ -1,0 +1,29 @@
+Listo. Te dejé los dos archivos en español:
+
+[Modelo completo + stack + pantallas mock](sandbox:/mnt/data/municipio_syh/municipio_seguridad_higiene_modelo.md)
+
+[Documento aparte de pricing](sandbox:/mnt/data/municipio_syh/pricing_municipio_seguridad_higiene.md)
+
+Resumen de lo que incluye el principal:
+
+* modelo de datos completo
+* módulos funcionales
+* stack con NestJS + React + PostgreSQL
+* entidades para riesgos, incidentes, inspecciones, órdenes, cuadrillas, activos, inventario y auditoría
+* mocks/wireframes textuales de las pantallas principales
+* roadmap de MVP
+
+Y en el doc aparte:
+
+* pricing por setup
+* mensual por tamaño de municipio
+* piloto
+* extras e integraciones
+* estrategia comercial de entrada
+
+En el próximo paso te lo puedo bajar a:
+
+* diagrama ER
+* esquema SQL inicial para Postgres
+* DTOs y módulos de NestJS
+* rutas y componentes base en React
