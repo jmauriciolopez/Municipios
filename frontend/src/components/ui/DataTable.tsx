@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 type DataTableColumn<T> = {
-  key: keyof T;
+  key: string;
   label: string;
   render?: (item: T) => ReactNode;
 };
@@ -32,7 +32,7 @@ export default function DataTable<T>({ columns, data, onRowClick, emptyMessage }
           <tr key={`row-${index}`} onClick={() => onRowClick?.(item)}>
             {columns.map((column) => (
               <td key={String(column.key)}>
-                {column.render ? column.render(item) : String(item[column.key] ?? '')}
+                {column.render ? column.render(item) : String((item as Record<string, any>)[column.key] ?? '')}
               </td>
             ))}
           </tr>
