@@ -1,20 +1,30 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { AuditoriaService } from '../auditoria/auditoria.service';
 import { CreateIncidenteDto } from './dto/create-incidente.dto';
 import { UpdateIncidenteDto } from './dto/update-incidente.dto';
 import { FindIncidentesQueryDto } from './dto/find-incidentes-query.dto';
 
 @Injectable()
 export class IncidentesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private auditoria: AuditoriaService,
+  ) {}
 
-  async create(data: CreateIncidenteDto) {
-    return this.prisma.incidente.create({
+  async create(data: CreateIncidenteDto, userId?: string) {
+    const incidente = await this.prisma.incidente.create({
       data: {
         ...data,
         fechaReporte: data.fecha_reporte ?? new Date(),
       },
     });
+
+    if (userId) {
+      await this.auditoria.logEvent('incidente', incidente.id, 'CREATE', userId, data);
+    }
+
+    return incidente;
   }
 
   async findAll(query: FindIncidentesQueryDto) {
@@ -52,40 +62,63 @@ export class IncidentesService {
     return incidente;
   }
 
-  async update(id: string, data: UpdateIncidenteDto) {
-    return this.prisma.incidente.update({
+  async update(id: string, data: UpdateIncidenteDto, userId?: string) {
+    const incidente = await this.prisma.incidente.update({
       where: { id },
       data,
     });
+
+    if (userId) {
+      await this.auditoria.logEvent('incidente', id, 'UPDATE', userId, data);
+    }
+
+    return incidente;
   }
 
-  async remove(id: string) {
+  async remove(id: string, userId?: string) {
     const incidente = await this.findOne(id);
     await this.prisma.incidente.update({
       where: { id },
       data: { deletedAt: new Date(), estado: 'cancelado' },
     });
+
+    if (userId) {
+      await this.auditoria.logEvent('incidente', id, 'DELETE', userId);
+    }
+
     return { deleted: true, id };
   }
 
-  async convertToOrden(id: string) {
+  async convertToOrden(id: string, userId?: string) {
     const incidente = await this.findOne(id);
-    await this.prisma.incidente.update({
-      where: { id },
-      data: { estado: 'en_proceso' },
+
+    const result = await this.prisma.$transaction(async (tx) => {
+      // Update incidente status
+      await tx.incidente.update({
+        where: { id },
+        data: { estado: 'en_proceso' },
+      });
+
+      // Create orden de trabajo
+      const orden = await tx.ordenTrabajo.create({
+        data: {
+          incidenteId: incidente.id,
+          areaId: incidente.areaId,
+          estado: 'detectado',
+          prioridad: incidente.prioridad,
+          descripcion: incidente.descripcion,
+          codigo: `ORD-${Date.now()}`,
+        },
+      });
+
+      return orden;
     });
 
-    const orden = await this.prisma.ordenTrabajo.create({
-      data: {
-        incidenteId: incidente.id,
-        areaId: incidente.areaId,
-        estado: 'detectado',
-        prioridad: incidente.prioridad,
-        descripcion: incidente.descripcion,
-        codigo: `ORD-${Date.now()}`,
-      },
-    });
-    return orden;
+    if (userId) {
+      await this.auditoria.logEvent('incidente', id, 'CONVERT_TO_ORDER', userId, { ordenId: result.id });
+    }
+
+    return result;
   }
 
   async getEvidencias(id: string) {

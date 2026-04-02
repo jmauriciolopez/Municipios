@@ -8,6 +8,7 @@ import { CuadrillasModule } from './cuadrillas/cuadrillas.module';
 import { AreasModule } from './areas/areas.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthModule } from './auth/auth.module';
+import { AuditoriaModule } from './auditoria/auditoria.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
@@ -22,6 +23,7 @@ import { PrismaModule } from './prisma/prisma.module';
     AreasModule,
     DashboardModule,
     AuthModule,
+    AuditoriaModule,
   ],
   controllers: [],
   providers: [],

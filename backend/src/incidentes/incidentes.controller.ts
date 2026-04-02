@@ -6,6 +6,7 @@ import { FindIncidentesQueryDto } from './dto/find-incidentes-query.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
+import { User } from '../auth/user.decorator';
 
 @Controller('incidentes')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -14,8 +15,8 @@ export class IncidentesController {
 
   @Post()
   @Roles('inspector', 'admin')
-  create(@Body() body: CreateIncidenteDto) {
-    return this.incidentesService.create(body);
+  create(@Body() body: CreateIncidenteDto, @User() user: any) {
+    return this.incidentesService.create(body, user?.id);
   }
 
   @Get()
@@ -30,18 +31,18 @@ export class IncidentesController {
 
   @Patch(':id')
   @Roles('inspector', 'supervisor', 'admin')
-  update(@Param('id') id: string, @Body() body: any) {
-    return this.incidentesService.update(id, body);
+  update(@Param('id') id: string, @Body() body: any, @User() user: any) {
+    return this.incidentesService.update(id, body, user?.id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.incidentesService.remove(id);
+  remove(@Param('id') id: string, @User() user: any) {
+    return this.incidentesService.remove(id, user?.id);
   }
 
   @Post(':id/convertir-a-orden')
-  convertToOrden(@Param('id') id: string) {
-    return this.incidentesService.convertToOrden(id);
+  convertToOrden(@Param('id') id: string, @User() user: any) {
+    return this.incidentesService.convertToOrden(id, user?.id);
   }
 
   @Get(':id/evidencias')

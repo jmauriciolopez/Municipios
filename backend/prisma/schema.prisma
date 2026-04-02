@@ -54,6 +54,14 @@ enum EvidenciaTipo {
   intervencion
 }
 
+enum AuditoriaTipo {
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+  LOGOUT
+}
+
 model Municipio {
   id        String   @id @default(uuid()) @db.Uuid
   nombre    String   @unique @db.VarChar(150)
