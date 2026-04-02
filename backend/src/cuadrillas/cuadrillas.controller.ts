@@ -3,12 +3,18 @@ import { CuadrillasService } from './cuadrillas.service';
 import { CreateCuadrillaDto } from './dto/create-cuadrilla.dto';
 import { UpdateCuadrillaDto } from './dto/update-cuadrilla.dto';
 import { CambiarEstadoCuadrillaDto } from './dto/cambiar-estado-cuadrilla.dto';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
 
 @Controller('cuadrillas')
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class CuadrillasController {
   constructor(private readonly cuadrillasService: CuadrillasService) {}
 
   @Post()
+  @Roles('supervisor', 'admin')
   create(@Body() createCuadrillaDto: CreateCuadrillaDto) {
     return this.cuadrillasService.create(createCuadrillaDto);
   }
@@ -24,11 +30,13 @@ export class CuadrillasController {
   }
 
   @Patch(':id')
+  @Roles('supervisor', 'admin')
   update(@Param('id') id: string, @Body() updateCuadrillaDto: UpdateCuadrillaDto) {
     return this.cuadrillasService.update(id, updateCuadrillaDto);
   }
 
   @Patch(':id/disponibilidad')
+  @Roles('supervisor', 'admin')
   setDisponibilidad(@Param('id') id: string, @Body() cambiarEstadoCuadrillaDto: CambiarEstadoCuadrillaDto) {
     return this.cuadrillasService.updateEstado(id, cambiarEstadoCuadrillaDto);
   }

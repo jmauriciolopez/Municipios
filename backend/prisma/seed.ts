@@ -36,19 +36,37 @@ async function main() {
 
   // Roles
   const rolAdmin = await prisma.rol.upsert({
-    where: { nombre: 'Administrador' },
+    where: { nombre: 'admin' },
     update: {},
     create: {
-      nombre: 'Administrador',
+      nombre: 'admin',
       descripcion: 'Usuario con acceso completo',
     },
   });
 
-  const rolOperario = await prisma.rol.upsert({
-    where: { nombre: 'Operario' },
+  const rolSupervisor = await prisma.rol.upsert({
+    where: { nombre: 'supervisor' },
     update: {},
     create: {
-      nombre: 'Operario',
+      nombre: 'supervisor',
+      descripcion: 'Supervisor de cuadrillas',
+    },
+  });
+
+  const rolInspector = await prisma.rol.upsert({
+    where: { nombre: 'inspector' },
+    update: {},
+    create: {
+      nombre: 'inspector',
+      descripcion: 'Inspector de riesgos e incidentes',
+    },
+  });
+
+  const rolOperario = await prisma.rol.upsert({
+    where: { nombre: 'operario' },
+    update: {},
+    create: {
+      nombre: 'operario',
       descripcion: 'Usuario de campo',
     },
   });

@@ -4,7 +4,9 @@
   "description": "Backend API para sistema municipal de seguridad e higiene",
   "author": "",
   "private": true,
-  "license": "UNLICENSED",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
