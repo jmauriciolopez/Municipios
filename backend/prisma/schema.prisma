@@ -1,0 +1,399 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrdenEstado {
+  detectado
+  asignado
+  en_proceso
+  resuelto
+  verificado
+  cancelado
+}
+
+enum IncidenteEstado {
+  abierto
+  en_proceso
+  resuelto
+  cerrado
+  cancelado
+}
+
+enum Prioridad {
+  baja
+  media
+  alta
+  critica
+}
+
+enum ActivoEstado {
+  operativo
+  en_mantenimiento
+  fuera_servicio
+  dado_de_baja
+}
+
+enum CuadrillaEstado {
+  disponible
+  ocupada
+  fuera_servicio
+}
+
+enum EvidenciaTipo {
+  antes
+  despues
+  inspeccion
+  intervencion
+}
+
+model Municipio {
+  id        String   @id @default(uuid()) @db.Uuid
+  nombre    String   @unique @db.VarChar(150)
+  codigo    String   @unique @db.VarChar(50)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz
+
+  areas      Area[]
+  usuarios   Usuario[]
+  cuadrillas Cuadrilla[]
+  activos    Activo[]
+  incidentes Incidente[]
+  ordenes    OrdenTrabajo[]
+  evidencias Evidencia[]
+
+  @@map("municipios")
+}
+
+model Area {
+  id          String   @id @default(uuid()) @db.Uuid
+  municipioId String   @map("municipio_id") @db.Uuid
+  nombre      String   @db.VarChar(120)
+  descripcion String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz
+
+  municipio   Municipio @relation(fields: [municipioId], references: [id], onDelete: Cascade)
+  cuadrillas  Cuadrilla[]
+  activos     Activo[]
+  riesgos     Riesgo[]
+  incidentes  Incidente[]
+  ordenes     OrdenTrabajo[]
+  inspecciones Inspeccion[]
+  inventario  InventarioItem[]
+
+  @@unique([municipioId, nombre])
+  @@map("areas")
+}
+
+model Rol {
+  id          String   @id @default(uuid()) @db.Uuid
+  nombre      String   @unique @db.VarChar(80)
+  descripcion String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz
+
+  usuarios UsuarioRol[]
+
+  @@map("roles")
+}
+
+model Usuario {
+  id           String   @id @default(uuid()) @db.Uuid
+  municipioId  String?  @map("municipio_id") @db.Uuid
+  nombre       String   @db.VarChar(120)
+  email        String   @unique @db.VarChar(160)
+  passwordHash String?  @map("password_hash") @db.VarChar(255)
+  telefono     String?  @db.VarChar(50)
+  estado       Boolean  @default(true)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt    DateTime? @map("deleted_at") @db.Timestamptz
+
+  municipio     Municipio?       @relation(fields: [municipioId], references: [id])
+  roles         UsuarioRol[]
+  cuadrillas    Cuadrilla[]      @relation("Supervisor")
+  miembros      CuadrillaMiembro[]
+  reportados    Incidente[]      @relation("ReportadoPor")
+  creados       OrdenTrabajo[]   @relation("CreadoPor")
+  actualizados  OrdenTrabajo[]   @relation("ActualizadoPor")
+  evidencias    Evidencia[]
+  inspecciones  Inspeccion[]
+  inventarioC   InventarioItem[]  @relation("CreadoPor")
+  inventarioA   InventarioItem[]  @relation("ActualizadoPor")
+  auditoria     AuditoriaEvento[]
+
+  @@map("usuarios")
+}
+
+model UsuarioRol {
+  usuarioId String @map("usuario_id") @db.Uuid
+  rolId     String @map("rol_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  rol     Rol     @relation(fields: [rolId], references: [id], onDelete: Cascade)
+
+  @@id([usuarioId, rolId])
+  @@map("usuarios_roles")
+}
+
+model Cuadrilla {
+  id           String         @id @default(uuid()) @db.Uuid
+  municipioId  String?        @map("municipio_id") @db.Uuid
+  nombre       String         @db.VarChar(140)
+  areaId       String?        @map("area_id") @db.Uuid
+  estado       CuadrillaEstado @default(disponible)
+  supervisorId String?        @map("supervisor_id") @db.Uuid
+  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime       @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt    DateTime?      @map("deleted_at") @db.Timestamptz
+
+  municipio   Municipio?        @relation(fields: [municipioId], references: [id])
+  area        Area?             @relation(fields: [areaId], references: [id])
+  supervisor  Usuario?          @relation("Supervisor", fields: [supervisorId], references: [id])
+  miembros    CuadrillaMiembro[]
+  ordenes     OrdenTrabajo[]
+
+  @@map("cuadrillas")
+}
+
+model CuadrillaMiembro {
+  id            String   @id @default(uuid()) @db.Uuid
+  cuadrillaId   String   @map("cuadrilla_id") @db.Uuid
+  usuarioId     String   @map("usuario_id") @db.Uuid
+  rol           String?  @db.VarChar(120)
+  fechaIngreso  DateTime @default(now()) @map("fecha_ingreso") @db.Timestamptz
+  fechaSalida   DateTime? @map("fecha_salida") @db.Timestamptz
+  activo        Boolean  @default(true)
+
+  cuadrilla Cuadrilla @relation(fields: [cuadrillaId], references: [id], onDelete: Cascade)
+  usuario   Usuario   @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@map("cuadrilla_miembros")
+}
+
+model TipoActivo {
+  id          String   @id @default(uuid()) @db.Uuid
+  nombre      String   @unique @db.VarChar(120)
+  descripcion String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz
+
+  activos Activo[]
+
+  @@map("tipos_activo")
+}
+
+model Activo {
+  id                 String       @id @default(uuid()) @db.Uuid
+  municipioId        String?      @map("municipio_id") @db.Uuid
+  codigo             String       @unique @db.VarChar(120)
+  nombre             String       @db.VarChar(150)
+  tipoActivoId       String       @map("tipo_activo_id") @db.Uuid
+  estado             ActivoEstado @default(operativo)
+  lat                Decimal?     @db.Decimal(10, 7)
+  lng                Decimal?     @db.Decimal(10, 7)
+  direccion          String?      @db.VarChar(250)
+  areaResponsableId  String?      @map("area_responsable_id") @db.Uuid
+  createdAt          DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt          DateTime     @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt          DateTime?    @map("deleted_at") @db.Timestamptz
+
+  municipio          Municipio?     @relation(fields: [municipioId], references: [id])
+  tipoActivo         TipoActivo     @relation(fields: [tipoActivoId], references: [id])
+  areaResponsable    Area?          @relation(fields: [areaResponsableId], references: [id])
+  incidentes         Incidente[]
+  inspecciones       Inspeccion[]
+
+  @@map("activos")
+}
+
+model Ubicacion {
+  id          String  @id @default(uuid()) @db.Uuid
+  entidadTipo String  @map("entidad_tipo") @db.VarChar(60)
+  entidadId   String  @map("entidad_id") @db.Uuid
+  lat         Decimal @db.Decimal(10, 7)
+  lng         Decimal @db.Decimal(10, 7)
+  direccion   String? @db.VarChar(250)
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz
+
+  @@map("ubicaciones")
+}
+
+model Riesgo {
+  id          String   @id @default(uuid()) @db.Uuid
+  nombre      String   @unique @db.VarChar(140)
+  descripcion String?  @db.Text
+  nivel       Int
+  areaId      String?  @map("area_id") @db.Uuid
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz
+
+  area       Area?       @relation(fields: [areaId], references: [id])
+  incidentes Incidente[]
+
+  @@map("riesgos")
+}
+
+model Incidente {
+  id             String          @id @default(uuid()) @db.Uuid
+  municipioId    String?         @map("municipio_id") @db.Uuid
+  tipo           String          @db.VarChar(140)
+  descripcion    String          @db.Text
+  estado         IncidenteEstado @default(abierto)
+  prioridad      Prioridad       @default(media)
+  lat            Decimal         @db.Decimal(10, 7)
+  lng            Decimal         @db.Decimal(10, 7)
+  direccion      String?         @db.VarChar(250)
+  areaId         String?         @map("area_id") @db.Uuid
+  activoId       String?         @map("activo_id") @db.Uuid
+  riesgoId       String?         @map("riesgo_id") @db.Uuid
+  reportadoPor   String?         @map("reportado_por") @db.Uuid
+  fechaReporte   DateTime        @default(now()) @map("fecha_reporte") @db.Timestamptz
+  fechaResolucion DateTime?      @map("fecha_resolucion") @db.Timestamptz
+  createdAt      DateTime        @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime        @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt      DateTime?       @map("deleted_at") @db.Timestamptz
+
+  municipio      Municipio?     @relation(fields: [municipioId], references: [id])
+  area           Area?          @relation(fields: [areaId], references: [id])
+  activo         Activo?        @relation(fields: [activoId], references: [id])
+  riesgo         Riesgo?        @relation(fields: [riesgoId], references: [id])
+  reportadoPorU  Usuario?       @relation("ReportadoPor", fields: [reportadoPor], references: [id])
+  orden          OrdenTrabajo?
+  inspecciones   Inspeccion[]
+
+  @@map("incidentes")
+}
+
+model Evidencia {
+  id            String        @id @default(uuid()) @db.Uuid
+  municipioId   String?       @map("municipio_id") @db.Uuid
+  entidadTipo   String        @map("entidad_tipo") @db.VarChar(80)
+  entidadId     String        @map("entidad_id") @db.Uuid
+  url           String        @db.Text
+  tipo          EvidenciaTipo
+  caption       String?       @db.Text
+  tomadoPor     String?       @map("tomado_por") @db.Uuid
+  timestampFoto DateTime      @default(now()) @map("timestamp_foto") @db.Timestamptz
+  createdAt     DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime      @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt     DateTime?     @map("deleted_at") @db.Timestamptz
+
+  municipio   Municipio? @relation(fields: [municipioId], references: [id])
+  tomadoPorU  Usuario?   @relation(fields: [tomadoPor], references: [id])
+
+  @@map("evidencias")
+}
+
+model Inspeccion {
+  id              String   @id @default(uuid()) @db.Uuid
+  incidenteId     String   @map("incidente_id") @db.Uuid
+  activoId        String?  @map("activo_id") @db.Uuid
+  inspectorId     String?  @map("inspector_id") @db.Uuid
+  areaId          String?  @map("area_id") @db.Uuid
+  resultado       String?  @db.VarChar(255)
+  observaciones   String?  @db.Text
+  fechaInspeccion DateTime @default(now()) @map("fecha_inspeccion") @db.Timestamptz
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt       DateTime @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt       DateTime? @map("deleted_at") @db.Timestamptz
+
+  incidente Incidente @relation(fields: [incidenteId], references: [id], onDelete: Cascade)
+  activo    Activo?   @relation(fields: [activoId], references: [id])
+  inspector Usuario?  @relation(fields: [inspectorId], references: [id])
+  area      Area?     @relation(fields: [areaId], references: [id])
+
+  @@map("inspecciones")
+}
+
+model OrdenTrabajo {
+  id             String      @id @default(uuid()) @db.Uuid
+  codigo         String      @unique @db.VarChar(80)
+  municipioId    String?     @map("municipio_id") @db.Uuid
+  incidenteId    String?     @unique @map("incidente_id") @db.Uuid
+  areaId         String?     @map("area_id") @db.Uuid
+  cuadrillaId    String?     @map("cuadrilla_id") @db.Uuid
+  estado         OrdenEstado @default(detectado)
+  prioridad      Prioridad   @default(media)
+  descripcion    String?     @db.Text
+  fechaAsignacion DateTime?  @map("fecha_asignacion") @db.Timestamptz
+  fechaInicio    DateTime?   @map("fecha_inicio") @db.Timestamptz
+  fechaCierre    DateTime?   @map("fecha_cierre") @db.Timestamptz
+  creadoPor      String?     @map("creado_por") @db.Uuid
+  actualizadoPor String?     @map("actualizado_por") @db.Uuid
+  createdAt      DateTime    @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime    @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt      DateTime?   @map("deleted_at") @db.Timestamptz
+
+  municipio    Municipio?     @relation(fields: [municipioId], references: [id])
+  incidente    Incidente?     @relation(fields: [incidenteId], references: [id])
+  area         Area?          @relation(fields: [areaId], references: [id])
+  cuadrilla    Cuadrilla?     @relation(fields: [cuadrillaId], references: [id])
+  creadoPorU   Usuario?       @relation("CreadoPor", fields: [creadoPor], references: [id])
+  actualizadoPorU Usuario?    @relation("ActualizadoPor", fields: [actualizadoPor], references: [id])
+  materiales   OrdenMaterial[]
+
+  @@map("ordenes_trabajo")
+}
+
+model OrdenMaterial {
+  id        String  @id @default(uuid()) @db.Uuid
+  ordenId   String  @map("orden_id") @db.Uuid
+  item      String  @db.VarChar(200)
+  cantidad  Decimal @db.Decimal(10, 2)
+  unidad    String  @db.VarChar(40)
+  estado    String? @db.VarChar(120)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz
+
+  orden OrdenTrabajo @relation(fields: [ordenId], references: [id], onDelete: Cascade)
+
+  @@map("ordenes_materiales")
+}
+
+model InventarioItem {
+  id            String   @id @default(uuid()) @db.Uuid
+  codigo        String   @unique @db.VarChar(120)
+  nombre        String   @db.VarChar(180)
+  descripcion   String?  @db.Text
+  cantidad      Decimal  @default(0) @db.Decimal(12, 2)
+  areaId        String?  @map("area_id") @db.Uuid
+  creadoPor     String?  @map("creado_por") @db.Uuid
+  actualizadoPor String? @map("actualizado_por") @db.Uuid
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime @default(now()) @map("updated_at") @db.Timestamptz
+  deletedAt     DateTime? @map("deleted_at") @db.Timestamptz
+
+  area           Area?    @relation(fields: [areaId], references: [id])
+  creadoPorU     Usuario? @relation("CreadoPor", fields: [creadoPor], references: [id])
+  actualizadoPorU Usuario? @relation("ActualizadoPor", fields: [actualizadoPor], references: [id])
+
+  @@map("inventario_items")
+}
+
+model AuditoriaEvento {
+  id          String   @id @default(uuid()) @db.Uuid
+  entidadTipo String   @map("entidad_tipo") @db.VarChar(100)
+  entidadId   String   @map("entidad_id") @db.Uuid
+  accion      String   @map("accion") @db.VarChar(120)
+  usuarioId   String?  @map("usuario_id") @db.Uuid
+  datos       Json?    @db.JsonB
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  usuario Usuario? @relation(fields: [usuarioId], references: [id])
+
+  @@map("auditoria_eventos")
+}

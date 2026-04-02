@@ -7,10 +7,13 @@ import { ActivosModule } from './activos/activos.module';
 import { CuadrillasModule } from './cuadrillas/cuadrillas.module';
 import { AreasModule } from './areas/areas.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { AuthModule } from './auth/auth.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule,
     CommonModule,
     IncidentesModule,
     OrdenesTrabajoModule,
@@ -18,6 +21,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     CuadrillasModule,
     AreasModule,
     DashboardModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
