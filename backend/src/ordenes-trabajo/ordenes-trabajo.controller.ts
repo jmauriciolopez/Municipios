@@ -46,8 +46,8 @@ export class OrdenesTrabajoController {
   }
 
   @Get(':id/duracion')
-  duracion(@Param('id') id: string) {
-    const orden = this.ordenesService.findOne(id);
+  async duracion(@Param('id') id: string) {
+    const orden = await this.ordenesService.findOne(id);
     return this.ordenesService.calcularDuracion(orden);
   }
 }

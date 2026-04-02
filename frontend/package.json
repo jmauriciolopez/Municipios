@@ -10,26 +10,30 @@
     "test": "vitest"
   },
   "dependencies": {
+    "axios": "^1.4.0",
+    "leaflet": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.0",
-    "leaflet": "^1.9.4",
     "react-leaflet": "^4.2.1",
-    "axios": "^1.4.0"
+    "react-router-dom": "^6.8.0"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.11",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@types/leaflet": "^1.9.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "@types/leaflet": "^1.9.3",
-    "@vitejs/plugin-react": "^3.1.0",
-    "typescript": "^5.2.2",
-    "vite": "^4.3.0",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
+    "@vitejs/plugin-react": "^3.1.0",
+    "autoprefixer": "^10.4.27",
     "eslint": "^8.40.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "vitest": "^0.34.0",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/jest-dom": "^5.16.5"
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.2.2",
+    "vite": "^4.3.0",
+    "vitest": "^0.34.0"
   }
 }

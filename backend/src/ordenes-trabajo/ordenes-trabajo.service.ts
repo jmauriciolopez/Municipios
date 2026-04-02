@@ -1,4 +1,5 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrdenTrabajoDto } from './dto/create-orden-trabajo.dto';
 import { UpdateOrdenTrabajoDto } from './dto/update-orden-trabajo.dto';
 import { AsignarCuadrillaDto } from './dto/asignar-cuadrilla.dto';
@@ -7,63 +8,105 @@ import { OrdenEstado } from '../common/enums/orden-estado.enum';
 
 @Injectable()
 export class OrdenesTrabajoService {
-  private ordenes: any[] = [];
+  constructor(private readonly prisma: PrismaService) {}
 
-  create(data: CreateOrdenTrabajoDto) {
-    const now = new Date().toISOString();
-    const orden = {
-      id: `${Date.now()}`,
-      ...data,
-      estado: data.estado || OrdenEstado.DETECTADO,
-      fecha_asignacion: data.fecha_asignacion || null,
-      fecha_inicio: data.fecha_inicio || null,
-      fecha_cierre: data.fecha_cierre || null,
-      created_at: now,
-      updated_at: now,
-      deleted_at: null,
-    };
-    this.ordenes.push(orden);
-    return orden;
+  private normalizeFecha(value?: string | null) {
+    if (!value) return undefined;
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return undefined;
+    return date;
   }
 
-  findAll(query?: any) {
-    const results = this.ordenes.filter((o) => !o.deleted_at);
-    if (!query) return results;
+  async create(data: CreateOrdenTrabajoDto) {
+    const payload: any = {
+      codigo: data.codigo,
+      incidenteId: data.incidente_id,
+      areaId: data.area_id,
+      cuadrillaId: data.cuadrilla_id,
+      estado: data.estado ?? OrdenEstado.DETECTADO,
+      prioridad: data.prioridad,
+      descripcion: data.descripcion,
+      fechaAsignacion: this.normalizeFecha(data.fecha_asignacion),
+      fechaInicio: this.normalizeFecha(data.fecha_inicio),
+      fechaCierre: this.normalizeFecha(data.fecha_cierre),
+    };
 
-    return results.filter((orden) => {
-      if (query.estado && orden.estado !== query.estado) return false;
-      if (query.prioridad && orden.prioridad !== query.prioridad) return false;
-      if (query.area_id && orden.area_id !== query.area_id) return false;
-      if (query.cuadrilla_id && orden.cuadrilla_id !== query.cuadrilla_id) return false;
-      if (query.fecha_desde && new Date(orden.fecha_asignacion) < new Date(query.fecha_desde)) return false;
-      if (query.fecha_hasta && new Date(orden.fecha_cierre || orden.fecha_inicio) > new Date(query.fecha_hasta)) return false;
-      return true;
+    return this.prisma.ordenTrabajo.create({
+      data: payload,
     });
   }
 
-  findOne(id: string) {
-    const orden = this.ordenes.find((item) => item.id === id && !item.deleted_at);
+  async findAll(query?: any) {
+    const where: any = { deletedAt: null };
+
+    if (query?.estado) where.estado = query.estado;
+    if (query?.prioridad) where.prioridad = query.prioridad;
+    if (query?.area_id) where.areaId = query.area_id;
+    if (query?.cuadrilla_id) where.cuadrillaId = query.cuadrilla_id;
+    if (query?.fecha_desde || query?.fecha_hasta) {
+      where.fechaAsignacion = {};
+      if (query.fecha_desde) where.fechaAsignacion.gte = new Date(query.fecha_desde);
+      if (query.fecha_hasta) where.fechaAsignacion.lte = new Date(query.fecha_hasta);
+    }
+
+    return this.prisma.ordenTrabajo.findMany({
+      where,
+      include: {
+        area: true,
+        cuadrilla: true,
+        incidente: true,
+      },
+    });
+  }
+
+  async findOne(id: string) {
+    const orden = await this.prisma.ordenTrabajo.findFirst({
+      where: { id, deletedAt: null },
+      include: {
+        area: true,
+        cuadrilla: true,
+        incidente: true,
+      },
+    });
     if (!orden) throw new NotFoundException('Orden no encontrada');
     return orden;
   }
 
-  update(id: string, data: UpdateOrdenTrabajoDto) {
-    const orden = this.findOne(id);
-    Object.assign(orden, data, { updated_at: new Date().toISOString() });
-    return orden;
+  async update(id: string, data: UpdateOrdenTrabajoDto) {
+    await this.findOne(id);
+
+    const payload: any = {
+      incidenteId: data.incidente_id,
+      areaId: data.area_id,
+      cuadrillaId: data.cuadrilla_id,
+      estado: data.estado,
+      prioridad: data.prioridad,
+      descripcion: data.descripcion,
+      fechaAsignacion: this.normalizeFecha(data.fecha_asignacion),
+      fechaInicio: this.normalizeFecha(data.fecha_inicio),
+      fechaCierre: this.normalizeFecha(data.fecha_cierre),
+    };
+
+    return this.prisma.ordenTrabajo.update({
+      where: { id },
+      data: payload,
+    });
   }
 
-  asignarCuadrilla(id: string, data: AsignarCuadrillaDto) {
-    const orden = this.findOne(id);
-    orden.cuadrilla_id = data.cuadrilla_id;
-    orden.fecha_asignacion = new Date().toISOString();
-    orden.estado = OrdenEstado.ASIGNADO;
-    orden.updated_at = new Date().toISOString();
-    return orden;
+  async asignarCuadrilla(id: string, data: AsignarCuadrillaDto) {
+    const orden = await this.findOne(id);
+    return this.prisma.ordenTrabajo.update({
+      where: { id },
+      data: {
+        cuadrillaId: data.cuadrilla_id,
+        fechaAsignacion: new Date(),
+        estado: OrdenEstado.ASIGNADO,
+      },
+    });
   }
 
-  cambiarEstado(id: string, data: CambiarEstadoOrdenDto) {
-    const orden = this.findOne(id);
+  async cambiarEstado(id: string, data: CambiarEstadoOrdenDto) {
+    const orden = await this.findOne(id);
 
     if (data.estado === OrdenEstado.RESUELTO && orden.estado !== OrdenEstado.EN_PROCESO) {
       throw new BadRequestException('No se puede pasar a resuelto si no está en proceso');
@@ -72,31 +115,42 @@ export class OrdenesTrabajoService {
       throw new BadRequestException('No se puede verificar si no está resuelto');
     }
 
-    orden.estado = data.estado;
+    const updatePayload: any = {
+      estado: data.estado,
+    };
 
     if (data.estado === OrdenEstado.EN_PROCESO) {
-      orden.fecha_inicio = orden.fecha_inicio || new Date().toISOString();
+      updatePayload.fechaInicio = orden.fechaInicio ?? new Date();
     }
 
     if (data.estado === OrdenEstado.RESUELTO) {
-      orden.fecha_cierre = new Date().toISOString();
+      updatePayload.fechaCierre = new Date();
     }
 
-    orden.updated_at = new Date().toISOString();
-    return orden;
+    return this.prisma.ordenTrabajo.update({
+      where: { id },
+      data: updatePayload,
+    });
   }
 
-  getEvidencias(id: string) {
-    this.findOne(id);
-    return [];
+  async getEvidencias(id: string) {
+    await this.findOne(id);
+    return this.prisma.evidencia.findMany({
+      where: {
+        entidadTipo: 'orden',
+        entidadId: id,
+        deletedAt: null,
+      },
+    });
   }
 
   calcularDuracion(orden: any) {
-    const inicio = orden.fecha_inicio ? new Date(orden.fecha_inicio).getTime() : null;
-    const cierre = orden.fecha_cierre ? new Date(orden.fecha_cierre).getTime() : null;
-    const estimada = orden.fecha_cierre && orden.fecha_inicio ? Math.abs(cierre - inicio) / (1000 * 60 * 60) : null;
-
-    const real = cierre && inicio ? estimada : null;
-    return { estimada_horas: estimada, real_horas: real };
+    const inicio = orden.fechaInicio ? new Date(orden.fechaInicio).getTime() : null;
+    const cierre = orden.fechaCierre ? new Date(orden.fechaCierre).getTime() : null;
+    const horas = inicio && cierre ? (cierre - inicio) / (1000 * 60 * 60) : null;
+    return {
+      estimada_horas: horas,
+      real_horas: horas,
+    };
   }
 }

@@ -54,6 +54,8 @@ async function main() {
   });
 
   // Usuarios
+  const passwordHash = await import('bcryptjs').then((bcrypt) => bcrypt.hash('secret', 10));
+
   const userAdmin = await prisma.usuario.upsert({
     where: { email: 'admin@municipio.com' },
     update: {},
@@ -61,7 +63,7 @@ async function main() {
       municipioId: municipio.id,
       nombre: 'Administrador',
       email: 'admin@municipio.com',
-      passwordHash: '$2b$10$dummyhash', // dummy
+      passwordHash,
       roles: {
         create: [{ rolId: rolAdmin.id }],
       },
