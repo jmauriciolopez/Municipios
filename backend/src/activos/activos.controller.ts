@@ -1,13 +1,15 @@
 import { Controller, Get, Post, Body, Param, Patch, Query } from '@nestjs/common';
 import { ActivosService } from './activos.service';
+import { CreateActivoDto } from './dto/create-activo.dto';
+import { UpdateActivoDto } from './dto/update-activo.dto';
 
 @Controller('activos')
 export class ActivosController {
   constructor(private readonly activosService: ActivosService) {}
 
   @Post()
-  create(@Body() body: any) {
-    return this.activosService.create(body);
+  create(@Body() createActivoDto: CreateActivoDto) {
+    return this.activosService.create(createActivoDto);
   }
 
   @Get()
@@ -21,8 +23,8 @@ export class ActivosController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: any) {
-    return this.activosService.update(id, body);
+  update(@Param('id') id: string, @Body() updateActivoDto: UpdateActivoDto) {
+    return this.activosService.update(id, updateActivoDto);
   }
 
   @Get('cercanos')

@@ -1,38 +1,124 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateCuadrillaDto } from './dto/create-cuadrilla.dto';
+import { UpdateCuadrillaDto } from './dto/update-cuadrilla.dto';
+import { CambiarEstadoCuadrillaDto } from './dto/cambiar-estado-cuadrilla.dto';
+import { CuadrillaEstado } from '../common/enums/cuadrilla-estado.enum';
 
 @Injectable()
 export class CuadrillasService {
-  private cuadrillas = [];
+  constructor(private readonly prisma: PrismaService) {}
 
-  create(data: any) {
-    const cuadrilla = { id: `${Date.now()}`, ...data };
-    this.cuadrillas.push(cuadrilla);
-    return cuadrilla;
+  async create(data: CreateCuadrillaDto) {
+    return this.prisma.cuadrilla.create({
+      data: {
+        nombre: data.nombre,
+        municipioId: data.municipioId,
+        areaId: data.areaId,
+        estado: data.estado ?? CuadrillaEstado.DISPONIBLE,
+        supervisorId: data.supervisorId,
+      },
+      include: {
+        municipio: true,
+        area: true,
+        supervisor: true,
+        miembros: {
+          include: {
+            usuario: true,
+          },
+        },
+      },
+    });
   }
 
-  findAll(query: any) {
-    return this.cuadrillas;
+  async findAll(query?: any) {
+    const where: any = { deletedAt: null };
+
+    if (query?.estado) where.estado = query.estado;
+    if (query?.area_id) where.areaId = query.area_id;
+    if (query?.municipio_id) where.municipioId = query.municipio_id;
+    if (query?.supervisor_id) where.supervisorId = query.supervisor_id;
+
+    return this.prisma.cuadrilla.findMany({
+      where,
+      include: {
+        municipio: true,
+        area: true,
+        supervisor: true,
+        miembros: {
+          include: {
+            usuario: true,
+          },
+        },
+      },
+    });
   }
 
-  findOne(id: string) {
-    const cuadrilla = this.cuadrillas.find((item) => item.id === id);
+  async findOne(id: string) {
+    const cuadrilla = await this.prisma.cuadrilla.findFirst({
+      where: { id, deletedAt: null },
+      include: {
+        municipio: true,
+        area: true,
+        supervisor: true,
+        miembros: {
+          include: {
+            usuario: true,
+          },
+        },
+        ordenes: true,
+      },
+    });
     if (!cuadrilla) throw new NotFoundException('Cuadrilla no encontrada');
     return cuadrilla;
   }
 
-  update(id: string, data: any) {
-    const cuadrilla = this.findOne(id);
-    Object.assign(cuadrilla, data);
-    return cuadrilla;
+  async update(id: string, data: UpdateCuadrillaDto) {
+    await this.findOne(id);
+
+    return this.prisma.cuadrilla.update({
+      where: { id },
+      data: {
+        nombre: data.nombre,
+        municipioId: data.municipioId,
+        areaId: data.areaId,
+        estado: data.estado,
+        supervisorId: data.supervisorId,
+      },
+      include: {
+        municipio: true,
+        area: true,
+        supervisor: true,
+        miembros: {
+          include: {
+            usuario: true,
+          },
+        },
+      },
+    });
   }
 
-  updateEstado(id: string, estado: string) {
-    const cuadrilla = this.findOne(id);
-    cuadrilla.estado = estado;
-    return cuadrilla;
+  async updateEstado(id: string, data: CambiarEstadoCuadrillaDto) {
+    await this.findOne(id);
+
+    return this.prisma.cuadrilla.update({
+      where: { id },
+      data: { estado: data.estado },
+      include: {
+        municipio: true,
+        area: true,
+        supervisor: true,
+        miembros: {
+          include: {
+            usuario: true,
+          },
+        },
+      },
+    });
   }
 
-  getOrdenes(id: string) {
-    return [];
+  async getOrdenes(id: string) {
+    const cuadrilla = await this.findOne(id);
+    return cuadrilla.ordenes;
   }
 }
