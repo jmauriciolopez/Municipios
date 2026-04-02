@@ -51,21 +51,21 @@ export default function LoginPage() {
         <h2 className="text-2xl font-bold mb-4">Ingreso al Panel</h2>
 
         <div className="mb-4">
-          <label className="block mb-1 font-medium">Email</label>
+          <label>Email</label>
           <input
             autoComplete="email"
-            className="w-full px-3 py-2 border rounded"
+            className="input-field"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
         <div className="mb-4">
-          <label className="block mb-1 font-medium">Contraseña</label>
-          <div className="flex items-center gap-2">
+          <label>Contraseña</label>
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
             <input
               autoComplete="current-password"
-              className="w-full px-3 py-2 border rounded"
+              className="input-field"
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -83,7 +83,7 @@ export default function LoginPage() {
         {error && <div className="mb-4 text-red-600">{error}</div>}
 
         <button
-          className="w-full bg-secondary text-white py-2 rounded hover:bg-blue-700"
+          className="btn-primary"
           onClick={handleLogin}
         >
           Entrar
