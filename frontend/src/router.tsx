@@ -8,21 +8,23 @@ import OrdenDetallePage from './pages/OrdenDetallePage';
 import ActivosPage from './pages/ActivosPage';
 import CuadrillasPage from './pages/CuadrillasPage';
 import MapaPage from './pages/MapaPage';
+import LoginPage from './pages/LoginPage';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+
 
 export default function AppRouter() {
   return (
-    <AppLayout>
-      <Routes>
-        <Route path="/" element={<DashboardPage />} />
-        <Route path="/incidentes" element={<IncidentesPage />} />
-        <Route path="/incidentes/:id" element={<IncidenteDetallePage />} />
-        <Route path="/ordenes" element={<OrdenesPage />} />
-        <Route path="/ordenes/:id" element={<OrdenDetallePage />} />
-        <Route path="/activos" element={<ActivosPage />} />
-        <Route path="/cuadrillas" element={<CuadrillasPage />} />
-        <Route path="/mapa" element={<MapaPage />} />
-        <Route path="*" element={<Navigate to='/' replace />} />
-      </Routes>
-    </AppLayout>
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/" element={<ProtectedRoute><AppLayout><DashboardPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/incidentes" element={<ProtectedRoute><AppLayout><IncidentesPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/incidentes/:id" element={<ProtectedRoute><AppLayout><IncidenteDetallePage /></AppLayout></ProtectedRoute>} />
+      <Route path="/ordenes" element={<ProtectedRoute><AppLayout><OrdenesPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/ordenes/:id" element={<ProtectedRoute><AppLayout><OrdenDetallePage /></AppLayout></ProtectedRoute>} />
+      <Route path="/activos" element={<ProtectedRoute><AppLayout><ActivosPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/cuadrillas" element={<ProtectedRoute><AppLayout><CuadrillasPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/mapa" element={<ProtectedRoute><AppLayout><MapaPage /></AppLayout></ProtectedRoute>} />
+      <Route path="*" element={<Navigate to='/' replace />} />
+    </Routes>
   );
 }
