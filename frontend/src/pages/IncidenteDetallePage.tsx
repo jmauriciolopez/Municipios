@@ -1,0 +1,1 @@
+export default function IncidenteDetallePage() { return <div>Incidente Detalle</div>; }

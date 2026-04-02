@@ -1,0 +1,14 @@
+Generá un módulo NestJS para Incidentes con:
+- Entity
+- DTOs (create/update)
+- Service (CRUD + filtros)
+- Controller REST
+
+Campos:
+id, tipo, descripcion, estado, prioridad, lat, lng, direccion, area_id, fecha_reporte, creado_por
+
+Relaciones:
+- Área
+- Evidencias
+
+Usar class-validator.

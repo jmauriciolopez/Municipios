@@ -85,7 +85,7 @@ El sistema debe servir para:
 - Incluir nombres de archivos sugeridos
 - Usar buenas prácticas reales de NestJS y React
 - Preparar el sistema para auth JWT aunque en esta primera versión puede quedar estructurado sin implementar login completo
-
+- Usar fetch realesen lugar de mocks 
 ## Entregable esperado en esta sesión
 Quiero que generes:
 1. Estructura completa del proyecto
@@ -258,7 +258,7 @@ Campos mínimos:
 - fecha_reporte
 
 Agregar validaciones de negocio razonables.
-Entregar archivo por archivo.
+Entregar archivo por archivo   real, no explicación.
 ```
 
 ---
@@ -297,7 +297,7 @@ Endpoints:
 - GET /:id/evidencias
 
 Agregar una función que calcule duración estimada y duración real si ya fue cerrada.
-Entregar archivo por archivo.
+Entregar archivo por archivo real, no explicación.
 ```
 
 ---
@@ -453,7 +453,7 @@ OrdenDetallePage:
 - materiales
 - evidencias
 ```
-
+Entregar archivo por archivo real, no explicación.
 ---
 
 # PROMPT 11 — MAPA REAL CON HEATMAP
@@ -483,7 +483,7 @@ Quiero:
 - estrategia de performance para miles de puntos
 
 Aclarar dónde irían después las llamadas a la API real.
-Entregar archivo por archivo.
+Entregar archivo por archivo real, no explicación.
 ```
 
 ---

@@ -1,0 +1,1 @@
+export default function CuadrillasPage() { return <div>Cuadrillas Page</div>; }

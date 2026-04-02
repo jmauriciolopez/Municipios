@@ -1,0 +1,20 @@
+Contexto:
+Estoy construyendo un SaaS de gestión de riesgos municipales (seguridad e higiene).
+Stack:
+- Backend: NestJS
+- Frontend: React
+- DB: PostgreSQL
+
+Dominio:
+- Incidentes geolocalizados
+- Órdenes de trabajo
+- Cuadrillas municipales
+- Activos (luminarias, árboles, etc.)
+
+Reglas:
+- Todo incidente puede generar una orden de trabajo
+- Las órdenes tienen estados: detectado, asignado, en_proceso, resuelto, verificado
+- Todo debe soportar geolocalización (lat, lng)
+- Se deben guardar evidencias (fotos)
+
+Quiero código listo para producción, limpio, modular y tipado.

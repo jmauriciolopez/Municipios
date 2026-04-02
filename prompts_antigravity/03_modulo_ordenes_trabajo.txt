@@ -1,0 +1,8 @@
+Generá módulo NestJS Ordenes de Trabajo:
+- Estados: detectado, asignado, en_proceso, resuelto, verificado
+- Relación con incidente y cuadrilla
+- Fechas: asignación, inicio, cierre
+
+Lógica:
+- Crear orden desde incidente
+- Validar transición de estados

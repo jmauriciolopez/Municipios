@@ -1,0 +1,6 @@
+Implementar flujo:
+1. Crear incidente
+2. Generar orden
+3. Asignar cuadrilla
+4. Cambiar estados
+5. Subir evidencia

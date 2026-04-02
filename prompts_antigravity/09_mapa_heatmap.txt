@@ -1,0 +1,9 @@
+Generá mapa con Leaflet o Mapbox:
+
+- Mostrar incidentes como puntos
+- Heatmap por densidad
+- Filtros por tipo y fecha
+- Zoom dinámico
+- Click → detalle
+
+Optimizar performance para muchos puntos.

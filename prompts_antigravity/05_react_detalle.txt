@@ -1,0 +1,6 @@
+Generá componente IncidenteDetalle:
+- Info completa
+- Coordenadas
+- Evidencias
+- Botón generar orden
+- Placeholder mapa

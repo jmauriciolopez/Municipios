@@ -1,0 +1,1 @@
+export default function MapaPage() { return <div>Mapa Page</div>; }

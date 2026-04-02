@@ -1,0 +1,5 @@
+Generá componente MapaIncidentes:
+- Lista con lat/lng
+- Markers simulados
+- Click → detalle
+Preparado para Leaflet

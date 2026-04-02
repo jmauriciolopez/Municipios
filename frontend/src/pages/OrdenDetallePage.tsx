@@ -1,0 +1,1 @@
+export default function OrdenDetallePage() { return <div>Orden Detalle</div>; }

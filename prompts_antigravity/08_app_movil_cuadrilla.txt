@@ -1,0 +1,13 @@
+Generá app móvil (React Native o Expo):
+
+Pantallas:
+- Login
+- Lista de órdenes asignadas
+- Detalle de orden
+- Subida de fotos
+- Cambiar estado
+
+Funciones:
+- GPS
+- Offline-first básico
+- Sincronización API

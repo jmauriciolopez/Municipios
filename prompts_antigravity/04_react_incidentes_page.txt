@@ -1,0 +1,4 @@
+Generá IncidentesPage en React:
+- Tabla: tipo, estado, prioridad, área, fecha
+- Filtros
+- Botones: ver mapa, crear incidente

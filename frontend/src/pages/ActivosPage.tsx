@@ -1,0 +1,1 @@
+export default function ActivosPage() { return <div>Activos Page</div>; }
