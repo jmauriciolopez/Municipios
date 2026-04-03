@@ -20,12 +20,16 @@ export default function OrdenDetallePage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [orden, setOrden] = useState<any>(null);
+  const [materiales, setMateriales] = useState<any[]>([]);
   const [cuadrillas, setCuadrillas] = useState<any[]>([]);
   const [duracion, setDuracion] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [cambiandoEstado, setCambiandoEstado] = useState(false);
   const [asignando, setAsignando] = useState(false);
+  const [modalMaterial, setModalMaterial] = useState(false);
+  const [formMaterial, setFormMaterial] = useState({ item: '', cantidad: '', unidad: '', estado: '' });
+  const [guardandoMaterial, setGuardandoMaterial] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -33,11 +37,13 @@ export default function OrdenDetallePage() {
       getOrden(id),
       getCuadrillas(),
       apiFetch<any>(`/ordenes-trabajo/${id}/duracion`).catch(() => null),
+      apiFetch<any[]>(`/ordenes-trabajo/${id}/materiales`).catch(() => []),
     ])
-      .then(([ord, cuads, dur]: any[]) => {
+      .then(([ord, cuads, dur, mats]: any[]) => {
         setOrden(ord);
         setCuadrillas(cuads ?? []);
         setDuracion(dur);
+        setMateriales(Array.isArray(mats) ? mats : ord.materiales ?? []);
       })
       .catch(() => setError('No se pudo cargar la orden.'))
       .finally(() => setLoading(false));
@@ -72,6 +78,32 @@ export default function OrdenDetallePage() {
     }
   };
 
+  const handleAddMaterial = async () => {
+    if (!id || !formMaterial.item || !formMaterial.cantidad || !formMaterial.unidad) {
+      alert('Ítem, cantidad y unidad son obligatorios.');
+      return;
+    }
+    setGuardandoMaterial(true);
+    try {
+      const nuevo = await apiFetch<any>(`/ordenes-trabajo/${id}/materiales`, {
+        method: 'POST',
+        body: JSON.stringify({ item: formMaterial.item, cantidad: Number(formMaterial.cantidad), unidad: formMaterial.unidad, estado: formMaterial.estado || undefined }),
+      });
+      setMateriales((prev) => [...prev, nuevo]);
+      setModalMaterial(false);
+      setFormMaterial({ item: '', cantidad: '', unidad: '', estado: '' });
+    } catch { alert('Error al agregar el material.'); }
+    finally { setGuardandoMaterial(false); }
+  };
+
+  const handleRemoveMaterial = async (materialId: string) => {
+    if (!id || !confirm('¿Eliminar este material?')) return;
+    try {
+      await apiFetch(`/ordenes-trabajo/${id}/materiales/${materialId}`, { method: 'DELETE' });
+      setMateriales((prev) => prev.filter((m) => m.id !== materialId));
+    } catch { alert('Error al eliminar el material.'); }
+  };
+
   if (loading) return <div className="loading-state">Cargando orden...</div>;
   if (error || !orden) return <div className="error-state">{error ?? 'Orden no encontrada'}</div>;
 
@@ -79,7 +111,6 @@ export default function OrdenDetallePage() {
   const area = orden.area?.nombre ?? '';
   const cuadrilla = orden.cuadrilla?.nombre ?? 'Sin asignar';
   const siguientes = TRANSICIONES[orden.estado] ?? [];
-  const materiales: any[] = orden.materiales ?? [];
 
   return (
     <section>
@@ -167,14 +198,7 @@ export default function OrdenDetallePage() {
         <>
           <h3>Materiales</h3>
           <table className="data-table">
-            <thead>
-              <tr>
-                <th>Ítem</th>
-                <th>Cantidad</th>
-                <th>Unidad</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
+            <thead><tr><th>Ítem</th><th>Cantidad</th><th>Unidad</th><th>Estado</th><th></th></tr></thead>
             <tbody>
               {materiales.map((m: any) => (
                 <tr key={m.id}>
@@ -182,6 +206,7 @@ export default function OrdenDetallePage() {
                   <td>{m.cantidad}</td>
                   <td>{m.unidad}</td>
                   <td>{m.estado ?? '—'}</td>
+                  <td><button className="btn-danger" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }} onClick={() => handleRemoveMaterial(m.id)}>✕</button></td>
                 </tr>
               ))}
             </tbody>
@@ -189,8 +214,47 @@ export default function OrdenDetallePage() {
         </>
       )}
 
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1.5rem 0 0.75rem' }}>
+        <h3 style={{ margin: 0 }}>Materiales</h3>
+        <button style={{ padding: '0.375rem 0.875rem', fontSize: '0.8125rem' }} onClick={() => setModalMaterial(true)}>+ Agregar</button>
+      </div>
+      {materiales.length === 0 && <div className="empty-state" style={{ padding: '1.5rem' }}>Sin materiales registrados.</div>}
+
       <h3>Evidencias</h3>
       <EvidenciasPanel entidadTipo="orden" entidadId={id!} />
+
+      {modalMaterial && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 }}>
+          <div style={{ background: '#fff', borderRadius: '0.75rem', padding: '1.75rem', width: '100%', maxWidth: '440px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0f172a' }}>Agregar material</h3>
+              <button className="btn-secondary" style={{ padding: '0.25rem 0.625rem' }} onClick={() => setModalMaterial(false)}>✕</button>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 1rem' }}>
+              <div className="form-group" style={{ gridColumn: 'span 2' }}>
+                <label>Ítem *</label>
+                <input className="input-field" value={formMaterial.item} onChange={(e) => setFormMaterial({ ...formMaterial, item: e.target.value })} placeholder="Ej: Cemento" />
+              </div>
+              <div className="form-group">
+                <label>Cantidad *</label>
+                <input className="input-field" type="number" min={0} step="any" value={formMaterial.cantidad} onChange={(e) => setFormMaterial({ ...formMaterial, cantidad: e.target.value })} />
+              </div>
+              <div className="form-group">
+                <label>Unidad *</label>
+                <input className="input-field" value={formMaterial.unidad} onChange={(e) => setFormMaterial({ ...formMaterial, unidad: e.target.value })} placeholder="kg, m2, unid..." />
+              </div>
+              <div className="form-group" style={{ gridColumn: 'span 2' }}>
+                <label>Estado</label>
+                <input className="input-field" value={formMaterial.estado} onChange={(e) => setFormMaterial({ ...formMaterial, estado: e.target.value })} placeholder="en uso, listo..." />
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+              <button className="btn-secondary" onClick={() => setModalMaterial(false)}>Cancelar</button>
+              <button onClick={handleAddMaterial} disabled={guardandoMaterial}>{guardandoMaterial ? 'Guardando...' : 'Agregar'}</button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

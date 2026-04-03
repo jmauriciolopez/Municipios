@@ -148,9 +148,23 @@ export class OrdenesTrabajoService {
     const inicio = orden.fechaInicio ? new Date(orden.fechaInicio).getTime() : null;
     const cierre = orden.fechaCierre ? new Date(orden.fechaCierre).getTime() : null;
     const horas = inicio && cierre ? (cierre - inicio) / (1000 * 60 * 60) : null;
-    return {
-      estimada_horas: horas,
-      real_horas: horas,
-    };
+    return { estimada_horas: horas, real_horas: horas };
   }
-}
+
+  async getMateriales(id: string) {
+    await this.findOne(id);
+    return this.prisma.ordenMaterial.findMany({ where: { ordenId: id }, orderBy: { createdAt: 'asc' } });
+  }
+
+  async addMaterial(id: string, data: { item: string; cantidad: number; unidad: string; estado?: string }) {
+    await this.findOne(id);
+    return this.prisma.ordenMaterial.create({ data: { ordenId: id, item: data.item, cantidad: data.cantidad, unidad: data.unidad, estado: data.estado } });
+  }
+
+  async updateMaterial(ordenId: string, materialId: string, data: Partial<{ item: string; cantidad: number; unidad: string; estado: string }>) {
+    return this.prisma.ordenMaterial.update({ where: { id: materialId }, data });
+  }
+
+  async removeMaterial(ordenId: string, materialId: string) {
+    return this.prisma.ordenMaterial.delete({ where: { id: materialId } });
+  }

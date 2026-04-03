@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, Query, UseGuards } from '@nestjs/common';
 import { OrdenesTrabajoService } from './ordenes-trabajo.service';
 import { CreateOrdenTrabajoDto } from './dto/create-orden-trabajo.dto';
 import { UpdateOrdenTrabajoDto } from './dto/update-orden-trabajo.dto';
@@ -57,5 +57,28 @@ export class OrdenesTrabajoController {
   async duracion(@Param('id') id: string) {
     const orden = await this.ordenesService.findOne(id);
     return this.ordenesService.calcularDuracion(orden);
+  }
+
+  @Get(':id/materiales')
+  getMateriales(@Param('id') id: string) {
+    return this.ordenesService.getMateriales(id);
+  }
+
+  @Post(':id/materiales')
+  @Roles('supervisor', 'admin', 'operario')
+  addMaterial(@Param('id') id: string, @Body() body: { item: string; cantidad: number; unidad: string; estado?: string }) {
+    return this.ordenesService.addMaterial(id, body);
+  }
+
+  @Patch(':id/materiales/:materialId')
+  @Roles('supervisor', 'admin', 'operario')
+  updateMaterial(@Param('id') id: string, @Param('materialId') materialId: string, @Body() body: any) {
+    return this.ordenesService.updateMaterial(id, materialId, body);
+  }
+
+  @Delete(':id/materiales/:materialId')
+  @Roles('supervisor', 'admin')
+  removeMaterial(@Param('id') id: string, @Param('materialId') materialId: string) {
+    return this.ordenesService.removeMaterial(id, materialId);
   }
 }
