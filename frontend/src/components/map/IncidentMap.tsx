@@ -15,10 +15,11 @@ L.Icon.Default.mergeOptions({
 
 type IncidentMapProps = {
   incidents: Incident[];
+  heatPoints?: Array<{ lat: number; lng: number; intensity: number }>;
   onSelectIncident: (incident: Incident) => void;
 };
 
-export default function IncidentMap({ incidents, onSelectIncident }: IncidentMapProps) {
+export default function IncidentMap({ incidents, heatPoints = [], onSelectIncident }: IncidentMapProps) {
   const center: LatLngExpression = useMemo(() => {
     if (!incidents.length) return [-34.61, -58.40];
     const avgLat = incidents.reduce((sum, inc) => sum + inc.lat, 0) / incidents.length;
@@ -51,7 +52,7 @@ export default function IncidentMap({ incidents, onSelectIncident }: IncidentMap
         attribution='&copy; OpenStreetMap contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <HeatmapLayer points={incidents.map((inc) => ({ lat: inc.lat, lng: inc.lng, intensity: 1 }))} />
+      <HeatmapLayer points={heatPoints.length > 0 ? heatPoints : incidents.map((inc) => ({ lat: inc.lat, lng: inc.lng, intensity: 1 }))} />
       {incidents.map((inc) => (
         <Marker
           key={inc.id}
