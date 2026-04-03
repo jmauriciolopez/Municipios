@@ -7,86 +7,92 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isLocalhost = typeof window !== 'undefined' && window.location.hostname === 'localhost';
-    if (isLocalhost) {
+    if (window.location.hostname === 'localhost') {
       setEmail('admin@municipio.com');
-      setPassword('secret123');
+      setPassword('secret');
     }
   }, []);
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      setError('Email y contraseña son obligatorios');
-      return;
-    }
-
+    if (!email || !password) { setError('Email y contraseña son obligatorios'); return; }
+    setLoading(true);
+    setError('');
     try {
-      const response = await fetch('http://localhost:3000/auth/login', {
+      const base = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
+      const res = await fetch(`${base.replace(/\/$/, '')}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setError(errorData.message || 'Credenciales inválidas');
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.message || 'Credenciales inválidas');
         return;
       }
-
-      const data = await response.json();
+      const data = await res.json();
       await login(data.access_token);
       navigate('/');
-    } catch (err) {
-      setError('Error de conexión con el backend');
+    } catch {
+      setError('Error de conexión con el servidor');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="login-container">
       <div className="login-form">
-        <h2 className="text-2xl font-bold mb-4">Ingreso al Panel</h2>
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🏛️</div>
+          <h2>Municipio SIH</h2>
+          <p className="login-subtitle">Sistema de Inspección e Higiene</p>
+        </div>
 
-        <div className="mb-4">
+        <div className="form-group">
           <label>Email</label>
           <input
-            autoComplete="email"
             className="input-field"
+            type="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+            placeholder="usuario@municipio.com"
           />
         </div>
 
-        <div className="mb-4">
+        <div className="form-group">
           <label>Contraseña</label>
-          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
             <input
-              autoComplete="current-password"
               className="input-field"
               type={showPassword ? 'text' : 'password'}
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
+              placeholder="••••••••"
             />
             <button
               type="button"
-              className="px-3 py-2 border rounded bg-gray-100 text-sm"
-              onClick={() => setShowPassword((prev) => !prev)}
+              className="btn-secondary"
+              style={{ flexShrink: 0, padding: '0.5rem 0.875rem' }}
+              onClick={() => setShowPassword((p) => !p)}
             >
-              {showPassword ? 'Ocultar' : 'Mostrar'}
+              {showPassword ? '🙈' : '👁️'}
             </button>
           </div>
         </div>
 
-        {error && <div className="mb-4 text-red-600">{error}</div>}
+        {error && <div className="error-state" style={{ marginBottom: '1rem' }}>{error}</div>}
 
-        <button
-          className="btn-primary"
-          onClick={handleLogin}
-        >
-          Entrar
+        <button className="btn-primary" onClick={handleLogin} disabled={loading}>
+          {loading ? 'Ingresando...' : 'Ingresar'}
         </button>
       </div>
     </div>

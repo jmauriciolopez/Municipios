@@ -1,27 +1,25 @@
-const DEFAULT_BASE_URL = 'http://localhost:3000/api';
+const DEFAULT_BASE_URL: string =
+  typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_API_URL
+    ? (import.meta as any).env.VITE_API_URL
+    : 'http://localhost:4000/api/v1';
 
-export type ApiClientOptions = { baseURL?: string; token?: string };
+export type ApiClientOptions = { baseURL?: string };
 
 export default class ApiClient {
   private baseURL: string;
-  private token?: string;
 
   constructor(options: ApiClientOptions = {}) {
     this.baseURL = options.baseURL || DEFAULT_BASE_URL;
-    this.token = options.token;
-  }
-
-  setToken(token: string) {
-    this.token = token;
   }
 
   private async request(path: string, opts: RequestInit = {}) {
+    const token = typeof localStorage !== 'undefined' ? localStorage.getItem('municipio_token') : null;
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       ...(opts.headers as Record<string, string>),
     };
 
-    if (this.token) headers.Authorization = `Bearer ${this.token}`;
+    if (token) headers.Authorization = `Bearer ${token}`;
 
     const response = await fetch(`${this.baseURL}${path}`, { ...opts, headers });
 

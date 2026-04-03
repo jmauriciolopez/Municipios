@@ -1,87 +1,210 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getIncidentes, createIncidente } from '@shared/services/incidentes.api';
+import { apiFetch } from '../services/apiFetch';
 import DataTable from '../components/ui/DataTable';
 import FilterBar from '../components/ui/FilterBar';
 import StatusBadge from '../components/ui/StatusBadge';
 
-type Incidente = {
-  id: string;
-  tipo: string;
-  estado: string;
-  prioridad: string;
-  area: string;
-  fecha: string;
-  direccion: string;
+type IncidenteRow = {
+  id: string; tipo: string; estado: string; prioridad: string;
+  area: string; areaId: string; fecha: string; direccion: string;
 };
 
-const incidentesSeed: Incidente[] = [
-  { id: '1', tipo: 'Bacheo', estado: 'abierto', prioridad: 'alta', area: 'Poda', fecha: '2026-04-02', direccion: 'Av. Principal 123' },
-  { id: '2', tipo: 'Luminaria', estado: 'en_proceso', prioridad: 'media', area: 'Luminaria', fecha: '2026-04-01', direccion: 'Calle Falsa 456' },
-  { id: '3', tipo: 'Residuos', estado: 'resuelto', prioridad: 'baja', area: 'Higiene Urbana', fecha: '2026-03-30', direccion: 'Plaza Central 1' },
-];
+type AreaOpt = { id: string; nombre: string };
+
+const PRIORIDADES = ['baja', 'media', 'alta', 'critica'];
+const ESTADOS_INC = ['abierto', 'en_proceso', 'resuelto', 'cerrado', 'cancelado'];
 
 export default function IncidentesPage() {
   const navigate = useNavigate();
-  const [area, setArea] = useState('');
+  const [incidentes, setIncidentes] = useState<IncidenteRow[]>([]);
+  const [areas, setAreas] = useState<AreaOpt[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [estado, setEstado] = useState('');
   const [prioridad, setPrioridad] = useState('');
+  const [area, setArea] = useState('');
+  const [modal, setModal] = useState(false);
+  const [guardando, setGuardando] = useState(false);
+  const [form, setForm] = useState({
+    tipo: '', descripcion: '', prioridad: 'media', estado: 'abierto',
+    lat: '', lng: '', direccion: '', area_id: '', reportado_por: '',
+  });
+
+  const cargar = () =>
+    getIncidentes()
+      .then((data: any[]) =>
+        setIncidentes(data.map((i) => ({
+          id: i.id, tipo: i.tipo, estado: i.estado, prioridad: i.prioridad,
+          area: i.area?.nombre ?? '', areaId: i.area?.id ?? i.areaId ?? '',
+          fecha: (i.fechaReporte ?? i.fecha_reporte ?? '').slice(0, 10),
+          direccion: i.direccion ?? 'N/A',
+        })))
+      )
+      .catch(() => setError('No se pudieron cargar los incidentes.'))
+      .finally(() => setLoading(false));
+
+  useEffect(() => {
+    cargar();
+    apiFetch<any[]>('/areas').then((data) =>
+      setAreas(data.map((a) => ({ id: a.id, nombre: a.nombre })))
+    ).catch(() => {});
+  }, []);
+
+  const areasUnicas = useMemo(
+    () => [...new Map(incidentes.filter((i) => i.area).map((i) => [i.areaId, i.area])).entries()],
+    [incidentes]
+  );
 
   const filtered = useMemo(
-    () =>
-      incidentesSeed.filter((item) => {
-        if (area && item.area !== area) return false;
-        if (estado && item.estado !== estado) return false;
-        if (prioridad && item.prioridad !== prioridad) return false;
-        return true;
-      }),
-    [area, estado, prioridad],
+    () => incidentes.filter((i) => {
+      if (estado && i.estado !== estado) return false;
+      if (prioridad && i.prioridad !== prioridad) return false;
+      if (area && i.areaId !== area) return false;
+      return true;
+    }),
+    [incidentes, estado, prioridad, area]
   );
+
+  const handleGuardar = async () => {
+    if (!form.tipo || !form.area_id || !form.lat || !form.lng) {
+      alert('Tipo, área, latitud y longitud son obligatorios.');
+      return;
+    }
+    setGuardando(true);
+    try {
+      await createIncidente({
+        tipo: form.tipo, descripcion: form.descripcion,
+        estado: form.estado as any, prioridad: form.prioridad as any,
+        lat: Number(form.lat), lng: Number(form.lng),
+        direccion: form.direccion || undefined,
+        area_id: form.area_id,
+        reportado_por: form.reportado_por || undefined,
+      } as any);
+      setModal(false);
+      setForm({ tipo: '', descripcion: '', prioridad: 'media', estado: 'abierto', lat: '', lng: '', direccion: '', area_id: '', reportado_por: '' });
+      setLoading(true);
+      cargar();
+    } catch {
+      alert('Error al crear el incidente.');
+    } finally {
+      setGuardando(false);
+    }
+  };
 
   const columns = [
     { key: 'tipo', label: 'Tipo' },
-    { key: 'estado', label: 'Estado', render: (item: Incidente) => <StatusBadge status={item.estado} /> },
-    { key: 'prioridad', label: 'Prioridad' },
+    { key: 'estado', label: 'Estado', render: (i: IncidenteRow) => <StatusBadge status={i.estado} /> },
+    { key: 'prioridad', label: 'Prioridad', render: (i: IncidenteRow) => <StatusBadge status={i.prioridad} /> },
     { key: 'area', label: 'Área' },
     { key: 'fecha', label: 'Fecha' },
     { key: 'direccion', label: 'Dirección' },
   ];
+
+  if (loading) return <div className="loading-state">Cargando incidentes...</div>;
+  if (error) return <div className="error-state">{error}</div>;
 
   return (
     <section>
       <header className="page-header">
         <h2>Incidentes</h2>
         <div className="actions">
-          <button type="button" onClick={() => navigate('/mapa')}>
-            Ver mapa
-          </button>
-          <button type="button">Crear incidente</button>
+          <button className="btn-secondary" onClick={() => navigate('/mapa')}>Ver mapa</button>
+          <button onClick={() => setModal(true)}>+ Nuevo incidente</button>
         </div>
       </header>
 
       <FilterBar
         filters={[
-          { key: 'area', label: 'Área', value: area, type: 'select', options: [{ value: 'Poda', label: 'Poda' }, { value: 'Luminaria', label: 'Luminaria' }, { value: 'Higiene Urbana', label: 'Higiene Urbana' }] },
-          { key: 'estado', label: 'Estado', value: estado, type: 'select', options: [{ value: 'abierto', label: 'Abierto' }, { value: 'en_proceso', label: 'En proceso' }, { value: 'resuelto', label: 'Resuelto' }] },
-          { key: 'prioridad', label: 'Prioridad', value: prioridad, type: 'select', options: [{ value: 'baja', label: 'Baja' }, { value: 'media', label: 'Media' }, { value: 'alta', label: 'Alta' }] },
+          { key: 'estado', label: 'Estado', value: estado, type: 'select', options: ESTADOS_INC.map((e) => ({ value: e, label: e.replace('_', ' ') })) },
+          { key: 'prioridad', label: 'Prioridad', value: prioridad, type: 'select', options: PRIORIDADES.map((p) => ({ value: p, label: p })) },
+          { key: 'area', label: 'Área', value: area, type: 'select', options: areasUnicas.map(([id, nombre]) => ({ value: id, label: nombre })) },
         ]}
         onChange={(key, value) => {
-          if (key === 'area') setArea(String(value));
           if (key === 'estado') setEstado(String(value));
           if (key === 'prioridad') setPrioridad(String(value));
+          if (key === 'area') setArea(String(value));
         }}
-        onReset={() => {
-          setArea('');
-          setEstado('');
-          setPrioridad('');
-        }}
+        onReset={() => { setEstado(''); setPrioridad(''); setArea(''); }}
       />
 
       <DataTable
-        data={filtered}
-        columns={columns}
-        onRowClick={(item) => navigate(`/incidentes/${item.id}`)}
+        data={filtered} columns={columns}
+        onRowClick={(i) => navigate(`/incidentes/${i.id}`)}
         emptyMessage="No se encontraron incidentes"
       />
+
+      {modal && (
+        <div style={overlay}>
+          <div style={modalBox}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0f172a' }}>Nuevo incidente</h3>
+              <button className="btn-secondary" style={{ padding: '0.25rem 0.625rem' }} onClick={() => setModal(false)}>✕</button>
+            </div>
+
+            <div style={grid2}>
+              <div className="form-group">
+                <label>Tipo *</label>
+                <input className="input-field" value={form.tipo} onChange={(e) => setForm({ ...form, tipo: e.target.value })} placeholder="Ej: Bacheo, Luminaria..." />
+              </div>
+              <div className="form-group">
+                <label>Área *</label>
+                <select className="input-field" value={form.area_id} onChange={(e) => setForm({ ...form, area_id: e.target.value })}>
+                  <option value="">Seleccionar...</option>
+                  {areas.map((a) => <option key={a.id} value={a.id}>{a.nombre}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Prioridad</label>
+                <select className="input-field" value={form.prioridad} onChange={(e) => setForm({ ...form, prioridad: e.target.value })}>
+                  {PRIORIDADES.map((p) => <option key={p} value={p}>{p}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Estado</label>
+                <select className="input-field" value={form.estado} onChange={(e) => setForm({ ...form, estado: e.target.value })}>
+                  {ESTADOS_INC.map((e) => <option key={e} value={e}>{e.replace('_', ' ')}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Latitud *</label>
+                <input className="input-field" type="number" step="any" value={form.lat} onChange={(e) => setForm({ ...form, lat: e.target.value })} placeholder="-34.61" />
+              </div>
+              <div className="form-group">
+                <label>Longitud *</label>
+                <input className="input-field" type="number" step="any" value={form.lng} onChange={(e) => setForm({ ...form, lng: e.target.value })} placeholder="-58.38" />
+              </div>
+              <div className="form-group" style={{ gridColumn: 'span 2' }}>
+                <label>Dirección</label>
+                <input className="input-field" value={form.direccion} onChange={(e) => setForm({ ...form, direccion: e.target.value })} placeholder="Av. Ejemplo 123" />
+              </div>
+              <div className="form-group" style={{ gridColumn: 'span 2' }}>
+                <label>Descripción</label>
+                <textarea className="input-field" rows={3} value={form.descripcion} onChange={(e) => setForm({ ...form, descripcion: e.target.value })} placeholder="Descripción del incidente..." style={{ resize: 'vertical' }} />
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
+              <button className="btn-secondary" onClick={() => setModal(false)}>Cancelar</button>
+              <button onClick={handleGuardar} disabled={guardando}>{guardando ? 'Guardando...' : 'Crear incidente'}</button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
+
+const overlay: React.CSSProperties = {
+  position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.5)',
+  display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50,
+};
+const modalBox: React.CSSProperties = {
+  background: '#fff', borderRadius: '0.75rem', padding: '1.75rem',
+  width: '100%', maxWidth: '640px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
+  maxHeight: '90vh', overflowY: 'auto',
+};
+const grid2: React.CSSProperties = {
+  display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 1rem',
+};

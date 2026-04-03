@@ -30,7 +30,7 @@ const MapaIncidentes: React.FC<MapaIncidentesProps> = ({
   incidentes = [],
   onMarkerClick
 }) => {
-  const center: [number, number] = [-34.6037, -58.3816]; // Buenos Aires por defecto
+  const center: [number, number] = [-27.4837, -58.816]; // Buenos Aires por defecto
 
   // Datos simulados si no se pasan incidentes
   const incidentesSimulados: Incidente[] = [
@@ -38,7 +38,7 @@ const MapaIncidentes: React.FC<MapaIncidentesProps> = ({
       id: '1',
       tipo: 'Caída de rama',
       descripcion: 'Rama grande en riesgo de caída',
-      lat: -34.6037,
+      lat: -27.4837,
       lng: -58.3816,
       estado: 'abierto',
       prioridad: 'alta'
@@ -47,8 +47,8 @@ const MapaIncidentes: React.FC<MapaIncidentesProps> = ({
       id: '2',
       tipo: 'Luminaria rota',
       descripcion: 'Farola sin funcionar en plaza',
-      lat: -34.6050,
-      lng: -58.3830,
+      lat: -27.4837,
+      lng: -58.3816,
       estado: 'en_proceso',
       prioridad: 'media'
     },

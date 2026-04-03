@@ -1,11 +1,18 @@
-type StatCardProps = { title: string; value: string | number; subtitle?: string };
+type StatCardProps = {
+  label: string;
+  value: number | string;
+  icon: string;
+  sub?: string;
+  accent?: string;
+};
 
-export default function StatCard({ title, value, subtitle }: StatCardProps) {
+export default function StatCard({ label, value, icon, sub, accent = '#1d4ed8' }: StatCardProps) {
   return (
-    <article className="stat-card">
-      <h4>{title}</h4>
-      <p className="value">{value}</p>
-      {subtitle && <small>{subtitle}</small>}
-    </article>
+    <div className="stat-card">
+      <div className="stat-card-icon">{icon}</div>
+      <div className="stat-card-label">{label}</div>
+      <div className="stat-card-value" style={{ color: accent }}>{value}</div>
+      {sub && <div className="stat-card-sub">{sub}</div>}
+    </div>
   );
 }
