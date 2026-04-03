@@ -12,6 +12,9 @@ import { AuditoriaModule } from './auditoria/auditoria.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { TiposActivoModule } from './tipos-activo/tipos-activo.module';
 import { RiesgosModule } from './riesgos/riesgos.module';
+import { InspeccionesModule } from './inspecciones/inspecciones.module';
+import { InventarioModule } from './inventario/inventario.module';
+import { MunicipiosModule } from './municipios/municipios.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
@@ -30,6 +33,9 @@ import { PrismaModule } from './prisma/prisma.module';
     UsuariosModule,
     TiposActivoModule,
     RiesgosModule,
+    InspeccionesModule,
+    InventarioModule,
+    MunicipiosModule,
   ],
   controllers: [],
   providers: [],
