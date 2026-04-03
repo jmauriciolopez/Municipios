@@ -12,10 +12,12 @@ export class CreateIncidenteDto {
   descripcion: string;
 
   @IsEnum(IncidenteEstado)
-  estado: IncidenteEstado;
+  @IsOptional()
+  estado?: IncidenteEstado;
 
   @IsEnum(Prioridad)
-  prioridad: Prioridad;
+  @IsOptional()
+  prioridad?: Prioridad;
 
   @IsNumber()
   lat: number;
@@ -39,7 +41,8 @@ export class CreateIncidenteDto {
   riesgo_id?: string;
 
   @IsUUID()
-  reportado_por: string;
+  @IsOptional()
+  reportado_por?: string;
 
   @IsDateString()
   @IsOptional()

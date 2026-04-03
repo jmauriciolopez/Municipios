@@ -15,8 +15,18 @@ export class IncidentesService {
   async create(data: CreateIncidenteDto, userId?: string) {
     const incidente = await this.prisma.incidente.create({
       data: {
-        ...data,
-        fechaReporte: data.fecha_reporte ?? new Date(),
+        tipo: data.tipo,
+        descripcion: data.descripcion ?? '',
+        estado: data.estado ?? 'abierto',
+        prioridad: data.prioridad ?? 'media',
+        lat: data.lat,
+        lng: data.lng,
+        direccion: data.direccion,
+        areaId: data.area_id,
+        activoId: data.activo_id,
+        riesgoId: data.riesgo_id,
+        reportadoPor: data.reportado_por ?? userId,
+        fechaReporte: data.fecha_reporte ? new Date(data.fecha_reporte) : new Date(),
       },
     });
 
