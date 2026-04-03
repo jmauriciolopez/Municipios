@@ -9,6 +9,7 @@ import { AreasModule } from './areas/areas.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthModule } from './auth/auth.module';
 import { AuditoriaModule } from './auditoria/auditoria.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
@@ -24,6 +25,7 @@ import { PrismaModule } from './prisma/prisma.module';
     DashboardModule,
     AuthModule,
     AuditoriaModule,
+    UsuariosModule,
   ],
   controllers: [],
   providers: [],
