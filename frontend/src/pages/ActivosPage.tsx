@@ -83,7 +83,8 @@ export default function ActivosPage() {
     try {
       await createActivo({
         codigo: form.codigo, nombre: form.nombre,
-        tipo_activo_id: form.tipoActivoId, area_responsable_id: form.areaResponsableId || undefined,
+        tipoActivoId: form.tipoActivoId,
+        areaResponsableId: form.areaResponsableId || undefined,
         estado: form.estado as any,
         lat: form.lat ? Number(form.lat) : undefined,
         lng: form.lng ? Number(form.lng) : undefined,

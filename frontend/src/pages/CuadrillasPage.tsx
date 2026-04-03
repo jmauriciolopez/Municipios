@@ -111,7 +111,7 @@ export default function CuadrillasPage() {
     if (!form.nombre) { alert('El nombre es obligatorio.'); return; }
     setGuardando(true);
     try {
-      await createCuadrilla({ nombre: form.nombre, area_id: form.areaId || undefined, supervisor_id: form.supervisorId || undefined } as any);
+      await createCuadrilla({ nombre: form.nombre, areaId: form.areaId || undefined, supervisorId: form.supervisorId || undefined } as any);
       setModal(false); setForm(FORM_EMPTY); cargar();
     } catch { alert('Error al crear la cuadrilla.'); }
     finally { setGuardando(false); }
