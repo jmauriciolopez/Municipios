@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
+import { confirm } from '../components/ui/ConfirmDialog';
 import DataTable from '../components/ui/DataTable';
 
 type RiesgoRow = { id: string; nombre: string; descripcion: string; nivel: number; area: string; areaId: string; incidentes: number };
@@ -43,21 +45,21 @@ export default function RiesgosPage() {
   );
 
   const handleGuardar = async () => {
-    if (!form.nombre) { alert('El nombre es obligatorio.'); return; }
+    if (!form.nombre) { toast.error('El nombre es obligatorio.'); return; }
     setGuardando(true);
     try {
       const payload = { nombre: form.nombre, descripcion: form.descripcion || undefined, nivel: Number(form.nivel), areaId: form.areaId || undefined };
       if (modal === 'crear') await apiFetch('/riesgos', { method: 'POST', body: JSON.stringify(payload) });
       else if (modal === 'editar' && selected) await apiFetch(`/riesgos/${selected.id}`, { method: 'PATCH', body: JSON.stringify(payload) });
       setModal(null); setLoading(true); cargar();
-    } catch { alert('Error al guardar.'); }
+    } catch { toast.error('Error al guardar.'); }
     finally { setGuardando(false); }
   };
 
   const handleEliminar = async (id: string) => {
-    if (!confirm('¿Eliminar este riesgo?')) return;
+    if (!await confirm({ message: '¿Eliminar este riesgo?', confirmLabel: 'Eliminar', danger: true })) return;
     try { await apiFetch(`/riesgos/${id}`, { method: 'DELETE' }); setSelected(null); setRiesgos((p) => p.filter((r) => r.id !== id)); }
-    catch { alert('Error al eliminar.'); }
+    catch { toast.error('Error al eliminar.'); }
   };
 
   const columns = [

@@ -37,7 +37,18 @@ export class InspeccionesService {
 
   async update(id: string, data: Partial<CreateInspeccionDto>) {
     await this.findOne(id);
-    return this.prisma.inspeccion.update({ where: { id }, data, include: INCLUDE });
+    return this.prisma.inspeccion.update({
+      where: { id },
+      data: {
+        activoId: data.activoId,
+        inspectorId: data.inspectorId,
+        areaId: data.areaId,
+        resultado: data.resultado,
+        observaciones: data.observaciones,
+        fechaInspeccion: data.fechaInspeccion ? new Date(data.fechaInspeccion) : undefined,
+      },
+      include: INCLUDE,
+    });
   }
 
   async remove(id: string) {

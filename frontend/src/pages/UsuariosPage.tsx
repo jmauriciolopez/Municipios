@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
+import { confirm } from '../components/ui/ConfirmDialog';
 import DataTable from '../components/ui/DataTable';
 import FilterBar from '../components/ui/FilterBar';
 
@@ -57,7 +59,7 @@ export default function UsuariosPage() {
   };
 
   const handleGuardar = async () => {
-    if (!form.nombre || !form.email) { alert('Nombre y email son obligatorios.'); return; }
+    if (!form.nombre || !form.email) { toast.error('Nombre y email son obligatorios.'); return; }
     setGuardando(true);
     try {
       const payload: any = { nombre: form.nombre, email: form.email, telefono: form.telefono || undefined, estado: form.estado };
@@ -67,17 +69,17 @@ export default function UsuariosPage() {
       setModal(null);
       setLoading(true);
       cargar();
-    } catch { alert('Error al guardar el usuario.'); }
+    } catch { toast.error('Error al guardar el usuario.'); }
     finally { setGuardando(false); }
   };
 
   const handleEliminar = async (id: string) => {
-    if (!confirm('¿Eliminar este usuario?')) return;
+    if (!await confirm({ message: '¿Eliminar este usuario?', confirmLabel: 'Eliminar', danger: true })) return;
     try {
       await apiFetch(`/usuarios/${id}`, { method: 'DELETE' });
       setSelected(null);
       setUsuarios((prev) => prev.filter((u) => u.id !== id));
-    } catch { alert('Error al eliminar.'); }
+    } catch { toast.error('Error al eliminar.'); }
   };
 
   const handleToggleRol = async (usuarioId: string, rolId: string, tieneRol: boolean) => {
@@ -89,7 +91,7 @@ export default function UsuariosPage() {
       const mapped = mapUsuario(updated);
       setUsuarios((prev) => prev.map((u) => u.id === usuarioId ? mapped : u));
       setSelected(mapped);
-    } catch { alert('Error al modificar el rol.'); }
+    } catch { toast.error('Error al modificar el rol.'); }
     finally { setTogglingRol(null); }
   };
 

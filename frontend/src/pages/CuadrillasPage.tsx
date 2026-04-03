@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getCuadrillas, setDisponibilidadCuadrilla, getOrdenesCuadrilla, createCuadrilla } from '@shared/services/cuadrillas.api';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
+import { confirm } from '../components/ui/ConfirmDialog';
 import DataTable from '../components/ui/DataTable';
 import FilterBar from '../components/ui/FilterBar';
 import StatusBadge from '../components/ui/StatusBadge';
@@ -106,24 +108,24 @@ export default function CuadrillasPage() {
       );
       if (selected?.id === id) setSelected((s) => s ? { ...s, estado: nuevoEstado } : s);
     } catch {
-      alert('Error al cambiar el estado.');
+      toast.error('Error al cambiar el estado.');
     } finally {
       setCambiando(null);
     }
   };
 
   const handleCrear = async () => {
-    if (!form.nombre) { alert('El nombre es obligatorio.'); return; }
+    if (!form.nombre) { toast.error('El nombre es obligatorio.'); return; }
     setGuardando(true);
     try {
       await createCuadrilla({ nombre: form.nombre, areaId: form.areaId || undefined, supervisorId: form.supervisorId || undefined } as any);
       setModal(false); setForm(FORM_EMPTY); cargar();
-    } catch { alert('Error al crear la cuadrilla.'); }
+    } catch { toast.error('Error al crear la cuadrilla.'); }
     finally { setGuardando(false); }
   };
 
   const handleAddMiembro = async () => {
-    if (!selected || !formMiembro.personaId) { alert('Seleccioná una persona.'); return; }
+    if (!selected || !formMiembro.personaId) { toast.error('Seleccioná una persona.'); return; }
     setGuardandoMiembro(true);
     try {
       const nuevo = await apiFetch<any>(`/cuadrillas/${selected.id}/miembros`, {
@@ -140,17 +142,17 @@ export default function CuadrillasPage() {
       setCuadrillas((prev) => prev.map((c) => c.id === selected.id ? { ...c, miembros: [...c.miembros, miembroMapeado] } : c));
       setModalMiembro(false);
       setFormMiembro({ personaId: '', rol: '' });
-    } catch { alert('Error al agregar el miembro.'); }
+    } catch { toast.error('Error al agregar el miembro.'); }
     finally { setGuardandoMiembro(false); }
   };
 
   const handleRemoveMiembro = async (miembroId: string) => {
-    if (!selected || !confirm('¿Quitar este miembro de la cuadrilla?')) return;
+    if (!selected || !await confirm({ message: '¿Quitar este miembro de la cuadrilla?', confirmLabel: 'Quitar', danger: true })) return;
     try {
       await apiFetch(`/cuadrillas/${selected.id}/miembros/${miembroId}`, { method: 'DELETE' });
       setSelected((s) => s ? { ...s, miembros: s.miembros.filter((m) => m.id !== miembroId) } : s);
       setCuadrillas((prev) => prev.map((c) => c.id === selected.id ? { ...c, miembros: c.miembros.filter((m) => m.id !== miembroId) } : c));
-    } catch { alert('Error al quitar el miembro.'); }
+    } catch { toast.error('Error al quitar el miembro.'); }
   };
 
   const columns = [
@@ -258,7 +260,7 @@ export default function CuadrillasPage() {
               <h3 style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', paddingBottom: 0, borderBottom: 'none', margin: 0 }}>
                 Miembros ({selected.miembros.length})
               </h3>
-              <button style={{ padding: '0.25rem 0.625rem', fontSize: '0.75rem' }} onClick={() => { setFormMiembro({ usuarioId: '', rol: '' }); setModalMiembro(true); }}>+ Agregar</button>
+              <button style={{ padding: '0.25rem 0.625rem', fontSize: '0.75rem' }} onClick={() => { setFormMiembro({ personaId: '', rol: '' }); setModalMiembro(true); }}>+ Agregar</button>
             </div>
             {selected.miembros.length === 0 ? (
               <p style={{ fontSize: '0.8125rem', color: '#94a3b8', marginBottom: '1rem' }}>Sin miembros asignados.</p>

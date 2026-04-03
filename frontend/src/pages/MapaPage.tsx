@@ -51,10 +51,6 @@ export default function MapaPage() {
     [incidentes, tipo, estado, desde, hasta]
   );
 
-  const incidentesParaMapa = modoCalor
-    ? filtered.map((i) => ({ ...i, _heatIntensity: heatPoints.find((h) => Math.abs(h.lat - i.lat) < 0.001 && Math.abs(h.lng - i.lng) < 0.001)?.intensity ?? 1 }))
-    : filtered;
-
   return (
     <div>
       <div className="page-header">

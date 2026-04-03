@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
+import { confirm } from '../components/ui/ConfirmDialog';
 import DataTable from '../components/ui/DataTable';
 import FilterBar from '../components/ui/FilterBar';
 
@@ -50,7 +52,7 @@ export default function AreasPage() {
   };
 
   const handleGuardar = async () => {
-    if (!form.nombre) { alert('El nombre es obligatorio.'); return; }
+    if (!form.nombre) { toast.error('El nombre es obligatorio.'); return; }
     setGuardando(true);
     try {
       if (modal === 'crear') {
@@ -61,17 +63,17 @@ export default function AreasPage() {
       setModal(null);
       setLoading(true);
       cargar();
-    } catch { alert('Error al guardar el área.'); }
+    } catch { toast.error('Error al guardar el área.'); }
     finally { setGuardando(false); }
   };
 
   const handleEliminar = async (id: string) => {
-    if (!confirm('¿Eliminar esta área?')) return;
+    if (!await confirm({ message: '¿Eliminar esta área?', confirmLabel: 'Eliminar', danger: true })) return;
     try {
       await apiFetch(`/areas/${id}`, { method: 'DELETE' });
       setSelected(null);
       setAreas((prev) => prev.filter((a) => a.id !== id));
-    } catch { alert('Error al eliminar el área.'); }
+    } catch { toast.error('Error al eliminar el área.'); }
   };
 
   const Contador = ({ n, color }: { n: number; color: string }) => (

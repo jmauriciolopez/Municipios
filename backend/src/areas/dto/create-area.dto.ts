@@ -2,7 +2,8 @@ import { IsString, IsOptional } from 'class-validator';
 
 export class CreateAreaDto {
   @IsString()
-  municipioId: string;
+  @IsOptional()
+  municipioId?: string;
 
   @IsString()
   nombre: string;

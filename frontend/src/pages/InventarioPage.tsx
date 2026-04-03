@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
 import DataTable from '../components/ui/DataTable';
 
 type ItemRow = { id: string; codigo: string; nombre: string; descripcion: string; cantidad: number; area: string; areaId: string };
@@ -35,14 +36,14 @@ export default function InventarioPage() {
   }), [items, filtroArea, busqueda]);
 
   const handleGuardar = async () => {
-    if (!form.codigo || !form.nombre) { alert('Código y nombre son obligatorios.'); return; }
+    if (!form.codigo || !form.nombre) { toast.error('Código y nombre son obligatorios.'); return; }
     setGuardando(true);
     try {
       const payload = { ...form, cantidad: Number(form.cantidad), areaId: form.areaId || undefined };
       if (modal === 'crear') await apiFetch('/inventario', { method: 'POST', body: JSON.stringify(payload) });
       else if (modal === 'editar' && selected) await apiFetch(`/inventario/${selected.id}`, { method: 'PATCH', body: JSON.stringify(payload) });
       setModal(null); setLoading(true); cargar();
-    } catch { alert('Error al guardar.'); }
+    } catch { toast.error('Error al guardar.'); }
     finally { setGuardando(false); }
   };
 
@@ -55,7 +56,7 @@ export default function InventarioPage() {
       setItems((prev) => prev.map((i) => i.id === selected.id ? { ...i, cantidad: nueva } : i));
       setSelected((s) => s ? { ...s, cantidad: nueva } : s);
       setDelta('');
-    } catch { alert('Stock insuficiente o error al ajustar.'); }
+    } catch { toast.error('Stock insuficiente o error al ajustar.'); }
     finally { setAjustando(false); }
   };
 

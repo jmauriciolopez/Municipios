@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
 import DataTable from '../components/ui/DataTable';
 
 type InspeccionRow = { id: string; incidente: string; incidenteId: string; activo: string; inspector: string; area: string; areaId: string; resultado: string; fecha: string; observaciones: string };
@@ -47,12 +48,12 @@ export default function InspeccionesPage() {
   const filtered = useMemo(() => inspecciones.filter((i) => !filtroArea || i.areaId === filtroArea), [inspecciones, filtroArea]);
 
   const handleGuardar = async () => {
-    if (!form.incidenteId) { alert('El incidente es obligatorio.'); return; }
+    if (!form.incidenteId) { toast.error('El incidente es obligatorio.'); return; }
     setGuardando(true);
     try {
       await apiFetch('/inspecciones', { method: 'POST', body: JSON.stringify({ ...form, activoId: form.activoId || undefined, inspectorId: form.inspectorId || undefined, areaId: form.areaId || undefined, fechaInspeccion: form.fechaInspeccion || undefined }) });
       setModal(false); setLoading(true); cargar();
-    } catch { alert('Error al guardar.'); }
+    } catch { toast.error('Error al guardar.'); }
     finally { setGuardando(false); }
   };
 

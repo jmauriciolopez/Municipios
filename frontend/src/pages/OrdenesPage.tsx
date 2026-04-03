@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getOrdenes, createOrden, asignarCuadrilla } from '@shared/services/ordenes.api';
 import { getCuadrillas } from '@shared/services/cuadrillas.api';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
 import DataTable from '../components/ui/DataTable';
 import FilterBar from '../components/ui/FilterBar';
 import StatusBadge from '../components/ui/StatusBadge';
@@ -86,12 +87,12 @@ export default function OrdenesPage() {
         o.id === ordenId ? { ...o, cuadrillaId, cuadrilla: nombre, estado: 'asignado' } : o
       ));
       if (selected?.id === ordenId) setSelected((s) => s ? { ...s, cuadrillaId, cuadrilla: nombre, estado: 'asignado' } : s);
-    } catch { alert('Error al asignar la cuadrilla.'); }
+    } catch { toast.error('Error al asignar la cuadrilla.'); }
     finally { setAsignando(null); }
   };
 
   const handleCrear = async () => {
-    if (!form.codigo) { alert('El código es obligatorio.'); return; }
+    if (!form.codigo) { toast.error('El código es obligatorio.'); return; }
     setGuardando(true);
     try {
       await createOrden({
@@ -106,7 +107,7 @@ export default function OrdenesPage() {
       setForm(FORM_EMPTY);
       setLoading(true);
       cargar();
-    } catch { alert('Error al crear la orden.'); }
+    } catch { toast.error('Error al crear la orden.'); }
     finally { setGuardando(false); }
   };
 

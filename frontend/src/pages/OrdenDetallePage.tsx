@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getOrden, cambiarEstadoOrden, asignarCuadrilla } from '@shared/services/ordenes.api';
 import { getCuadrillas } from '@shared/services/cuadrillas.api';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
+import { confirm } from '../components/ui/ConfirmDialog';
 import StatusBadge from '../components/ui/StatusBadge';
 import EvidenciasPanel from '../components/ui/EvidenciasPanel';
 
@@ -51,14 +53,14 @@ export default function OrdenDetallePage() {
 
   const handleCambiarEstado = async (nuevoEstado: string) => {
     if (!id) return;
-    if (nuevoEstado === 'cancelado' && !confirm('¿Confirmar cancelación de esta orden?')) return;
+    if (nuevoEstado === 'cancelado' && !await confirm({ title: 'Cancelar orden', message: '¿Confirmar cancelación de esta orden?', confirmLabel: 'Cancelar orden', danger: true })) return;
     setCambiandoEstado(true);
     try {
       const updated = await cambiarEstadoOrden(id, nuevoEstado);
       setOrden((prev: any) => ({ ...prev, ...(updated as any) }));
     } catch (e: any) {
       const msg = e?.message ?? '';
-      alert(msg.includes('API error') ? 'Transición de estado no permitida.' : 'Error al cambiar el estado.');
+      toast.error(msg.includes('API error') ? 'Transición de estado no permitida.' : 'Error al cambiar el estado.');
     } finally {
       setCambiandoEstado(false);
     }
@@ -72,7 +74,7 @@ export default function OrdenDetallePage() {
       const cuadrilla = cuadrillas.find((c: any) => c.id === cuadrillaId);
       setOrden((prev: any) => ({ ...prev, ...(updated as any), cuadrilla }));
     } catch {
-      alert('Error al asignar la cuadrilla.');
+      toast.error('Error al asignar la cuadrilla.');
     } finally {
       setAsignando(false);
     }
@@ -80,7 +82,7 @@ export default function OrdenDetallePage() {
 
   const handleAddMaterial = async () => {
     if (!id || !formMaterial.item || !formMaterial.cantidad || !formMaterial.unidad) {
-      alert('Ítem, cantidad y unidad son obligatorios.');
+      toast.error('Ítem, cantidad y unidad son obligatorios.');
       return;
     }
     setGuardandoMaterial(true);
@@ -92,16 +94,16 @@ export default function OrdenDetallePage() {
       setMateriales((prev) => [...prev, nuevo]);
       setModalMaterial(false);
       setFormMaterial({ item: '', cantidad: '', unidad: '', estado: '' });
-    } catch { alert('Error al agregar el material.'); }
+    } catch { toast.error('Error al agregar el material.'); }
     finally { setGuardandoMaterial(false); }
   };
 
   const handleRemoveMaterial = async (materialId: string) => {
-    if (!id || !confirm('¿Eliminar este material?')) return;
+    if (!id || !await confirm({ message: '¿Eliminar este material?', confirmLabel: 'Eliminar', danger: true })) return;
     try {
       await apiFetch(`/ordenes-trabajo/${id}/materiales/${materialId}`, { method: 'DELETE' });
       setMateriales((prev) => prev.filter((m) => m.id !== materialId));
-    } catch { alert('Error al eliminar el material.'); }
+    } catch { toast.error('Error al eliminar el material.'); }
   };
 
   if (loading) return <div className="loading-state">Cargando orden...</div>;

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
 import DataTable from '../components/ui/DataTable';
 
 type PersonaRow = {
@@ -46,7 +47,7 @@ export default function PersonasPage() {
     ), [personas, busqueda]);
 
   const handleGuardar = async () => {
-    if (!form.nombre) { alert('El nombre es obligatorio.'); return; }
+    if (!form.nombre) { toast.error('El nombre es obligatorio.'); return; }
     setGuardando(true);
     try {
       const payload = {
@@ -59,7 +60,7 @@ export default function PersonasPage() {
       else if (modal === 'editar' && selected) await apiFetch(`/personas/${selected.id}`, { method: 'PATCH', body: JSON.stringify(payload) });
       setModal(null);
       cargar();
-    } catch { alert('Error al guardar.'); }
+    } catch { toast.error('Error al guardar.'); }
     finally { setGuardando(false); }
   };
 
@@ -69,7 +70,7 @@ export default function PersonasPage() {
       const mapped = mapPersona(updated);
       setPersonas((prev) => prev.map((p) => p.id === id ? mapped : p));
       if (selected?.id === id) setSelected(mapped);
-    } catch { alert('Error al cambiar estado.'); }
+    } catch { toast.error('Error al cambiar estado.'); }
   };
 
   const columns = [

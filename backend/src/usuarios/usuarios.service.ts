@@ -53,16 +53,14 @@ export class UsuariosService {
   async update(id: string, data: UpdateUsuarioDto) {
     await this.findOne(id);
     const passwordHash = data.password ? await bcrypt.hash(data.password, 10) : undefined;
-    return this.prisma.usuario.update({
-      where: { id },
-      data: {
-        nombre: data.nombre, email: data.email,
-        telefono: data.telefono, municipioId: data.municipioId,
-        estado: data.estado,
-        ...(passwordHash ? { passwordHash } : {}),
-      },
-      select: SELECT_USUARIO,
-    });
+    const payload: any = {};
+    if (data.nombre !== undefined) payload.nombre = data.nombre;
+    if (data.email !== undefined) payload.email = data.email;
+    if (data.telefono !== undefined) payload.telefono = data.telefono;
+    if (data.municipioId !== undefined) payload.municipioId = data.municipioId;
+    if (data.estado !== undefined) payload.estado = data.estado;
+    if (passwordHash) payload.passwordHash = passwordHash;
+    return this.prisma.usuario.update({ where: { id }, data: payload, select: SELECT_USUARIO });
   }
 
   async remove(id: string) {

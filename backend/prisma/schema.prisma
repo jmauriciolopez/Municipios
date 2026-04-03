@@ -7,7 +7,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum OrdenEstado {
@@ -119,12 +118,12 @@ model Usuario {
   id           String   @id @default(uuid()) @db.Uuid
   municipioId  String?  @map("municipio_id") @db.Uuid
   nombre       String   @db.VarChar(120)
-  email        String   @unique @db.VarChar(160)
+  email        String   @db.VarChar(160) /// unique enforced via partial index (see migration 20260404000000)
   passwordHash String?  @map("password_hash") @db.VarChar(255)
   telefono     String?  @db.VarChar(50)
   estado       Boolean  @default(true)
   createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt    DateTime @default(now()) @map("updated_at") @db.Timestamptz
+  updatedAt    DateTime @updatedAt @map("updated_at") @db.Timestamptz
   deletedAt    DateTime? @map("deleted_at") @db.Timestamptz
 
   municipio     Municipio?       @relation(fields: [municipioId], references: [id])

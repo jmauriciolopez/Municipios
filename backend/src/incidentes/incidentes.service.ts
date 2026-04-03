@@ -73,9 +73,23 @@ export class IncidentesService {
   }
 
   async update(id: string, data: UpdateIncidenteDto, userId?: string) {
+    const payload: any = {};
+    if (data.tipo !== undefined) payload.tipo = data.tipo;
+    if (data.descripcion !== undefined) payload.descripcion = data.descripcion;
+    if (data.estado !== undefined) payload.estado = data.estado;
+    if (data.prioridad !== undefined) payload.prioridad = data.prioridad;
+    if (data.lat !== undefined) payload.lat = data.lat;
+    if (data.lng !== undefined) payload.lng = data.lng;
+    if (data.direccion !== undefined) payload.direccion = data.direccion;
+    if (data.area_id !== undefined) payload.areaId = data.area_id;
+    if (data.activo_id !== undefined) payload.activoId = data.activo_id;
+    if (data.riesgo_id !== undefined) payload.riesgoId = data.riesgo_id;
+    if (data.fecha_reporte !== undefined) payload.fechaReporte = new Date(data.fecha_reporte);
+
     const incidente = await this.prisma.incidente.update({
       where: { id },
-      data,
+      data: payload,
+      include: { area: true, activo: true, riesgo: true, reportadoPorU: true, orden: true },
     });
 
     if (userId) {

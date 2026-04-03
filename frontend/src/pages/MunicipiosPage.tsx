@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
 import DataTable from '../components/ui/DataTable';
 
 type MunicipioRow = { id: string; nombre: string; codigo: string; areas: number; usuarios: number; activos: number };
@@ -23,13 +24,13 @@ export default function MunicipiosPage() {
   useEffect(() => { cargar(); }, []);
 
   const handleGuardar = async () => {
-    if (!form.nombre || !form.codigo) { alert('Nombre y código son obligatorios.'); return; }
+    if (!form.nombre || !form.codigo) { toast.error('Nombre y código son obligatorios.'); return; }
     setGuardando(true);
     try {
       if (modal === 'crear') await apiFetch('/municipios', { method: 'POST', body: JSON.stringify(form) });
       else if (modal === 'editar' && selected) await apiFetch(`/municipios/${selected.id}`, { method: 'PATCH', body: JSON.stringify(form) });
       setModal(null); setLoading(true); cargar();
-    } catch { alert('Error al guardar.'); }
+    } catch { toast.error('Error al guardar.'); }
     finally { setGuardando(false); }
   };
 

@@ -168,3 +168,4 @@ export class OrdenesTrabajoService {
   async removeMaterial(ordenId: string, materialId: string) {
     return this.prisma.ordenMaterial.delete({ where: { id: materialId } });
   }
+}

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getActivos, createActivo, updateActivo } from '@shared/services/activos.api';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
 import DataTable from '../components/ui/DataTable';
 import FilterBar from '../components/ui/FilterBar';
 import StatusBadge from '../components/ui/StatusBadge';
@@ -73,12 +74,12 @@ export default function ActivosPage() {
       await updateActivo(id, { estado: nuevoEstado as any });
       setActivos((prev) => prev.map((a) => a.id === id ? { ...a, estado: nuevoEstado } : a));
       if (selected?.id === id) setSelected((s) => s ? { ...s, estado: nuevoEstado } : s);
-    } catch { alert('Error al cambiar el estado.'); }
+    } catch { toast.error('Error al cambiar el estado.'); }
     finally { setCambiando(null); }
   };
 
   const handleGuardar = async () => {
-    if (!form.codigo || !form.nombre || !form.tipoActivoId) { alert('Código, nombre y tipo son obligatorios.'); return; }
+    if (!form.codigo || !form.nombre || !form.tipoActivoId) { toast.error('Código, nombre y tipo son obligatorios.'); return; }
     setGuardando(true);
     try {
       await createActivo({
@@ -94,7 +95,7 @@ export default function ActivosPage() {
       setForm(FORM_EMPTY);
       setLoading(true);
       cargar();
-    } catch { alert('Error al crear el activo.'); }
+    } catch { toast.error('Error al crear el activo.'); }
     finally { setGuardando(false); }
   };
 

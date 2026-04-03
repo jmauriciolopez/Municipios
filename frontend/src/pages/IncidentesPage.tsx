@@ -5,16 +5,28 @@ import { apiFetch } from '../services/apiFetch';
 import DataTable from '../components/ui/DataTable';
 import FilterBar from '../components/ui/FilterBar';
 import StatusBadge from '../components/ui/StatusBadge';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import toast from 'react-hot-toast';
+import { reverseGeocode } from '../services/geocoding';
+import { confirm } from '../components/ui/ConfirmDialog';
 
 type IncidenteRow = {
   id: string; tipo: string; estado: string; prioridad: string;
   area: string; areaId: string; fecha: string; direccion: string;
 };
-
 type AreaOpt = { id: string; nombre: string };
 
 const PRIORIDADES = ['baja', 'media', 'alta', 'critica'];
 const ESTADOS_INC = ['abierto', 'en_proceso', 'resuelto', 'cerrado', 'cancelado'];
+const CORRIENTES: [number, number] = [-27.46, -58.83];
+const FORM_EMPTY = { tipo: '', descripcion: '', prioridad: 'media', estado: 'abierto', lat: '', lng: '', direccion: '', area_id: '', reportado_por: '' };
+
+function ClickHandler({ onPick }: { onPick: (lat: number, lng: number) => void }) {
+  useMapEvents({ click: (e) => onPick(e.latlng.lat, e.latlng.lng) });
+  return null;
+}
 
 export default function IncidentesPage() {
   const navigate = useNavigate();
@@ -28,12 +40,11 @@ export default function IncidentesPage() {
   const [desde, setDesde] = useState('');
   const [hasta, setHasta] = useState('');
   const [modal, setModal] = useState(false);
+  const [modalMapa, setModalMapa] = useState(false);
   const [guardando, setGuardando] = useState(false);
   const [geocodificando, setGeocodificando] = useState(false);
-  const [form, setForm] = useState({
-    tipo: '', descripcion: '', prioridad: 'media', estado: 'abierto',
-    lat: '', lng: '', direccion: '', area_id: '', reportado_por: '',
-  });
+  const [form, setForm] = useState(FORM_EMPTY);
+  const [pinPos, setPinPos] = useState<[number, number] | null>(null);
 
   const cargar = () =>
     getIncidentes()
@@ -50,9 +61,7 @@ export default function IncidentesPage() {
 
   useEffect(() => {
     cargar();
-    apiFetch<any[]>('/areas').then((data) =>
-      setAreas(data.map((a) => ({ id: a.id, nombre: a.nombre })))
-    ).catch(() => {});
+    apiFetch<any[]>('/areas').then((data) => setAreas(data.map((a) => ({ id: a.id, nombre: a.nombre })))).catch(() => {});
   }, []);
 
   const areasUnicas = useMemo(
@@ -76,26 +85,50 @@ export default function IncidentesPage() {
     if (!form.direccion.trim()) return;
     setGeocodificando(true);
     try {
-      const q = encodeURIComponent(form.direccion);
-      const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1`, {
-        headers: { 'Accept-Language': 'es' },
-      });
+      const q = encodeURIComponent(`${form.direccion}, Corrientes, Argentina`);
+      const viewbox = '-59.0,-27.7,-58.5,-27.2';
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&countrycodes=ar&viewbox=${viewbox}&bounded=1`,
+        { headers: { 'Accept-Language': 'es' } }
+      );
       const data = await res.json();
       if (data.length > 0) {
         setForm((f) => ({ ...f, lat: Number(data[0].lat).toFixed(6), lng: Number(data[0].lon).toFixed(6) }));
       } else {
-        alert('No se encontró la dirección. Ingresá lat/lng manualmente.');
+        const res2 = await fetch(
+          `https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&countrycodes=ar`,
+          { headers: { 'Accept-Language': 'es' } }
+        );
+        const data2 = await res2.json();
+        if (data2.length > 0) {
+          setForm((f) => ({ ...f, lat: Number(data2[0].lat).toFixed(6), lng: Number(data2[0].lon).toFixed(6) }));
+        } else {
+          const usar = await confirm({ message: 'No se encontró la dirección. ¿Querés elegir la ubicación en el mapa?', confirmLabel: 'Abrir mapa' });
+          if (usar) abrirMapaPicker();
+        }
       }
     } catch {
-      alert('Error al geocodificar. Verificá tu conexión.');
+      toast.error('Error al geocodificar. Verificá tu conexión.');
     } finally {
       setGeocodificando(false);
     }
   };
 
+  const abrirMapaPicker = () => {
+    setPinPos(form.lat && form.lng ? [Number(form.lat), Number(form.lng)] : CORRIENTES);
+    setModalMapa(true);
+  };
+
+  const confirmarPinMapa = async () => {
+    if (!pinPos) return;
+    const direccion = await reverseGeocode(pinPos[0], pinPos[1]);
+    setForm((f: any) => ({ ...f, lat: pinPos[0].toFixed(6), lng: pinPos[1].toFixed(6), ...(direccion ? { direccion } : {}) }));
+    setModalMapa(false);
+  };
+
   const handleGuardar = async () => {
     if (!form.tipo || !form.area_id || !form.lat || !form.lng) {
-      alert('Tipo, área y dirección (con coordenadas) son obligatorios.');
+      toast.error('Tipo, área y coordenadas son obligatorios.');
       return;
     }
     setGuardando(true);
@@ -109,11 +142,11 @@ export default function IncidentesPage() {
         reportado_por: form.reportado_por || undefined,
       } as any);
       setModal(false);
-      setForm({ tipo: '', descripcion: '', prioridad: 'media', estado: 'abierto', lat: '', lng: '', direccion: '', area_id: '', reportado_por: '' });
+      setForm(FORM_EMPTY);
       setLoading(true);
       cargar();
     } catch {
-      alert('Error al crear el incidente.');
+      toast.error('Error al crear el incidente.');
     } finally {
       setGuardando(false);
     }
@@ -137,7 +170,7 @@ export default function IncidentesPage() {
         <h2>Incidentes</h2>
         <div className="actions">
           <button className="btn-secondary" onClick={() => navigate('/mapa')}>Ver mapa</button>
-          <button onClick={() => setModal(true)}>+ Nuevo incidente</button>
+          <button onClick={() => { setForm(FORM_EMPTY); setModal(true); }}>+ Nuevo incidente</button>
         </div>
       </header>
 
@@ -172,7 +205,6 @@ export default function IncidentesPage() {
               <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0f172a' }}>Nuevo incidente</h3>
               <button className="btn-secondary" style={{ padding: '0.25rem 0.625rem' }} onClick={() => setModal(false)}>✕</button>
             </div>
-
             <div style={grid2}>
               <div className="form-group">
                 <label>Tipo *</label>
@@ -197,8 +229,6 @@ export default function IncidentesPage() {
                   {ESTADOS_INC.map((e) => <option key={e} value={e}>{e.replace('_', ' ')}</option>)}
                 </select>
               </div>
-
-              {/* Dirección con geocoding */}
               <div className="form-group" style={{ gridColumn: 'span 2' }}>
                 <label>Dirección *</label>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -207,54 +237,58 @@ export default function IncidentesPage() {
                     value={form.direccion}
                     onChange={(e) => setForm({ ...form, direccion: e.target.value })}
                     onKeyDown={(e) => e.key === 'Enter' && handleGeocodificar()}
-                    placeholder="Av. Ejemplo 1234, Ciudad..."
+                    placeholder="Av. Ejemplo 1234 o cruce de calles..."
                     style={{ flex: 1 }}
                   />
-                  <button
-                    type="button"
-                    className="btn-secondary"
-                    style={{ flexShrink: 0, padding: '0.5rem 0.875rem', fontSize: '0.8125rem' }}
-                    onClick={handleGeocodificar}
-                    disabled={geocodificando || !form.direccion.trim()}
-                  >
+                  <button type="button" className="btn-secondary" style={{ flexShrink: 0 }} onClick={handleGeocodificar} disabled={geocodificando || !form.direccion.trim()}>
                     {geocodificando ? '...' : '📍 Buscar'}
+                  </button>
+                  <button type="button" className="btn-secondary" style={{ flexShrink: 0 }} onClick={abrirMapaPicker} title="Elegir en el mapa">
+                    🗺️
                   </button>
                 </div>
               </div>
-
-              {/* Coordenadas (solo referencia, se llenan automáticamente) */}
               <div className="form-group">
                 <label style={{ color: '#94a3b8' }}>Latitud <span style={{ fontSize: '0.7rem' }}>(automático)</span></label>
-                <input
-                  className="input-field"
-                  type="number" step="any"
-                  value={form.lat}
-                  onChange={(e) => setForm({ ...form, lat: e.target.value })}
-                  placeholder="-34.61"
-                  style={{ background: form.lat ? '#f0fdf4' : '#f8fafc', color: '#64748b' }}
-                />
+                <input className="input-field" type="number" step="any" value={form.lat} onChange={(e) => setForm({ ...form, lat: e.target.value })} style={{ background: form.lat ? '#f0fdf4' : '#f8fafc', color: '#64748b' }} />
               </div>
               <div className="form-group">
                 <label style={{ color: '#94a3b8' }}>Longitud <span style={{ fontSize: '0.7rem' }}>(automático)</span></label>
-                <input
-                  className="input-field"
-                  type="number" step="any"
-                  value={form.lng}
-                  onChange={(e) => setForm({ ...form, lng: e.target.value })}
-                  placeholder="-58.38"
-                  style={{ background: form.lng ? '#f0fdf4' : '#f8fafc', color: '#64748b' }}
-                />
+                <input className="input-field" type="number" step="any" value={form.lng} onChange={(e) => setForm({ ...form, lng: e.target.value })} style={{ background: form.lng ? '#f0fdf4' : '#f8fafc', color: '#64748b' }} />
               </div>
-
               <div className="form-group" style={{ gridColumn: 'span 2' }}>
                 <label>Descripción</label>
                 <textarea className="input-field" rows={3} value={form.descripcion} onChange={(e) => setForm({ ...form, descripcion: e.target.value })} placeholder="Descripción del incidente..." style={{ resize: 'vertical' }} />
               </div>
             </div>
-
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
               <button className="btn-secondary" onClick={() => setModal(false)}>Cancelar</button>
               <button onClick={handleGuardar} disabled={guardando}>{guardando ? 'Guardando...' : 'Crear incidente'}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {modalMapa && pinPos && (
+        <div style={{ ...overlay, zIndex: 60 }}>
+          <div style={{ background: '#fff', borderRadius: '0.75rem', padding: '1.25rem', width: '100%', maxWidth: '600px', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+              <span style={{ fontWeight: 600, color: '#0f172a' }}>Hacé clic en el mapa para marcar la ubicación</span>
+              <button className="btn-secondary" style={{ padding: '0.25rem 0.625rem' }} onClick={() => setModalMapa(false)}>✕</button>
+            </div>
+            <MapContainer center={pinPos} zoom={14} style={{ height: '380px', width: '100%', borderRadius: '0.5rem' }}>
+              <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; OpenStreetMap contributors" />
+              <ClickHandler onPick={(lat, lng) => setPinPos([lat, lng])} />
+              {pinPos && <Marker position={pinPos} icon={L.divIcon({ className: '', html: '<div style="background:red;width:16px;height:16px;border-radius:50%;border:2px solid white;box-shadow:0 0 4px rgba(0,0,0,0.4)"></div>', iconSize: [16, 16], iconAnchor: [8, 8] })} />}
+            </MapContainer>
+            {pinPos && (
+              <div style={{ fontSize: '0.8125rem', color: '#64748b', marginTop: '0.5rem' }}>
+                Seleccionado: {pinPos[0].toFixed(6)}, {pinPos[1].toFixed(6)}
+              </div>
+            )}
+            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginTop: '0.75rem' }}>
+              <button className="btn-secondary" onClick={() => setModalMapa(false)}>Cancelar</button>
+              <button onClick={confirmarPinMapa}>Confirmar ubicación</button>
             </div>
           </div>
         </div>

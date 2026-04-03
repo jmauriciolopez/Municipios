@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { apiFetch } from '../services/apiFetch';
+import toast from 'react-hot-toast';
+import { confirm } from '../components/ui/ConfirmDialog';
 import DataTable from '../components/ui/DataTable';
 
 type TipoRow = { id: string; nombre: string; descripcion: string; activos: number };
@@ -28,7 +30,7 @@ export default function TiposActivoPage() {
     [tipos, busqueda]);
 
   const handleGuardar = async () => {
-    if (!form.nombre) { alert('El nombre es obligatorio.'); return; }
+    if (!form.nombre) { toast.error('El nombre es obligatorio.'); return; }
     setGuardando(true);
     try {
       if (modal === 'crear') await apiFetch('/tipos-activo', { method: 'POST', body: JSON.stringify(form) });
@@ -36,17 +38,17 @@ export default function TiposActivoPage() {
       setModal(null);
       setLoading(true);
       cargar();
-    } catch { alert('Error al guardar.'); }
+    } catch { toast.error('Error al guardar.'); }
     finally { setGuardando(false); }
   };
 
   const handleEliminar = async (id: string) => {
-    if (!confirm('¿Eliminar este tipo de activo?')) return;
+    if (!await confirm({ message: '¿Eliminar este tipo de activo?', confirmLabel: 'Eliminar', danger: true })) return;
     try {
       await apiFetch(`/tipos-activo/${id}`, { method: 'DELETE' });
       setSelected(null);
       setTipos((prev) => prev.filter((t) => t.id !== id));
-    } catch { alert('No se puede eliminar si tiene activos asociados.'); }
+    } catch { toast.error('No se puede eliminar si tiene activos asociados.'); }
   };
 
   const columns = [

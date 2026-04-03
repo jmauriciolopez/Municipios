@@ -3,7 +3,6 @@ import { CuadrillasService } from './cuadrillas.service';
 import { CreateCuadrillaDto } from './dto/create-cuadrilla.dto';
 import { UpdateCuadrillaDto } from './dto/update-cuadrilla.dto';
 import { CambiarEstadoCuadrillaDto } from './dto/cambiar-estado-cuadrilla.dto';
-import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
