@@ -10,6 +10,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthModule } from './auth/auth.module';
 import { AuditoriaModule } from './auditoria/auditoria.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { TiposActivoModule } from './tipos-activo/tipos-activo.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
@@ -26,6 +27,7 @@ import { PrismaModule } from './prisma/prisma.module';
     AuthModule,
     AuditoriaModule,
     UsuariosModule,
+    TiposActivoModule,
   ],
   controllers: [],
   providers: [],
