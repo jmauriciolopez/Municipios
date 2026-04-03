@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getIncidente, updateIncidente } from '@shared/services/incidentes.api';
 import { apiFetch } from '../services/apiFetch';
 import StatusBadge from '../components/ui/StatusBadge';
+import EvidenciasPanel from '../components/ui/EvidenciasPanel';
 
 const ESTADOS = ['abierto', 'en_proceso', 'resuelto', 'cerrado', 'cancelado'];
 
@@ -10,7 +11,6 @@ export default function IncidenteDetallePage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [incidente, setIncidente] = useState<any>(null);
-  const [evidencias, setEvidencias] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [generando, setGenerando] = useState(false);
@@ -20,9 +20,8 @@ export default function IncidenteDetallePage() {
     if (!id) return;
     Promise.all([
       getIncidente(id),
-      apiFetch<any[]>(`/incidentes/${id}/evidencias`).catch(() => []),
     ])
-      .then(([inc, evs]) => { setIncidente(inc); setEvidencias(Array.isArray(evs) ? evs : []); })
+      .then(([inc]) => { setIncidente(inc); })
       .catch(() => setError('No se pudo cargar el incidente.'))
       .finally(() => setLoading(false));
   }, [id]);
@@ -112,20 +111,7 @@ export default function IncidenteDetallePage() {
       </div>
 
       <h3>Evidencias</h3>
-      {evidencias.length === 0 ? (
-        <div className="empty-state">Sin evidencias registradas.</div>
-      ) : (
-        <ul className="evidencias-list">
-          {evidencias.map((e: any) => (
-            <li key={e.id}>
-              {e.url?.match(/\.(jpg|jpeg|png|webp|gif)$/i)
-                ? <a href={e.url} target="_blank" rel="noreferrer"><img src={e.url} alt={e.caption ?? e.tipo} style={{ maxHeight: '80px', borderRadius: '0.375rem', marginRight: '0.5rem' }} />{e.caption ?? e.tipo}</a>
-                : <a href={e.url} target="_blank" rel="noreferrer">📎 {e.tipo} — {e.caption ?? e.url}</a>
-              }
-            </li>
-          ))}
-        </ul>
-      )}
+      <EvidenciasPanel entidadTipo="incidente" entidadId={id!} />
     </section>
   );
 }

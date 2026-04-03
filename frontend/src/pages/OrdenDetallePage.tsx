@@ -4,6 +4,7 @@ import { getOrden, cambiarEstadoOrden, asignarCuadrilla } from '@shared/services
 import { getCuadrillas } from '@shared/services/cuadrillas.api';
 import { apiFetch } from '../services/apiFetch';
 import StatusBadge from '../components/ui/StatusBadge';
+import EvidenciasPanel from '../components/ui/EvidenciasPanel';
 
 const ESTADOS_ORDEN = ['detectado', 'asignado', 'en_proceso', 'resuelto', 'verificado'];
 const TRANSICIONES: Record<string, string[]> = {
@@ -19,7 +20,6 @@ export default function OrdenDetallePage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [orden, setOrden] = useState<any>(null);
-  const [evidencias, setEvidencias] = useState<any[]>([]);
   const [cuadrillas, setCuadrillas] = useState<any[]>([]);
   const [duracion, setDuracion] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -31,13 +31,11 @@ export default function OrdenDetallePage() {
     if (!id) return;
     Promise.all([
       getOrden(id),
-      apiFetch<any[]>(`/ordenes-trabajo/${id}/evidencias`).catch(() => []),
       getCuadrillas(),
       apiFetch<any>(`/ordenes-trabajo/${id}/duracion`).catch(() => null),
     ])
-      .then(([ord, evs, cuads, dur]: any[]) => {
+      .then(([ord, cuads, dur]: any[]) => {
         setOrden(ord);
-        setEvidencias(Array.isArray(evs) ? evs : []);
         setCuadrillas(cuads ?? []);
         setDuracion(dur);
       })
@@ -192,23 +190,7 @@ export default function OrdenDetallePage() {
       )}
 
       <h3>Evidencias</h3>
-      {evidencias.length === 0 ? (
-        <div className="empty-state">Sin evidencias registradas.</div>
-      ) : (
-        <ul className="evidencias-list">
-          {evidencias.map((e: any) => (
-            <li key={e.id}>
-              {e.url?.match(/\.(jpg|jpeg|png|webp|gif)$/i)
-                ? <a href={e.url} target="_blank" rel="noreferrer">
-                    <img src={e.url} alt={e.caption ?? e.tipo} style={{ maxHeight: '80px', borderRadius: '0.375rem', marginRight: '0.5rem', verticalAlign: 'middle' }} />
-                    {e.caption ?? e.tipo}
-                  </a>
-                : <a href={e.url} target="_blank" rel="noreferrer">📎 {e.tipo} — {e.caption ?? e.url}</a>
-              }
-            </li>
-          ))}
-        </ul>
-      )}
+      <EvidenciasPanel entidadTipo="orden" entidadId={id!} />
     </section>
   );
 }
