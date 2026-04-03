@@ -25,6 +25,8 @@ export default function IncidentesPage() {
   const [estado, setEstado] = useState('');
   const [prioridad, setPrioridad] = useState('');
   const [area, setArea] = useState('');
+  const [desde, setDesde] = useState('');
+  const [hasta, setHasta] = useState('');
   const [modal, setModal] = useState(false);
   const [guardando, setGuardando] = useState(false);
   const [form, setForm] = useState({
@@ -62,9 +64,11 @@ export default function IncidentesPage() {
       if (estado && i.estado !== estado) return false;
       if (prioridad && i.prioridad !== prioridad) return false;
       if (area && i.areaId !== area) return false;
+      if (desde && i.fecha < desde) return false;
+      if (hasta && i.fecha > hasta) return false;
       return true;
     }),
-    [incidentes, estado, prioridad, area]
+    [incidentes, estado, prioridad, area, desde, hasta]
   );
 
   const handleGuardar = async () => {
@@ -120,13 +124,17 @@ export default function IncidentesPage() {
           { key: 'estado', label: 'Estado', value: estado, type: 'select', options: ESTADOS_INC.map((e) => ({ value: e, label: e.replace('_', ' ') })) },
           { key: 'prioridad', label: 'Prioridad', value: prioridad, type: 'select', options: PRIORIDADES.map((p) => ({ value: p, label: p })) },
           { key: 'area', label: 'Área', value: area, type: 'select', options: areasUnicas.map(([id, nombre]) => ({ value: id, label: nombre })) },
+          { key: 'desde', label: 'Desde', value: desde, type: 'text' },
+          { key: 'hasta', label: 'Hasta', value: hasta, type: 'text' },
         ]}
         onChange={(key, value) => {
           if (key === 'estado') setEstado(String(value));
           if (key === 'prioridad') setPrioridad(String(value));
           if (key === 'area') setArea(String(value));
+          if (key === 'desde') setDesde(String(value));
+          if (key === 'hasta') setHasta(String(value));
         }}
-        onReset={() => { setEstado(''); setPrioridad(''); setArea(''); }}
+        onReset={() => { setEstado(''); setPrioridad(''); setArea(''); setDesde(''); setHasta(''); }}
       />
 
       <DataTable
