@@ -30,33 +30,25 @@ export class AuditoriaService {
 
   async getAuditTrail(entidadTipo: string, entidadId: string) {
     return this.prisma.auditoriaEvento.findMany({
-      where: {
-        entidadTipo,
-        entidadId,
-      },
-      include: {
-        usuario: {
-          select: {
-            id: true,
-            nombre: true,
-            email: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      where: { entidadTipo, entidadId },
+      include: { usuario: { select: { id: true, nombre: true, email: true } } },
+      orderBy: { createdAt: 'desc' },
     });
   }
 
   async getUserActivity(usuarioId: string, limit = 50) {
     return this.prisma.auditoriaEvento.findMany({
-      where: {
-        usuarioId,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      where: { usuarioId },
+      include: { usuario: { select: { id: true, nombre: true, email: true } } },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+    });
+  }
+
+  async getRecent(limit = 100) {
+    return this.prisma.auditoriaEvento.findMany({
+      include: { usuario: { select: { id: true, nombre: true, email: true } } },
+      orderBy: { createdAt: 'desc' },
       take: limit,
     });
   }

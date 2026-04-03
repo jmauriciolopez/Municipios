@@ -9,6 +9,7 @@ import ActivosPage from './pages/ActivosPage';
 import CuadrillasPage from './pages/CuadrillasPage';
 import AreasPage from './pages/AreasPage';
 import UsuariosPage from './pages/UsuariosPage';
+import AuditoriaPage from './pages/AuditoriaPage';
 import MapaPage from './pages/MapaPage';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -23,6 +24,7 @@ export default function AppRouter() {
       <Route path="/incidentes/:id" element={<ProtectedRoute><AppLayout><IncidenteDetallePage /></AppLayout></ProtectedRoute>} />
       <Route path="/ordenes" element={<ProtectedRoute><AppLayout><OrdenesPage /></AppLayout></ProtectedRoute>} />
       <Route path="/ordenes/:id" element={<ProtectedRoute><AppLayout><OrdenDetallePage /></AppLayout></ProtectedRoute>} />
+      <Route path="/auditoria" element={<ProtectedRoute><AppLayout><AuditoriaPage /></AppLayout></ProtectedRoute>} />
       <Route path="/usuarios" element={<ProtectedRoute><AppLayout><UsuariosPage /></AppLayout></ProtectedRoute>} />
       <Route path="/areas" element={<ProtectedRoute><AppLayout><AreasPage /></AppLayout></ProtectedRoute>} />
       <Route path="/activos" element={<ProtectedRoute><AppLayout><ActivosPage /></AppLayout></ProtectedRoute>} />
