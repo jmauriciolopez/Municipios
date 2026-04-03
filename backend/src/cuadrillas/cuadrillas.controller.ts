@@ -53,7 +53,7 @@ export class CuadrillasController {
 
   @Post(':id/miembros')
   @Roles('supervisor', 'admin')
-  addMiembro(@Param('id') id: string, @Body() body: { usuarioId: string; rol?: string }) {
+  addMiembro(@Param('id') id: string, @Body() body: { personaId: string; rol?: string }) {
     return this.cuadrillasService.addMiembro(id, body);
   }
 

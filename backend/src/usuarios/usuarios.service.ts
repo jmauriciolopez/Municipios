@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import * as bcrypt from 'bcryptjs';
+import { PersonasService } from '../personas/personas.service';
 
 const SELECT_USUARIO = {
   id: true, nombre: true, email: true, telefono: true,
@@ -13,7 +14,10 @@ const SELECT_USUARIO = {
 
 @Injectable()
 export class UsuariosService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly personasService: PersonasService,
+  ) {}
 
   async findAll(query?: { estado?: string; municipio_id?: string }) {
     const where: any = { deletedAt: null };
@@ -32,7 +36,7 @@ export class UsuariosService {
     const exists = await this.prisma.usuario.findFirst({ where: { email: data.email, deletedAt: null } });
     if (exists) throw new ConflictException('El email ya está registrado');
     const passwordHash = data.password ? await bcrypt.hash(data.password, 10) : undefined;
-    return this.prisma.usuario.create({
+    const usuario = await this.prisma.usuario.create({
       data: {
         nombre: data.nombre, email: data.email,
         telefono: data.telefono, municipioId: data.municipioId,
@@ -41,6 +45,9 @@ export class UsuariosService {
       },
       select: SELECT_USUARIO,
     });
+    // Crear persona automáticamente vinculada al usuario
+    await this.personasService.createFromUsuario(usuario.id, usuario.nombre, usuario.email);
+    return usuario;
   }
 
   async update(id: string, data: UpdateUsuarioDto) {

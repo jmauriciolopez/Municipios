@@ -17,6 +17,7 @@ import { InventarioModule } from './inventario/inventario.module';
 import { MunicipiosModule } from './municipios/municipios.module';
 import { UbicacionesModule } from './ubicaciones/ubicaciones.module';
 import { EvidenciasModule } from './evidencias/evidencias.module';
+import { PersonasModule } from './personas/personas.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
@@ -40,6 +41,7 @@ import { PrismaModule } from './prisma/prisma.module';
     MunicipiosModule,
     UbicacionesModule,
     EvidenciasModule,
+    PersonasModule,
   ],
   controllers: [],
   providers: [],

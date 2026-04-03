@@ -130,7 +130,7 @@ model Usuario {
   municipio     Municipio?       @relation(fields: [municipioId], references: [id])
   roles         UsuarioRol[]
   cuadrillas    Cuadrilla[]      @relation("Supervisor")
-  miembros      CuadrillaMiembro[]
+  persona       Persona?
   reportados    Incidente[]      @relation("ReportadoPor")
   creados       OrdenTrabajo[]   @relation("CreadoPor")
   actualizados  OrdenTrabajo[]   @relation("ActualizadoPor")
@@ -175,17 +175,34 @@ model Cuadrilla {
   @@map("cuadrillas")
 }
 
+model Persona {
+  id          String   @id @default(uuid()) @db.Uuid
+  nombre      String   @db.VarChar(120)
+  dni         String?  @unique @db.VarChar(20)
+  telefono    String?  @db.VarChar(50)
+  email       String?  @db.VarChar(160)
+  usuarioId   String?  @unique @map("usuario_id") @db.Uuid
+  activo      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz
+
+  usuario     Usuario?           @relation(fields: [usuarioId], references: [id])
+  cuadrillas  CuadrillaMiembro[]
+
+  @@map("personas")
+}
+
 model CuadrillaMiembro {
   id            String   @id @default(uuid()) @db.Uuid
   cuadrillaId   String   @map("cuadrilla_id") @db.Uuid
-  usuarioId     String   @map("usuario_id") @db.Uuid
+  personaId     String   @map("persona_id") @db.Uuid
   rol           String?  @db.VarChar(120)
   fechaIngreso  DateTime @default(now()) @map("fecha_ingreso") @db.Timestamptz
   fechaSalida   DateTime? @map("fecha_salida") @db.Timestamptz
   activo        Boolean  @default(true)
 
   cuadrilla Cuadrilla @relation(fields: [cuadrillaId], references: [id], onDelete: Cascade)
-  usuario   Usuario   @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  persona   Persona   @relation(fields: [personaId], references: [id], onDelete: Cascade)
 
   @@map("cuadrilla_miembros")
 }

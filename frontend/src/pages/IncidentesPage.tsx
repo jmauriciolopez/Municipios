@@ -29,6 +29,7 @@ export default function IncidentesPage() {
   const [hasta, setHasta] = useState('');
   const [modal, setModal] = useState(false);
   const [guardando, setGuardando] = useState(false);
+  const [geocodificando, setGeocodificando] = useState(false);
   const [form, setForm] = useState({
     tipo: '', descripcion: '', prioridad: 'media', estado: 'abierto',
     lat: '', lng: '', direccion: '', area_id: '', reportado_por: '',
@@ -71,9 +72,30 @@ export default function IncidentesPage() {
     [incidentes, estado, prioridad, area, desde, hasta]
   );
 
+  const handleGeocodificar = async () => {
+    if (!form.direccion.trim()) return;
+    setGeocodificando(true);
+    try {
+      const q = encodeURIComponent(form.direccion);
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1`, {
+        headers: { 'Accept-Language': 'es' },
+      });
+      const data = await res.json();
+      if (data.length > 0) {
+        setForm((f) => ({ ...f, lat: Number(data[0].lat).toFixed(6), lng: Number(data[0].lon).toFixed(6) }));
+      } else {
+        alert('No se encontró la dirección. Ingresá lat/lng manualmente.');
+      }
+    } catch {
+      alert('Error al geocodificar. Verificá tu conexión.');
+    } finally {
+      setGeocodificando(false);
+    }
+  };
+
   const handleGuardar = async () => {
     if (!form.tipo || !form.area_id || !form.lat || !form.lng) {
-      alert('Tipo, área, latitud y longitud son obligatorios.');
+      alert('Tipo, área y dirección (con coordenadas) son obligatorios.');
       return;
     }
     setGuardando(true);
@@ -175,18 +197,55 @@ export default function IncidentesPage() {
                   {ESTADOS_INC.map((e) => <option key={e} value={e}>{e.replace('_', ' ')}</option>)}
                 </select>
               </div>
-              <div className="form-group">
-                <label>Latitud *</label>
-                <input className="input-field" type="number" step="any" value={form.lat} onChange={(e) => setForm({ ...form, lat: e.target.value })} placeholder="-34.61" />
-              </div>
-              <div className="form-group">
-                <label>Longitud *</label>
-                <input className="input-field" type="number" step="any" value={form.lng} onChange={(e) => setForm({ ...form, lng: e.target.value })} placeholder="-58.38" />
-              </div>
+
+              {/* Dirección con geocoding */}
               <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                <label>Dirección</label>
-                <input className="input-field" value={form.direccion} onChange={(e) => setForm({ ...form, direccion: e.target.value })} placeholder="Av. Ejemplo 123" />
+                <label>Dirección *</label>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <input
+                    className="input-field"
+                    value={form.direccion}
+                    onChange={(e) => setForm({ ...form, direccion: e.target.value })}
+                    onKeyDown={(e) => e.key === 'Enter' && handleGeocodificar()}
+                    placeholder="Av. Ejemplo 1234, Ciudad..."
+                    style={{ flex: 1 }}
+                  />
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    style={{ flexShrink: 0, padding: '0.5rem 0.875rem', fontSize: '0.8125rem' }}
+                    onClick={handleGeocodificar}
+                    disabled={geocodificando || !form.direccion.trim()}
+                  >
+                    {geocodificando ? '...' : '📍 Buscar'}
+                  </button>
+                </div>
               </div>
+
+              {/* Coordenadas (solo referencia, se llenan automáticamente) */}
+              <div className="form-group">
+                <label style={{ color: '#94a3b8' }}>Latitud <span style={{ fontSize: '0.7rem' }}>(automático)</span></label>
+                <input
+                  className="input-field"
+                  type="number" step="any"
+                  value={form.lat}
+                  onChange={(e) => setForm({ ...form, lat: e.target.value })}
+                  placeholder="-34.61"
+                  style={{ background: form.lat ? '#f0fdf4' : '#f8fafc', color: '#64748b' }}
+                />
+              </div>
+              <div className="form-group">
+                <label style={{ color: '#94a3b8' }}>Longitud <span style={{ fontSize: '0.7rem' }}>(automático)</span></label>
+                <input
+                  className="input-field"
+                  type="number" step="any"
+                  value={form.lng}
+                  onChange={(e) => setForm({ ...form, lng: e.target.value })}
+                  placeholder="-58.38"
+                  style={{ background: form.lng ? '#f0fdf4' : '#f8fafc', color: '#64748b' }}
+                />
+              </div>
+
               <div className="form-group" style={{ gridColumn: 'span 2' }}>
                 <label>Descripción</label>
                 <textarea className="input-field" rows={3} value={form.descripcion} onChange={(e) => setForm({ ...form, descripcion: e.target.value })} placeholder="Descripción del incidente..." style={{ resize: 'vertical' }} />

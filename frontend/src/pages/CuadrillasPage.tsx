@@ -5,7 +5,7 @@ import DataTable from '../components/ui/DataTable';
 import FilterBar from '../components/ui/FilterBar';
 import StatusBadge from '../components/ui/StatusBadge';
 
-type Miembro = { id: string; usuario: { nombre: string; email: string }; rol?: string };
+type Miembro = { id: string; nombre: string; rol?: string; usuario?: any };
 
 type CuadrillaRow = {
   id: string; nombre: string; estado: string;
@@ -28,8 +28,8 @@ export default function CuadrillasPage() {
   const [loadingOrdenes, setLoadingOrdenes] = useState(false);
   const [cambiando, setCambiando] = useState<string | null>(null);
   const [modalMiembro, setModalMiembro] = useState(false);
-  const [usuarios, setUsuarios] = useState<any[]>([]);
-  const [formMiembro, setFormMiembro] = useState({ usuarioId: '', rol: '' });
+  const [personas, setPersonas] = useState<any[]>([]);
+  const [formMiembro, setFormMiembro] = useState({ personaId: '', rol: '' });
   const [guardandoMiembro, setGuardandoMiembro] = useState(false);
 
   const [modal, setModal] = useState(false);
@@ -49,7 +49,12 @@ export default function CuadrillasPage() {
             area: c.area?.nombre ?? '',
             areaId: c.area?.id ?? c.areaId ?? '',
             supervisor: c.supervisor?.nombre ?? c.supervisor?.email ?? 'Sin asignar',
-            miembros: c.miembros ?? [],
+            miembros: (c.miembros ?? []).map((m: any) => ({
+              id: m.id,
+              nombre: m.persona?.nombre ?? m.persona?.usuario?.nombre ?? '',
+              rol: m.rol,
+              usuario: m.persona?.usuario ?? null,
+            })),
             ordenes: c.ordenes?.length ?? 0,
           }))
         )
@@ -61,7 +66,7 @@ export default function CuadrillasPage() {
   useEffect(() => {
     cargar();
     apiFetch<any[]>('/areas').then(setAreas).catch(() => {});
-    apiFetch<any[]>('/usuarios').then(setUsuarios).catch(() => {});
+    apiFetch<any[]>('/personas?activo=true').then(setPersonas).catch(() => {});
   }, []);
 
   const areasUnicas = useMemo(
@@ -118,17 +123,23 @@ export default function CuadrillasPage() {
   };
 
   const handleAddMiembro = async () => {
-    if (!selected || !formMiembro.usuarioId) { alert('Seleccioná un usuario.'); return; }
+    if (!selected || !formMiembro.personaId) { alert('Seleccioná una persona.'); return; }
     setGuardandoMiembro(true);
     try {
       const nuevo = await apiFetch<any>(`/cuadrillas/${selected.id}/miembros`, {
         method: 'POST',
-        body: JSON.stringify({ usuarioId: formMiembro.usuarioId, rol: formMiembro.rol || undefined }),
+        body: JSON.stringify({ personaId: formMiembro.personaId, rol: formMiembro.rol || undefined }),
       });
-      setSelected((s) => s ? { ...s, miembros: [...s.miembros, nuevo] } : s);
-      setCuadrillas((prev) => prev.map((c) => c.id === selected.id ? { ...c, miembros: [...c.miembros, nuevo] } : c));
+      const miembroMapeado = {
+        id: nuevo.id,
+        usuario: nuevo.persona?.usuario ?? null,
+        nombre: nuevo.persona?.nombre ?? '',
+        rol: nuevo.rol,
+      };
+      setSelected((s) => s ? { ...s, miembros: [...s.miembros, miembroMapeado] } : s);
+      setCuadrillas((prev) => prev.map((c) => c.id === selected.id ? { ...c, miembros: [...c.miembros, miembroMapeado] } : c));
       setModalMiembro(false);
-      setFormMiembro({ usuarioId: '', rol: '' });
+      setFormMiembro({ personaId: '', rol: '' });
     } catch { alert('Error al agregar el miembro.'); }
     finally { setGuardandoMiembro(false); }
   };
@@ -256,8 +267,9 @@ export default function CuadrillasPage() {
                 {selected.miembros.map((m: Miembro) => (
                   <li key={m.id} style={{ fontSize: '0.8125rem', color: '#334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
-                      <span>{m.usuario?.nombre ?? m.usuario?.email}</span>
-                      {m.rol && <span style={{ color: '#94a3b8', marginLeft: '0.375rem', fontSize: '0.75rem' }}>({m.rol})</span>}
+                      <span>{m.nombre}</span>
+                      {m.usuario && <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginLeft: '0.375rem' }}>({m.usuario.email})</span>}
+                      {m.rol && <span style={{ color: '#94a3b8', marginLeft: '0.375rem', fontSize: '0.75rem' }}>· {m.rol}</span>}
                     </div>
                     <button onClick={() => handleRemoveMiembro(m.id)} style={{ background: 'transparent', color: '#dc2626', border: 'none', cursor: 'pointer', padding: '0', fontSize: '0.875rem', lineHeight: 1 }}>✕</button>
                   </li>
@@ -318,10 +330,10 @@ export default function CuadrillasPage() {
               <button className="btn-secondary" style={{ padding: '0.25rem 0.625rem' }} onClick={() => setModalMiembro(false)}>✕</button>
             </div>
             <div className="form-group">
-              <label>Usuario *</label>
-              <select className="input-field" value={formMiembro.usuarioId} onChange={(e) => setFormMiembro({ ...formMiembro, usuarioId: e.target.value })}>
+              <label>Persona *</label>
+              <select className="input-field" value={formMiembro.personaId} onChange={(e) => setFormMiembro({ ...formMiembro, personaId: e.target.value })}>
                 <option value="">Seleccionar...</option>
-                {usuarios.map((u) => <option key={u.id} value={u.id}>{u.nombre ?? u.email}</option>)}
+                {personas.map((p) => <option key={p.id} value={p.id}>{p.nombre}{p.dni ? ` (DNI: ${p.dni})` : ''}</option>)}
               </select>
             </div>
             <div className="form-group">
