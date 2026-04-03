@@ -15,6 +15,7 @@ import { RiesgosModule } from './riesgos/riesgos.module';
 import { InspeccionesModule } from './inspecciones/inspecciones.module';
 import { InventarioModule } from './inventario/inventario.module';
 import { MunicipiosModule } from './municipios/municipios.module';
+import { UbicacionesModule } from './ubicaciones/ubicaciones.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
@@ -36,6 +37,7 @@ import { PrismaModule } from './prisma/prisma.module';
     InspeccionesModule,
     InventarioModule,
     MunicipiosModule,
+    UbicacionesModule,
   ],
   controllers: [],
   providers: [],
