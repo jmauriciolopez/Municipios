@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, Query, UseGuards } from '@nestjs/common';
 import { CuadrillasService } from './cuadrillas.service';
 import { CreateCuadrillaDto } from './dto/create-cuadrilla.dto';
 import { UpdateCuadrillaDto } from './dto/update-cuadrilla.dto';
@@ -44,5 +44,22 @@ export class CuadrillasController {
   @Get(':id/ordenes')
   getOrdenes(@Param('id') id: string) {
     return this.cuadrillasService.getOrdenes(id);
+  }
+
+  @Get(':id/miembros')
+  getMiembros(@Param('id') id: string) {
+    return this.cuadrillasService.getMiembros(id);
+  }
+
+  @Post(':id/miembros')
+  @Roles('supervisor', 'admin')
+  addMiembro(@Param('id') id: string, @Body() body: { usuarioId: string; rol?: string }) {
+    return this.cuadrillasService.addMiembro(id, body);
+  }
+
+  @Delete(':id/miembros/:miembroId')
+  @Roles('supervisor', 'admin')
+  removeMiembro(@Param('id') id: string, @Param('miembroId') miembroId: string) {
+    return this.cuadrillasService.removeMiembro(id, miembroId);
   }
 }

@@ -27,6 +27,10 @@ export default function CuadrillasPage() {
   const [ordenes, setOrdenes] = useState<any[]>([]);
   const [loadingOrdenes, setLoadingOrdenes] = useState(false);
   const [cambiando, setCambiando] = useState<string | null>(null);
+  const [modalMiembro, setModalMiembro] = useState(false);
+  const [usuarios, setUsuarios] = useState<any[]>([]);
+  const [formMiembro, setFormMiembro] = useState({ usuarioId: '', rol: '' });
+  const [guardandoMiembro, setGuardandoMiembro] = useState(false);
 
   const [modal, setModal] = useState(false);
   const [form, setForm] = useState<FormCuadrilla>(FORM_EMPTY);
@@ -57,6 +61,7 @@ export default function CuadrillasPage() {
   useEffect(() => {
     cargar();
     apiFetch<any[]>('/areas').then(setAreas).catch(() => {});
+    apiFetch<any[]>('/usuarios').then(setUsuarios).catch(() => {});
   }, []);
 
   const areasUnicas = useMemo(
@@ -106,16 +111,35 @@ export default function CuadrillasPage() {
     if (!form.nombre) { alert('El nombre es obligatorio.'); return; }
     setGuardando(true);
     try {
-      await createCuadrilla({
-        nombre: form.nombre,
-        area_id: form.areaId || undefined,
-        supervisor_id: form.supervisorId || undefined,
-      } as any);
-      setModal(false);
-      setForm(FORM_EMPTY);
-      cargar();
+      await createCuadrilla({ nombre: form.nombre, area_id: form.areaId || undefined, supervisor_id: form.supervisorId || undefined } as any);
+      setModal(false); setForm(FORM_EMPTY); cargar();
     } catch { alert('Error al crear la cuadrilla.'); }
     finally { setGuardando(false); }
+  };
+
+  const handleAddMiembro = async () => {
+    if (!selected || !formMiembro.usuarioId) { alert('Seleccioná un usuario.'); return; }
+    setGuardandoMiembro(true);
+    try {
+      const nuevo = await apiFetch<any>(`/cuadrillas/${selected.id}/miembros`, {
+        method: 'POST',
+        body: JSON.stringify({ usuarioId: formMiembro.usuarioId, rol: formMiembro.rol || undefined }),
+      });
+      setSelected((s) => s ? { ...s, miembros: [...s.miembros, nuevo] } : s);
+      setCuadrillas((prev) => prev.map((c) => c.id === selected.id ? { ...c, miembros: [...c.miembros, nuevo] } : c));
+      setModalMiembro(false);
+      setFormMiembro({ usuarioId: '', rol: '' });
+    } catch { alert('Error al agregar el miembro.'); }
+    finally { setGuardandoMiembro(false); }
+  };
+
+  const handleRemoveMiembro = async (miembroId: string) => {
+    if (!selected || !confirm('¿Quitar este miembro de la cuadrilla?')) return;
+    try {
+      await apiFetch(`/cuadrillas/${selected.id}/miembros/${miembroId}`, { method: 'DELETE' });
+      setSelected((s) => s ? { ...s, miembros: s.miembros.filter((m) => m.id !== miembroId) } : s);
+      setCuadrillas((prev) => prev.map((c) => c.id === selected.id ? { ...c, miembros: c.miembros.filter((m) => m.id !== miembroId) } : c));
+    } catch { alert('Error al quitar el miembro.'); }
   };
 
   const columns = [
@@ -219,22 +243,27 @@ export default function CuadrillasPage() {
               <div><strong>Supervisor:</strong> {selected.supervisor}</div>
             </div>
 
-            <h3 style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem', paddingBottom: 0, borderBottom: 'none' }}>
-              Miembros ({selected.miembros.length})
-            </h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+              <h3 style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', paddingBottom: 0, borderBottom: 'none', margin: 0 }}>
+                Miembros ({selected.miembros.length})
+              </h3>
+              <button style={{ padding: '0.25rem 0.625rem', fontSize: '0.75rem' }} onClick={() => { setFormMiembro({ usuarioId: '', rol: '' }); setModalMiembro(true); }}>+ Agregar</button>
+            </div>
             {selected.miembros.length === 0 ? (
-              <p style={{ fontSize: '0.8125rem', color: '#94a3b8' }}>Sin miembros asignados.</p>
+              <p style={{ fontSize: '0.8125rem', color: '#94a3b8', marginBottom: '1rem' }}>Sin miembros asignados.</p>
             ) : (
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.375rem', marginBottom: '1rem' }}>
                 {selected.miembros.map((m: Miembro) => (
-                  <li key={m.id} style={{ fontSize: '0.8125rem', color: '#334155', display: 'flex', justifyContent: 'space-between' }}>
-                    <span>{m.usuario?.nombre ?? m.usuario?.email}</span>
-                    {m.rol && <span style={{ color: '#94a3b8' }}>{m.rol}</span>}
+                  <li key={m.id} style={{ fontSize: '0.8125rem', color: '#334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                      <span>{m.usuario?.nombre ?? m.usuario?.email}</span>
+                      {m.rol && <span style={{ color: '#94a3b8', marginLeft: '0.375rem', fontSize: '0.75rem' }}>({m.rol})</span>}
+                    </div>
+                    <button onClick={() => handleRemoveMiembro(m.id)} style={{ background: 'transparent', color: '#dc2626', border: 'none', cursor: 'pointer', padding: '0', fontSize: '0.875rem', lineHeight: 1 }}>✕</button>
                   </li>
                 ))}
               </ul>
             )}
-
             <h3 style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem', paddingBottom: 0, borderBottom: 'none' }}>
               Órdenes asignadas
             </h3>
@@ -277,6 +306,31 @@ export default function CuadrillasPage() {
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
               <button className="btn-secondary" onClick={() => setModal(false)}>Cancelar</button>
               <button onClick={handleCrear} disabled={guardando}>{guardando ? 'Guardando...' : 'Crear cuadrilla'}</button>
+            </div>
+          </div>
+        </div>
+      )}
+      {modalMiembro && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 }}>
+          <div style={{ background: '#fff', borderRadius: '0.75rem', padding: '1.75rem', width: '100%', maxWidth: '420px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0f172a' }}>Agregar miembro</h3>
+              <button className="btn-secondary" style={{ padding: '0.25rem 0.625rem' }} onClick={() => setModalMiembro(false)}>✕</button>
+            </div>
+            <div className="form-group">
+              <label>Usuario *</label>
+              <select className="input-field" value={formMiembro.usuarioId} onChange={(e) => setFormMiembro({ ...formMiembro, usuarioId: e.target.value })}>
+                <option value="">Seleccionar...</option>
+                {usuarios.map((u) => <option key={u.id} value={u.id}>{u.nombre ?? u.email}</option>)}
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Rol en la cuadrilla</label>
+              <input className="input-field" value={formMiembro.rol} onChange={(e) => setFormMiembro({ ...formMiembro, rol: e.target.value })} placeholder="Ej: operario, conductor..." />
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+              <button className="btn-secondary" onClick={() => setModalMiembro(false)}>Cancelar</button>
+              <button onClick={handleAddMiembro} disabled={guardandoMiembro}>{guardandoMiembro ? 'Guardando...' : 'Agregar'}</button>
             </div>
           </div>
         </div>

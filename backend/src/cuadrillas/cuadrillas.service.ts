@@ -121,4 +121,25 @@ export class CuadrillasService {
     const cuadrilla = await this.findOne(id);
     return cuadrilla.ordenes;
   }
-}
+
+  async addMiembro(cuadrillaId: string, data: { usuarioId: string; rol?: string }) {
+    await this.findOne(cuadrillaId);
+    return this.prisma.cuadrillaMiembro.create({
+      data: { cuadrillaId, usuarioId: data.usuarioId, rol: data.rol, activo: true },
+      include: { usuario: { select: { id: true, nombre: true, email: true } } },
+    });
+  }
+
+  async removeMiembro(cuadrillaId: string, miembroId: string) {
+    return this.prisma.cuadrillaMiembro.update({
+      where: { id: miembroId },
+      data: { activo: false, fechaSalida: new Date() },
+    });
+  }
+
+  async getMiembros(cuadrillaId: string) {
+    return this.prisma.cuadrillaMiembro.findMany({
+      where: { cuadrillaId, activo: true },
+      include: { usuario: { select: { id: true, nombre: true, email: true } } },
+    });
+  }
