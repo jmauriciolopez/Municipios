@@ -4,6 +4,7 @@ import {
   getResumen,
   getIncidentesPorEstado,
   getOrdenesPorArea,
+  getTiemposResolucion,
 } from '@shared/services/dashboard.api';
 import StatCard from '../components/ui/StatCard';
 
@@ -12,14 +13,16 @@ export default function DashboardPage() {
   const [resumen, setResumen] = useState<any>(null);
   const [porEstado, setPorEstado] = useState<any[]>([]);
   const [porArea, setPorArea] = useState<any[]>([]);
+  const [tiempos, setTiempos] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([getResumen(), getIncidentesPorEstado(), getOrdenesPorArea()])
-      .then(([r, e, a]) => {
+    Promise.all([getResumen(), getIncidentesPorEstado(), getOrdenesPorArea(), getTiemposResolucion()])
+      .then(([r, e, a, t]) => {
         setResumen(r);
         setPorEstado(e as any[]);
         setPorArea(a as any[]);
+        setTiempos(t);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -64,6 +67,15 @@ export default function DashboardPage() {
           sub="Requieren atención inmediata"
           accent="#dc2626"
         />
+        {tiempos && (
+          <StatCard
+            label="Tiempo promedio resolución"
+            value={`${tiempos.promedioHoras ?? 0}h`}
+            icon="⏱️"
+            sub={tiempos.desviacion ? `±${tiempos.desviacion}h desviación` : 'Órdenes cerradas'}
+            accent="#0369a1"
+          />
+        )}
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
