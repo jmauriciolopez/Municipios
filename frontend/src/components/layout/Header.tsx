@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import ThemeToggle from './ThemeToggle';
+import StyleToggle from './StyleToggle';
 
 function parseJwtPayload(token: string): Record<string, any> {
   try {
@@ -32,6 +33,7 @@ export default function Header() {
       </div>
       
       <div className="header-actions">
+        <StyleToggle />
         <ThemeToggle />
         
         <div className="flex items-center px-3 py-1.5 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 gap-3 group transition-all hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm">

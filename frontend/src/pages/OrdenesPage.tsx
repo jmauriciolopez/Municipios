@@ -292,6 +292,94 @@ export default function OrdenesPage() {
         </div>
       </section>
 
+      <DetailDrawer
+        isOpen={!!selected}
+        onClose={() => setSelected(null)}
+        title="Legajo de Orden"
+        subtitle={selected?.codigo}
+      >
+        {selected && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-right duration-300">
+            <div className={`p-8 rounded-[2.5rem] text-white relative overflow-hidden shadow-2xl mb-6 ${selected.prioridad === 'critica' || selected.prioridad === 'alta' ? 'bg-gradient-to-br from-red-600 to-rose-700' : 'bg-gradient-to-br from-brand-600 to-indigo-700'}`}>
+               <div className="absolute top-0 right-0 p-10 opacity-10 rotate-12">
+                  <ClipboardList size={120} />
+               </div>
+               <div className="relative z-10 flex flex-col h-full">
+                 <div className="flex items-center gap-2 mb-2">
+                    <Hash size={14} className="opacity-50" />
+                    <span className="font-mono text-xs font-black tracking-[0.3em] opacity-60">ID: {selected.codigo}</span>
+                 </div>
+                 <h3 className="text-2xl font-black uppercase tracking-tight mb-6 leading-tight max-w-[80%]">{selected.area}</h3>
+                 <div className="flex gap-3">
+                    <StatusBadge status={selected.estado} />
+                    <StatusBadge status={selected.prioridad} />
+                 </div>
+               </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+               <div className="p-5 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 group transition-all hover:bg-white dark:hover:bg-slate-800 shadow-sm">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Emitida el</span>
+                  <div className="flex items-center gap-3">
+                     <div className="w-8 h-8 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-600">
+                        <Calendar size={16} />
+                     </div>
+                     <span className="text-sm font-black text-slate-700 dark:text-slate-200">{selected.fechaAsignacion}</span>
+                  </div>
+               </div>
+               <div className="p-5 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 group transition-all hover:bg-white dark:hover:bg-slate-800 shadow-sm">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Cierre Estimado</span>
+                  <div className="flex items-center gap-3">
+                     <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${selected.fechaCierre !== 'Pendiente' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-slate-100 text-slate-400'}`}>
+                        <CheckCircle2 size={16} />
+                     </div>
+                     <span className="text-sm font-black text-slate-700 dark:text-slate-200">{selected.fechaCierre}</span>
+                  </div>
+               </div>
+            </div>
+
+            <section className="flex flex-col gap-6">
+               <div className="flex items-center gap-4 p-6 rounded-[2rem] bg-slate-900 border border-slate-800 relative overflow-hidden group">
+                  <Users size={60} className="absolute -right-4 -bottom-4 text-white opacity-5 rotate-12 transition-transform group-hover:scale-110" />
+                  <div className="w-12 h-12 rounded-2xl bg-brand-500/10 flex items-center justify-center text-brand-500 border border-brand-500/20">
+                    <Users size={22} />
+                  </div>
+                  <div className="flex-1 relative z-10">
+                    <label className="text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] block mb-1">Cuerpo Operativo</label>
+                    <p className="text-lg font-black text-white uppercase tracking-tight">{selected.cuadrilla}</p>
+                  </div>
+               </div>
+            </section>
+
+            <section className="space-y-4">
+               <div className="flex items-center gap-3 px-1">
+                  <div className="w-2 h-2 rounded-full bg-brand-500" />
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Resumen de Novedades</span>
+               </div>
+               <div className="p-6 rounded-[2rem] bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 italic text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                  "{selected.descripcion}"
+               </div>
+            </section>
+
+            <div className="pt-8 space-y-4">
+               <button
+                 className="btn-primary w-full justify-center group h-16 rounded-2xl shadow-premium-lg bg-brand-500 hover:bg-brand-600"
+                 onClick={() => navigate(`/ordenes/${selected.id}`)}
+               >
+                 <span className="text-[10px] tracking-[0.2em] uppercase font-black">Acceder al Control de Misión</span>
+                 <ArrowRight size={20} className="group-hover:translate-x-1.5 transition-transform" />
+               </button>
+               <button 
+                 onClick={() => setSelected(null)}
+                 className="w-full py-4 text-slate-400 font-black text-[10px] uppercase tracking-[0.3em] hover:text-slate-600 transition-colors"
+               >
+                 Cerrar Vista Rápida
+               </button>
+            </div>
+          </div>
+        )}
+      </DetailDrawer>
+
       <Modal
         isOpen={modal}
         onClose={() => setModal(false)}

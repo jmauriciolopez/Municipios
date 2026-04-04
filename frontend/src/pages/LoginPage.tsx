@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import ThemeToggle from '../components/layout/ThemeToggle';
+import StyleToggle from '../components/layout/StyleToggle';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -46,6 +48,12 @@ export default function LoginPage() {
 
   return (
     <div className="login-container">
+      {/* Floating Toggles */}
+      <div style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', display: 'flex', gap: '0.75rem', zIndex: 50 }}>
+        <StyleToggle />
+        <ThemeToggle />
+      </div>
+
       <div className="login-form">
         <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🏛️</div>

@@ -49,7 +49,7 @@ export default function Sidebar() {
       <div className="menu">
         {SECTIONS.map((section) => (
           <div key={section.title} className="mb-6">
-            <h4 className="px-4 mb-2 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">
+            <h4 className="menu-section-title">
               {section.title}
             </h4>
             <nav className="flex flex-col gap-1">
@@ -71,14 +71,14 @@ export default function Sidebar() {
         ))}
       </div>
       
-      <div className="p-4 border-t border-slate-800/50">
-        <div className="bg-white/5 rounded-xl p-3 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-brand-500 flex items-center justify-center text-white text-xs font-bold">
+      <div className="sidebar-footer">
+        <div className="sidebar-user">
+          <div className="sidebar-user-avatar">
             AD
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-white truncate">Administrador</p>
-            <p className="text-[10px] text-slate-500 truncate">admin@muni.gob.ar</p>
+          <div className="sidebar-user-info">
+            <p className="sidebar-user-name">Administrador</p>
+            <p className="sidebar-user-email">admin@muni.gob.ar</p>
           </div>
         </div>
       </div>
