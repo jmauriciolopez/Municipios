@@ -42,6 +42,10 @@ export class CreateIncidenteDto {
 
   @IsUUID()
   @IsOptional()
+  categoria_id?: string;
+
+  @IsUUID()
+  @IsOptional()
   reportado_por?: string;
 
   @IsDateString()

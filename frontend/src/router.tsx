@@ -16,6 +16,7 @@ import InspeccionesPage from './pages/InspeccionesPage';
 import InventarioPage from './pages/InventarioPage';
 import MunicipiosPage from './pages/MunicipiosPage';
 import PersonasPage from './pages/PersonasPage';
+import CategoriasPage from './pages/CategoriasPage';
 import MapaPage from './pages/MapaPage';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -41,6 +42,7 @@ export default function AppRouter() {
       <Route path="/areas" element={<ProtectedRoute><AppLayout><AreasPage /></AppLayout></ProtectedRoute>} />
       <Route path="/activos" element={<ProtectedRoute><AppLayout><ActivosPage /></AppLayout></ProtectedRoute>} />
       <Route path="/cuadrillas" element={<ProtectedRoute><AppLayout><CuadrillasPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/categorias" element={<ProtectedRoute><AppLayout><CategoriasPage /></AppLayout></ProtectedRoute>} />
       <Route path="/mapa" element={<ProtectedRoute><AppLayout><MapaPage /></AppLayout></ProtectedRoute>} />
       <Route path="*" element={<Navigate to='/' replace />} />
     </Routes>

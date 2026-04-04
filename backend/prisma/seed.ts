@@ -115,16 +115,21 @@ async function main() {
   });
 
   // Riesgos
-  await prisma.riesgo.upsert({
-    where: { nombre: 'Caída de ramas' },
-    update: {},
-    create: {
-      nombre: 'Caída de ramas',
-      descripcion: 'Riesgo de caída de ramas en árboles',
-      nivel: 3,
-      areaId: areaPoda.id,
-    },
-  });
+  // await prisma.riesgo.upsert({
+  //   where: { codigo: 'CAIDA_RAMAS' },
+  //   update: {},
+  //   create: {
+  //     codigo: 'CAIDA_RAMAS',
+  //     nombre: 'Caída de ramas',
+  //     descripcion: 'Riesgo de caída de ramas en árboles',
+  //     severidadBase: 4,
+  //     probabilidadBase: 3,
+  //     requiereAccionInmediata: true,
+  //     slaSugeridoHoras: 24,
+  //     areaId: areaPoda.id,
+  //     tipoActivoId: tipoArbol.id,
+  //   },
+  // });
 
   // Incidentes de ejemplo en Corrientes
   const incidentesDemo = [

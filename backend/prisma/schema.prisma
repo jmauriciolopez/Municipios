@@ -215,6 +215,7 @@ model TipoActivo {
   deletedAt   DateTime? @map("deleted_at") @db.Timestamptz
 
   activos Activo[]
+  riesgos Riesgo[]
 
   @@map("tipos_activo")
 }
@@ -257,18 +258,56 @@ model Ubicacion {
 }
 
 model Riesgo {
-  id          String   @id @default(uuid()) @db.Uuid
-  nombre      String   @unique @db.VarChar(140)
-  descripcion String?  @db.Text
-  nivel       Int
-  areaId      String?  @map("area_id") @db.Uuid
-  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamptz
+  id                      String   @id @default(uuid()) @db.Uuid
+  codigo                  String   @unique @db.VarChar(80)
+  nombre                  String   @unique @db.VarChar(140)
+  descripcion             String?  @db.Text
+  severidadBase           Int      @default(3) @map("severidad_base")
+  probabilidadBase        Int      @default(3) @map("probabilidad_base")
+  requiereAccionInmediata Boolean  @default(false) @map("requiere_accion_inmediata")
+  esPreventivo            Boolean  @default(false) @map("es_preventivo")
+  slaSugeridoHoras        Int?     @map("sla_sugerido_horas")
+  icono                   String?  @db.Text
+  color                   String?  @db.Text
+  activo                  Boolean  @default(true)
+  areaId                  String?  @map("area_id") @db.Uuid
+  categoriaId             String?  @map("categoria_id") @db.Uuid
+  tipoActivoId            String?  @map("tipo_activo_id") @db.Uuid
+  createdAt               DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt               DateTime @default(now()) @map("updated_at") @db.Timestamptz
 
   area       Area?       @relation(fields: [areaId], references: [id])
+  categoria  Categoria?  @relation(fields: [categoriaId], references: [id])
+  tipoActivo TipoActivo? @relation(fields: [tipoActivoId], references: [id])
   incidentes Incidente[]
 
+  @@index([categoriaId])
+  @@index([areaId])
+  @@index([codigo])
+  @@index([tipoActivoId])
   @@map("riesgos")
+}
+
+model Categoria {
+  id          String    @id @default(uuid()) @db.Uuid
+  codigo      String    @unique @db.VarChar(60)
+  nombre      String    @db.VarChar(120)
+  descripcion String?   @db.Text
+  nivel       Int       @default(1)
+  padreId     String?   @map("padre_id") @db.Uuid
+  activo      Boolean   @default(true)
+  orden       Int       @default(0)
+  icono       String?   @db.Text
+  color       String?   @db.Text
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  padre    Categoria?  @relation("CategoriaHijos", fields: [padreId], references: [id])
+  hijos    Categoria[] @relation("CategoriaHijos")
+  incidentes Incidente[]
+  riesgos    Riesgo[]
+
+  @@map("categorias")
 }
 
 model Incidente {
@@ -284,6 +323,7 @@ model Incidente {
   areaId         String?         @map("area_id") @db.Uuid
   activoId       String?         @map("activo_id") @db.Uuid
   riesgoId       String?         @map("riesgo_id") @db.Uuid
+  categoriaId    String?         @map("categoria_id") @db.Uuid
   reportadoPor   String?         @map("reportado_por") @db.Uuid
   fechaReporte   DateTime        @default(now()) @map("fecha_reporte") @db.Timestamptz
   fechaResolucion DateTime?      @map("fecha_resolucion") @db.Timestamptz
@@ -295,6 +335,7 @@ model Incidente {
   area           Area?          @relation(fields: [areaId], references: [id])
   activo         Activo?        @relation(fields: [activoId], references: [id])
   riesgo         Riesgo?        @relation(fields: [riesgoId], references: [id])
+  categoria      Categoria?     @relation(fields: [categoriaId], references: [id])
   reportadoPorU  Usuario?       @relation("ReportadoPor", fields: [reportadoPor], references: [id])
   orden          OrdenTrabajo?
   inspecciones   Inspeccion[]

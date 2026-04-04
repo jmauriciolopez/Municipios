@@ -4,6 +4,14 @@ import toast from 'react-hot-toast';
 import { confirm } from '../components/ui/ConfirmDialog';
 import DataTable from '../components/ui/DataTable';
 import FilterBar from '../components/ui/FilterBar';
+import Modal from '../components/ui/Modal';
+import { 
+  User, Mail, Phone, Shield, Activity, 
+  Trash2, Edit3, X, CheckCircle2, 
+  XCircle, Lock, Plus,
+  ShieldCheck, ShieldAlert,
+  Building
+} from 'lucide-react';
 
 type UsuarioRow = {
   id: string; nombre: string; email: string; telefono: string;
@@ -74,11 +82,12 @@ export default function UsuariosPage() {
   };
 
   const handleEliminar = async (id: string) => {
-    if (!await confirm({ message: '¿Eliminar este usuario?', confirmLabel: 'Eliminar', danger: true })) return;
+    if (!await confirm({ message: '¿Eliminar este usuario definitivamente?', confirmLabel: 'Eliminar Acceso', danger: true })) return;
     try {
       await apiFetch(`/usuarios/${id}`, { method: 'DELETE' });
       setSelected(null);
       setUsuarios((prev) => prev.filter((u) => u.id !== id));
+      toast.success('Usuario eliminado');
     } catch { toast.error('Error al eliminar.'); }
   };
 
@@ -95,138 +104,287 @@ export default function UsuariosPage() {
     finally { setTogglingRol(null); }
   };
 
-  const RolBadge = ({ nombre }: { nombre: string }) => (
-    <span style={{ display: 'inline-flex', alignItems: 'center', padding: '0.125rem 0.5rem', borderRadius: '9999px', fontSize: '0.6875rem', fontWeight: 600, background: '#ede9fe', color: '#5b21b6', marginRight: '0.25rem' }}>
-      {nombre}
-    </span>
-  );
-
   const columns = [
-    { key: 'nombre', label: 'Nombre', render: (u: UsuarioRow) => <span style={{ fontWeight: 600 }}>{u.nombre}</span> },
-    { key: 'email', label: 'Email', render: (u: UsuarioRow) => <span style={{ fontSize: '0.8125rem', color: '#475569' }}>{u.email}</span> },
-    { key: 'roles', label: 'Roles', render: (u: UsuarioRow) => <>{u.roles.map((r) => <RolBadge key={r} nombre={r} />)}</> },
-    { key: 'municipio', label: 'Municipio' },
-    {
-      key: 'estado', label: 'Estado',
+    { 
+      key: 'nombre', 
+      label: 'Identidad', 
       render: (u: UsuarioRow) => (
-        <span style={{ display: 'inline-flex', alignItems: 'center', padding: '0.25rem 0.625rem', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 600, background: u.estado ? '#dcfce7' : '#f1f5f9', color: u.estado ? '#166534' : '#94a3b8' }}>
-          {u.estado ? 'Activo' : 'Inactivo'}
-        </span>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 font-black text-[10px]">
+             {u.nombre.slice(0, 2).toUpperCase()}
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold text-slate-900 dark:text-slate-100">{u.nombre}</span>
+            <span className="text-[10px] text-slate-400 font-medium">{u.email}</span>
+          </div>
+        </div>
+      )
+    },
+    { 
+      key: 'roles', 
+      label: 'Permisos', 
+      render: (u: UsuarioRow) => (
+        <div className="flex flex-wrap gap-1">
+          {u.roles.map((r) => (
+            <span key={r} className="px-2 py-0.5 rounded-md bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-400 text-[9px] font-black uppercase tracking-wider border border-brand-100 dark:border-brand-500/20">
+              {r}
+            </span>
+          ))}
+          {u.roles.length === 0 && <span className="text-[10px] text-slate-300 italic">Sin roles</span>}
+        </div>
+      ) 
+    },
+    { 
+      key: 'municipio', 
+      label: 'Jurisdicción',
+      render: (u: UsuarioRow) => (
+        <div className="flex items-center gap-2 text-slate-500">
+          <Building size={12} />
+          <span className="text-xs font-semibold">{u.municipio}</span>
+        </div>
+      )
+    },
+    {
+      key: 'estado', label: 'Acceso',
+      render: (u: UsuarioRow) => (
+        <div className="flex items-center gap-2">
+          {u.estado ? (
+            <div className="flex items-center gap-1.5 px-2 py-1 bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400 rounded-lg text-[10px] font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-500/20">
+              <CheckCircle2 size={10} /> ACTIVO
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5 px-2 py-1 bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500 rounded-lg text-[10px] font-black uppercase tracking-widest border border-slate-200 dark:border-slate-700">
+              <XCircle size={10} /> BLOQUEADO
+            </div>
+          )}
+        </div>
       ),
     },
   ];
 
-  if (loading) return <div className="loading-state">Cargando usuarios...</div>;
-  if (error) return <div className="error-state">{error}</div>;
+  if (loading) return (
+    <div className="flex flex-col items-center justify-center h-full gap-4 opacity-50">
+      <Activity size={40} className="text-brand-500 animate-spin" />
+      <span className="font-black text-[10px] uppercase tracking-[0.4em]">Sincronizando Usuarios...</span>
+    </div>
+  );
+
+  if (error) return (
+    <div className="flex flex-col items-center justify-center h-full gap-4 text-red-500">
+      <ShieldAlert size={40} />
+      <span className="font-bold">{error}</span>
+      <button className="btn-secondary" onClick={cargar}>Reintentar</button>
+    </div>
+  );
 
   return (
-    <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-      <section style={{ flex: 1, minWidth: 0 }}>
+    <div className="flex gap-8 items-start h-full">
+      <section className="flex-1 min-w-0">
         <header className="page-header">
-          <h2>Usuarios</h2>
-          <button onClick={abrirCrear}>+ Nuevo usuario</button>
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2 text-brand-500 mb-1">
+              <ShieldCheck size={16} />
+              <span className="text-[10px] font-black uppercase tracking-[0.3em]">Gestión de Accesos</span>
+            </div>
+            <h2 className="text-3xl font-black tracking-tighter text-slate-900 dark:text-white">Panel de Seguridad</h2>
+          </div>
+          <button className="btn-primary" onClick={abrirCrear}>
+            <Plus size={18} />
+            <span>Nuevo Usuario</span>
+          </button>
         </header>
 
         <FilterBar
           filters={[
-            { key: 'busqueda', label: 'Buscar', value: busqueda, type: 'text' },
-            { key: 'estado', label: 'Estado', value: filtroEstado, type: 'select', options: [{ value: 'activo', label: 'Activo' }, { value: 'inactivo', label: 'Inactivo' }] },
+            { key: 'busqueda', label: 'Buscar por nombre o email', value: busqueda, type: 'text' },
+            { 
+              key: 'estado', label: 'Filtrar Acceso', value: filtroEstado, type: 'select', 
+              options: [
+                { value: 'activo', label: 'Solo Activos' }, 
+                { value: 'inactivo', label: 'Solo Bloqueados' }
+              ] 
+            },
           ]}
           onChange={(key, v) => { if (key === 'busqueda') setBusqueda(String(v)); if (key === 'estado') setFiltroEstado(String(v)); }}
           onReset={() => { setBusqueda(''); setFiltroEstado(''); }}
         />
 
-        <DataTable data={filtered} columns={columns} onRowClick={setSelected} emptyMessage="No hay usuarios" />
+        <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl overflow-hidden">
+          <DataTable data={filtered} columns={columns} onRowClick={setSelected} emptyMessage="No se encontraron usuarios en los registros" />
+        </div>
       </section>
 
       {selected && (
-        <div style={{ width: '280px', flexShrink: 0 }}>
-          <div className="chart-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-              <div>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '1rem', marginBottom: '0.5rem' }}>
-                  {selected.nombre.slice(0, 2).toUpperCase()}
+        <aside className="w-[320px] flex-shrink-0 animate-scale-in sticky top-0">
+          <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden flex flex-col h-fit">
+            <div className="p-8 bg-slate-900 relative">
+               <div className="absolute top-0 right-0 p-4">
+                  <button 
+                    onClick={() => setSelected(null)}
+                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white/60 flex items-center justify-center transition-all"
+                  >
+                    <X size={16} />
+                  </button>
+               </div>
+               
+               <div className="flex items-center gap-4 mb-6">
+                 <div className="w-14 h-14 rounded-2xl bg-brand-500 shadow-lg shadow-brand-500/30 flex items-center justify-center text-white font-black text-xl border-4 border-white/10">
+                   {selected.nombre.slice(0, 2).toUpperCase()}
+                 </div>
+                 <div className="flex flex-col min-w-0">
+                    <h3 className="text-white font-black tracking-tight truncate">{selected.nombre}</h3>
+                    <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest truncate">{selected.email}</span>
+                 </div>
+               </div>
+
+               <div className="flex gap-2">
+                 <div className="flex-1 p-3 bg-white/5 rounded-2xl border border-white/10">
+                    <span className="text-[8px] font-black text-white/30 uppercase tracking-widest block mb-1">Estado de Cuenta</span>
+                    <div className="flex items-center gap-2">
+                      <div className={`w-2 h-2 rounded-full ${selected.estado ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'}`} />
+                      <span className="text-[10px] font-black text-white uppercase">{selected.estado ? 'Activo' : 'Cerrado'}</span>
+                    </div>
+                 </div>
+                 <div className="flex-1 p-3 bg-white/5 rounded-2xl border border-white/10">
+                    <span className="text-[8px] font-black text-white/30 uppercase tracking-widest block mb-1">Jurisdicción</span>
+                    <span className="text-[10px] font-black text-white uppercase truncate block">{selected.municipio}</span>
+                 </div>
+               </div>
+            </div>
+
+            <div className="p-8 space-y-8 flex-1 overflow-y-auto custom-scrollbar">
+              <section>
+                <div className="flex items-center gap-2 mb-4 opacity-40">
+                  <ShieldCheck size={14} className="text-brand-500" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">Configuración de Roles</span>
                 </div>
-                <div style={{ fontWeight: 700, fontSize: '1rem', color: '#0f172a' }}>{selected.nombre}</div>
-                <div style={{ fontSize: '0.8125rem', color: '#64748b' }}>{selected.email}</div>
-              </div>
-              <button className="btn-secondary" style={{ padding: '0.25rem 0.625rem', fontSize: '0.75rem' }} onClick={() => setSelected(null)}>✕</button>
-            </div>
+                
+                <div className="grid grid-cols-1 gap-2">
+                  {roles.map((rol) => {
+                    const tiene = selected.roles.includes(rol.nombre);
+                    return (
+                      <label 
+                        key={rol.id} 
+                        className={`group flex items-center justify-between p-3 rounded-2xl border transition-all cursor-pointer ${tiene ? 'bg-brand-50 border-brand-100 dark:bg-brand-500/5 dark:border-brand-500/20' : 'bg-slate-50 border-slate-100 dark:bg-slate-800/30 dark:border-slate-800 hover:border-slate-200'}`}
+                      >
+                        <div className="flex items-center gap-3">
+                           <div className={`w-5 h-5 rounded-lg border-2 flex items-center justify-center transition-all ${tiene ? 'bg-brand-500 border-brand-500 text-white' : 'border-slate-300 bg-white'}`}>
+                             {tiene && <CheckCircle2 size={12} />}
+                             <input
+                                type="checkbox" className="hidden"
+                                checked={tiene}
+                                disabled={togglingRol === rol.id}
+                                onChange={() => handleToggleRol(selected.id, rol.id, tiene)}
+                              />
+                           </div>
+                           <div className="flex flex-col leading-tight">
+                             <span className={`text-xs font-bold ${tiene ? 'text-brand-700 dark:text-brand-400' : 'text-slate-600'}`}>{rol.nombre}</span>
+                             {rol.descripcion && <span className="text-[9px] text-slate-400 font-medium group-hover:text-slate-500 transition-colors uppercase tracking-tight">{rol.descripcion}</span>}
+                           </div>
+                        </div>
+                         {togglingRol === rol.id && <Activity size={12} className="animate-spin text-brand-500" />}
+                      </label>
+                    );
+                  })}
+                </div>
+              </section>
 
-            <div style={{ fontSize: '0.8125rem', color: '#475569', marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-              <div><strong>Teléfono:</strong> {selected.telefono}</div>
-              <div><strong>Municipio:</strong> {selected.municipio}</div>
-              <div><strong>Estado:</strong> {selected.estado ? 'Activo' : 'Inactivo'}</div>
-            </div>
-
-            <div style={{ marginBottom: '1.25rem' }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.5rem' }}>Roles</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
-                {roles.map((rol) => {
-                  const tiene = selected.roles.includes(rol.nombre);
-                  return (
-                    <label key={rol.id} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.875rem', color: '#334155' }}>
-                      <input
-                        type="checkbox" checked={tiene}
-                        disabled={togglingRol === rol.id}
-                        onChange={() => handleToggleRol(selected.id, rol.id, tiene)}
-                        style={{ width: 16, height: 16, accentColor: '#1d4ed8' }}
-                      />
-                      <span style={{ fontWeight: tiene ? 600 : 400 }}>{rol.nombre}</span>
-                      {rol.descripcion && <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>— {rol.descripcion}</span>}
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button className="btn-secondary" style={{ flex: 1, justifyContent: 'center' }} onClick={() => abrirEditar(selected)}>Editar</button>
-              <button className="btn-danger" style={{ flex: 1, justifyContent: 'center' }} onClick={() => handleEliminar(selected.id)}>Eliminar</button>
+              <section className="space-y-4">
+                 <div className="flex items-center gap-2 mb-2 opacity-40">
+                  <Activity size={14} className="text-slate-500" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">Acciones de Terminal</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <button className="btn-secondary w-full justify-center" onClick={() => abrirEditar(selected)}>
+                    <Edit3 size={14} />
+                    <span>Ajustar</span>
+                  </button>
+                  <button className="btn-danger w-full justify-center" onClick={() => handleEliminar(selected.id)}>
+                    <Trash2 size={14} />
+                    <span>Eliminar</span>
+                  </button>
+                </div>
+              </section>
             </div>
           </div>
-        </div>
+        </aside>
       )}
 
-      {modal && (
-        <div style={overlay}>
-          <div style={modalBox}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-              <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0f172a' }}>{modal === 'crear' ? 'Nuevo usuario' : 'Editar usuario'}</h3>
-              <button className="btn-secondary" style={{ padding: '0.25rem 0.625rem' }} onClick={() => setModal(null)}>✕</button>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 1rem' }}>
-              <div className="form-group">
-                <label>Nombre *</label>
-                <input className="input-field" value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} />
-              </div>
-              <div className="form-group">
-                <label>Email *</label>
-                <input className="input-field" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-              </div>
-              <div className="form-group">
-                <label>{modal === 'editar' ? 'Nueva contraseña' : 'Contraseña'}</label>
-                <input className="input-field" type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} placeholder={modal === 'editar' ? 'Dejar vacío para no cambiar' : ''} />
-              </div>
-              <div className="form-group">
-                <label>Teléfono</label>
-                <input className="input-field" value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} />
-              </div>
-              <div className="form-group" style={{ gridColumn: 'span 2', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <input type="checkbox" id="estado" checked={form.estado} onChange={(e) => setForm({ ...form, estado: e.target.checked })} style={{ width: 16, height: 16, accentColor: '#1d4ed8' }} />
-                <label htmlFor="estado" style={{ margin: 0, cursor: 'pointer' }}>Usuario activo</label>
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
-              <button className="btn-secondary" onClick={() => setModal(null)}>Cancelar</button>
-              <button onClick={handleGuardar} disabled={guardando}>{guardando ? 'Guardando...' : 'Guardar'}</button>
-            </div>
-          </div>
+      {/* Modal Estandarizado */}
+      <Modal
+        isOpen={!!modal}
+        onClose={() => setModal(null)}
+        title={modal === 'crear' ? 'Registro de Operador' : 'Actualización de Perfil'}
+        subtitle={modal === 'crear' ? 'Configurar nuevo acceso' : `ID: ${selected?.id?.slice(0, 8)}`}
+        maxWidth="640px"
+      >
+        <div className="space-y-8 py-2">
+          <section>
+             <div className="modal-section-header">
+               <User className="text-brand-500" size={18} />
+               <h4 className="flex items-center gap-2">
+                 Perfil de Identidad
+                 <span className="line"></span>
+               </h4>
+             </div>
+             
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="form-group md:col-span-1">
+                  <label className="form-label">Nombre y Apellido *</label>
+                  <input className="input-premium" value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} placeholder="Ej: Juan Pérez" />
+                </div>
+                <div className="form-group md:col-span-1">
+                  <label className="form-label">Email de Sistema *</label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+                    <input className="input-premium pl-10" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="juan@municipio.gob.ar" />
+                  </div>
+                </div>
+                <div className="form-group md:col-span-2">
+                  <label className="form-label">Línea Telefónica</label>
+                  <div className="relative">
+                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+                    <input className="input-premium pl-10" value={form.telefono} onChange={(e) => setForm({ ...form, telefono: e.target.value })} placeholder="Ej: 299123456" />
+                  </div>
+                </div>
+             </div>
+          </section>
+
+          <section>
+             <div className="modal-section-header">
+               <Lock className="text-brand-500" size={18} />
+               <h4 className="flex items-center gap-2">
+                 Credenciales de Acceso
+                 <span className="line"></span>
+               </h4>
+             </div>
+             
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-end">
+                <div className="form-group">
+                  <label className="form-label">{modal === 'editar' ? 'Modificar Contraseña' : 'Password de Acceso *'}</label>
+                  <input className="input-premium" type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} placeholder={modal === 'editar' ? 'Dejar en blanco si no cambia' : '●●●●●●●●'} />
+                </div>
+                
+                <div className="form-group">
+                  <label className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 rounded-2xl cursor-pointer hover:bg-slate-100 transition-all">
+                    <input type="checkbox" checked={form.estado} onChange={(e) => setForm({ ...form, estado: e.target.checked })} className="w-5 h-5 accent-brand-500 rounded-lg shadow-sm" />
+                    <div className="flex flex-col leading-tight">
+                       <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Protocolo SSO</span>
+                       <span className="text-xs font-bold text-slate-700 dark:text-slate-200">Cuenta Habilitada ✅</span>
+                    </div>
+                  </label>
+                </div>
+             </div>
+          </section>
         </div>
-      )}
+
+        <div className="modal-footer mt-10">
+          <button className="btn-secondary" onClick={() => setModal(null)}>Cancelar</button>
+          <button className="btn-primary min-w-[160px]" onClick={handleGuardar} disabled={guardando}>
+            {guardando ? 'Procesando...' : (modal === 'crear' ? 'Registrar Acceso' : 'Actualizar Perfil')}
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }
-
-const overlay: React.CSSProperties = { position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 };
-const modalBox: React.CSSProperties = { background: '#fff', borderRadius: '0.75rem', padding: '1.75rem', width: '100%', maxWidth: '520px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' };

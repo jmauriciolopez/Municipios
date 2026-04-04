@@ -7,11 +7,37 @@ import toast from 'react-hot-toast';
 import DataTable from '../components/ui/DataTable';
 import FilterBar from '../components/ui/FilterBar';
 import StatusBadge from '../components/ui/StatusBadge';
+import Modal from '../components/ui/Modal';
+import DetailDrawer from '../components/ui/DetailDrawer';
+import { 
+  ClipboardList, 
+  Plus, 
+  Calendar, 
+  AlertTriangle, 
+  CheckCircle2, 
+  ArrowRight,
+  MapPin,
+  Hash,
+  MoreHorizontal,
+  Users,
+  Layout,
+  Clock,
+  Tag,
+  Briefcase
+} from 'lucide-react';
 
 type OrdenRow = {
-  id: string; codigo: string; estado: string; prioridad: string;
-  area: string; areaId: string; cuadrilla: string; cuadrillaId: string;
-  fechaAsignacion: string; fechaCierre: string; descripcion: string;
+  id: string; 
+  codigo: string; 
+  estado: string; 
+  prioridad: string;
+  area: string; 
+  areaId: string; 
+  cuadrilla: string; 
+  cuadrillaId: string;
+  fechaAsignacion: string; 
+  fechaCierre: string; 
+  descripcion: string;
 };
 type CuadrillaOpt = { id: string; nombre: string };
 type AreaOpt = { id: string; nombre: string };
@@ -43,15 +69,20 @@ export default function OrdenesPage() {
     getOrdenes()
       .then((data: any[]) =>
         setOrdenes(data.map((o) => ({
-          id: o.id, codigo: o.codigo, estado: o.estado, prioridad: o.prioridad,
-          area: o.area?.nombre ?? '', areaId: o.area?.id ?? '',
-          cuadrilla: o.cuadrilla?.nombre ?? 'Sin asignar', cuadrillaId: o.cuadrilla?.id ?? '',
-          fechaAsignacion: (o.fechaAsignacion ?? '').slice(0, 10),
+          id: o.id, 
+          codigo: o.codigo, 
+          estado: o.estado, 
+          prioridad: o.prioridad,
+          area: o.area?.nombre ?? 'Sin Área', 
+          areaId: o.area?.id ?? '',
+          cuadrilla: o.cuadrilla?.nombre ?? 'Sin Asignar', 
+          cuadrillaId: o.cuadrilla?.id ?? '',
+          fechaAsignacion: o.fechaAsignacion ? o.fechaAsignacion.slice(0, 10) : 'Pendiente',
           fechaCierre: o.fechaCierre ? o.fechaCierre.slice(0, 10) : 'Pendiente',
-          descripcion: o.descripcion ?? '',
+          descripcion: o.descripcion ?? 'Sin descripción proporcionada.',
         })))
       )
-      .catch(() => setError('No se pudieron cargar las órdenes.'))
+      .catch(() => setError('No se pudieron sincronizar las órdenes de trabajo.'))
       .finally(() => setLoading(false));
 
   useEffect(() => {
@@ -61,7 +92,7 @@ export default function OrdenesPage() {
   }, []);
 
   const areasUnicas = useMemo(
-    () => [...new Map(ordenes.filter((o) => o.area).map((o) => [o.areaId, o.area])).entries()],
+    () => [...new Map(ordenes.filter((o) => o.area !== 'Sin Área').map((o) => [o.areaId, o.area])).entries()],
     [ordenes]
   );
 
@@ -87,12 +118,16 @@ export default function OrdenesPage() {
         o.id === ordenId ? { ...o, cuadrillaId, cuadrilla: nombre, estado: 'asignado' } : o
       ));
       if (selected?.id === ordenId) setSelected((s) => s ? { ...s, cuadrillaId, cuadrilla: nombre, estado: 'asignado' } : s);
-    } catch { toast.error('Error al asignar la cuadrilla.'); }
-    finally { setAsignando(null); }
+      toast.success(`Cuadrilla ${nombre} asignada exitosamente`);
+    } catch { 
+      toast.error('Error al procesar la asignación.'); 
+    } finally { 
+      setAsignando(null); 
+    }
   };
 
   const handleCrear = async () => {
-    if (!form.codigo) { toast.error('El código es obligatorio.'); return; }
+    if (!form.codigo) { toast.error('El código de orden es obligatorio.'); return; }
     setGuardando(true);
     try {
       await createOrden({
@@ -107,57 +142,135 @@ export default function OrdenesPage() {
       setForm(FORM_EMPTY);
       setLoading(true);
       cargar();
-    } catch { toast.error('Error al crear la orden.'); }
-    finally { setGuardando(false); }
+      toast.success('Nueva Orden de Trabajo registrada');
+    } catch { 
+      toast.error('Error al registrar la orden.'); 
+    } finally { 
+      setGuardando(false); 
+    }
   };
 
   const columns = [
-    { key: 'codigo', label: 'Código', render: (o: OrdenRow) => <span style={{ fontFamily: 'monospace', fontSize: '0.8125rem', fontWeight: 600 }}>{o.codigo}</span> },
-    { key: 'estado', label: 'Estado', render: (o: OrdenRow) => <StatusBadge status={o.estado} /> },
-    { key: 'prioridad', label: 'Prioridad', render: (o: OrdenRow) => <StatusBadge status={o.prioridad} /> },
-    { key: 'area', label: 'Área' },
-    {
-      key: 'cuadrilla', label: 'Cuadrilla',
+    { 
+      key: 'codigo', 
+      label: 'Identificador', 
       render: (o: OrdenRow) => (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <span style={{ fontSize: '0.8125rem', color: o.cuadrillaId ? '#334155' : '#94a3b8' }}>{o.cuadrilla}</span>
+        <div className="flex items-center gap-3">
+           <div className="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-600 border border-brand-500/20">
+              <Hash size={14} />
+           </div>
+           <span className="font-mono text-sm font-bold text-slate-900 dark:text-white tracking-widest">{o.codigo}</span>
+        </div>
+      ) 
+    },
+    { key: 'estado', label: 'Estatus', render: (o: OrdenRow) => <StatusBadge status={o.estado} /> },
+    { key: 'prioridad', label: 'Severidad', render: (o: OrdenRow) => <StatusBadge status={o.prioridad} /> },
+    { 
+      key: 'area', 
+      label: 'Dependencia',
+      render: (o: OrdenRow) => (
+        <div className="flex items-center gap-1.5 grayscale opacity-70">
+           <MapPin size={12} className="text-slate-400" />
+           <span className="text-xs font-bold uppercase tracking-wider">{o.area}</span>
+        </div>
+      )
+    },
+    {
+      key: 'cuadrilla', 
+      label: 'Asignación Operativa',
+      render: (o: OrdenRow) => (
+        <div className="flex items-center gap-2 group/cuad">
+          <div className="flex flex-col">
+            <span className={`text-xs font-bold ${o.cuadrillaId ? 'text-slate-700 dark:text-slate-300' : 'text-slate-300 italic'}`}>
+              {o.cuadrilla}
+            </span>
+          </div>
           {['detectado', 'asignado'].includes(o.estado) && (
-            <select
-              value={o.cuadrillaId} disabled={asignando === o.id}
-              onClick={(e) => e.stopPropagation()}
-              onChange={(e) => e.target.value && handleAsignarCuadrilla(o.id, e.target.value)}
-              style={{ fontSize: '0.75rem', padding: '0.125rem 0.375rem', border: '1px solid #e2e8f0', borderRadius: '0.375rem', background: '#f8fafc', cursor: 'pointer' }}
-            >
-              <option value="">Asignar...</option>
-              {cuadrillas.map((c) => <option key={c.id} value={c.id}>{c.nombre}</option>)}
-            </select>
+            <div className="relative group/sel">
+              <select
+                value={o.cuadrillaId} 
+                disabled={asignando === o.id}
+                onClick={(e) => e.stopPropagation()}
+                onChange={(e) => e.target.value && handleAsignarCuadrilla(o.id, e.target.value)}
+                className="appearance-none bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-slate-500 cursor-pointer hover:border-brand-500/50 transition-all focus:ring-0 focus:outline-none pr-6"
+              >
+                <option value="">REASIGNAR...</option>
+                {cuadrillas.map((c) => <option key={c.id} value={c.id}>{c.nombre}</option>)}
+              </select>
+              <div className="absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 group-hover/sel:text-brand-500">
+                 <MoreHorizontal size={10} />
+              </div>
+            </div>
           )}
         </div>
       ),
     },
-    { key: 'fechaAsignacion', label: 'Asignación' },
-    { key: 'fechaCierre', label: 'Cierre' },
+    { 
+      key: 'fechas', 
+      label: 'Cronología',
+      render: (o: OrdenRow) => (
+        <div className="flex flex-col gap-0.5">
+           <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-bold uppercase tracking-tight">
+              <Calendar size={10} />
+              <span>IN: {o.fechaAsignacion}</span>
+           </div>
+           <div className="flex items-center gap-1.5 text-[10px] text-slate-400 font-bold uppercase tracking-tight">
+              <CheckCircle2 size={10} className={o.fechaCierre !== 'Pendiente' ? 'text-emerald-500' : 'opacity-30'} />
+              <span>OUT: {o.fechaCierre}</span>
+           </div>
+        </div>
+      )
+    },
+    {
+      key: 'acciones',
+      label: '',
+      render: () => (
+        <div className="flex justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+           <div className="w-8 h-8 rounded-full bg-brand-50 flex items-center justify-center text-brand-600">
+             <ArrowRight size={18} />
+           </div>
+        </div>
+      )
+    }
   ];
 
-  if (loading) return <div className="loading-state">Cargando órdenes...</div>;
-  if (error) return <div className="error-state">{error}</div>;
+  if (loading) return (
+    <div className="flex flex-col items-center justify-center h-full gap-4 opacity-50">
+      <span className="font-black text-[10px] uppercase tracking-[0.4em]">Sincronizando Órdenes de Trabajo...</span>
+    </div>
+  );
+
+  if (error) return (
+    <div className="flex flex-col items-center justify-center h-full gap-4 text-red-500">
+      <AlertTriangle size={40} />
+      <span className="font-bold text-sm tracking-tight text-center max-w-xs">{error}</span>
+      <button className="btn-secondary" onClick={cargar}>Reintentar Conexión</button>
+    </div>
+  );
 
   return (
-    <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-      <section style={{ flex: 1, minWidth: 0 }}>
-        <header className="page-header">
-          <h2>Órdenes de trabajo</h2>
-          <button onClick={() => { setForm(FORM_EMPTY); setModal(true); }}>+ Nueva orden</button>
+    <div className="flex gap-8 items-start h-full pb-8">
+      <section className="flex-1 min-w-0 flex flex-col gap-8 h-full">
+        <header className="page-header !mb-0">
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2 text-brand-500 mb-1">
+               <ClipboardList size={16} />
+               <span className="text-[10px] font-black uppercase tracking-[0.3em]">Gestión Operativa</span>
+            </div>
+            <h2 className="text-3xl font-black tracking-tighter text-slate-900 dark:text-white leading-none">Ordenes</h2>
+          </div>
+          <button className="btn-primary" onClick={() => { setForm(FORM_EMPTY); setModal(true); }}>
+            <Plus size={18} /> 
+            <span>Nueva Orden</span>
+          </button>
         </header>
 
         <FilterBar
           filters={[
-            { key: 'estado', label: 'Estado', value: estado, type: 'select', options: ESTADOS_OT.map((e) => ({ value: e, label: e.replace(/_/g, ' ') })) },
-            { key: 'prioridad', label: 'Prioridad', value: prioridad, type: 'select', options: PRIORIDADES.map((p) => ({ value: p, label: p })) },
-            { key: 'area', label: 'Área', value: area, type: 'select', options: areasUnicas.map(([id, nombre]) => ({ value: id, label: nombre })) },
-            { key: 'cuadrilla', label: 'Cuadrilla', value: cuadrilla, type: 'select', options: cuadrillas.map((c) => ({ value: c.id, label: c.nombre })) },
-            { key: 'desde', label: 'Desde', value: desde, type: 'text' },
-            { key: 'hasta', label: 'Hasta', value: hasta, type: 'text' },
+            { key: 'estado', label: 'Estatus', value: estado, type: 'select', options: [{ value: '', label: 'Todos los Estatus' }, ...ESTADOS_OT.map((e) => ({ value: e, label: e.replace(/_/g, ' ').toUpperCase() }))] },
+            { key: 'prioridad', label: 'Prioridad', value: prioridad, type: 'select', options: [{ value: '', label: 'Cualquier Prioridad' }, ...PRIORIDADES.map((p) => ({ value: p, label: p.toUpperCase() }))] },
+            { key: 'area', label: 'Área / Jurisdicción', value: area, type: 'select', options: [{ value: '', label: 'Todas las Áreas' }, ...areasUnicas.map(([id, nombre]) => ({ value: id, label: nombre }))] },
+            { key: 'cuadrilla', label: 'Fuerza Operativa', value: cuadrilla, type: 'select', options: [{ value: '', label: 'Todas las Cuadrillas' }, ...cuadrillas.map((c) => ({ value: c.id, label: c.nombre }))] },
           ]}
           onChange={(key, value) => {
             const v = String(value);
@@ -165,118 +278,160 @@ export default function OrdenesPage() {
             if (key === 'prioridad') setPrioridad(v);
             if (key === 'area') setArea(v);
             if (key === 'cuadrilla') setCuadrilla(v);
-            if (key === 'desde') setDesde(v);
-            if (key === 'hasta') setHasta(v);
           }}
           onReset={() => { setEstado(''); setPrioridad(''); setArea(''); setCuadrilla(''); setDesde(''); setHasta(''); }}
         />
 
-        <DataTable
-          data={filtered} columns={columns}
-          onRowClick={(o) => { setSelected(o); }}
-          emptyMessage="No se encontraron órdenes"
-        />
+        <div className="flex-1 overflow-hidden rounded-[2rem] border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md shadow-premium">
+           <DataTable 
+            data={filtered} 
+            columns={columns} 
+            onRowClick={setSelected} 
+            emptyMessage="No se detectaron órdenes de trabajo bajo los criterios seleccionados" 
+           />
+        </div>
       </section>
 
-      {selected && (
-        <div style={{ width: '290px', flexShrink: 0 }}>
-          <div className="chart-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
-              <div>
-                <div style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '1rem', color: '#0f172a' }}>{selected.codigo}</div>
-                <div style={{ fontSize: '0.8125rem', color: '#64748b', marginTop: '0.125rem' }}>{selected.area || 'Sin área'}</div>
-              </div>
-              <button className="btn-secondary" style={{ padding: '0.25rem 0.625rem', fontSize: '0.75rem' }} onClick={() => setSelected(null)}>✕</button>
-            </div>
-
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-              <StatusBadge status={selected.estado} />
-              <StatusBadge status={selected.prioridad} />
-            </div>
-
-            <div style={{ fontSize: '0.8125rem', color: '#475569', display: 'flex', flexDirection: 'column', gap: '0.375rem', marginBottom: '1.25rem' }}>
-              <div><strong>Cuadrilla:</strong> {selected.cuadrilla}</div>
-              <div><strong>Asignación:</strong> {selected.fechaAsignacion || 'N/A'}</div>
-              <div><strong>Cierre:</strong> {selected.fechaCierre}</div>
-              {selected.descripcion && <div><strong>Descripción:</strong> {selected.descripcion}</div>}
-            </div>
-
-            {['detectado', 'asignado'].includes(selected.estado) && (
-              <div style={{ marginBottom: '1rem' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.375rem' }}>Asignar cuadrilla</div>
-                <select
-                  value={selected.cuadrillaId}
-                  disabled={asignando === selected.id}
-                  onChange={(e) => e.target.value && handleAsignarCuadrilla(selected.id, e.target.value)}
-                  style={{ width: '100%', fontSize: '0.875rem', padding: '0.5rem 0.75rem', border: '1px solid #e2e8f0', borderRadius: '0.5rem', background: '#f8fafc' }}
-                >
-                  <option value="">Seleccionar...</option>
-                  {cuadrillas.map((c) => <option key={c.id} value={c.id}>{c.nombre}</option>)}
-                </select>
-              </div>
-            )}
-
-            <button
-              style={{ width: '100%', justifyContent: 'center' }}
-              onClick={() => navigate(`/ordenes/${selected.id}`)}
+      <Modal
+        isOpen={modal}
+        onClose={() => setModal(false)}
+        title="Nueva Orden de Trabajo"
+        subtitle="Registro de siniestros, fallas y planes operativos de mantenimiento"
+        maxWidth="650px"
+        footer={
+          <div className="flex justify-end gap-3 w-full">
+            <button className="px-6 py-2.5 rounded-xl text-slate-500 font-bold hover:bg-slate-100 transition-colors" onClick={() => setModal(false)}>
+              Descartar
+            </button>
+            <button 
+              className="px-8 py-2.5 bg-brand-500 text-white rounded-xl font-black uppercase tracking-widest shadow-lg shadow-brand-500/25 hover:bg-brand-600 transition-all active:scale-95 disabled:opacity-50"
+              onClick={handleCrear} 
+              disabled={guardando}
             >
-              Ver detalle completo →
+              {guardando ? 'Emitiendo Orden...' : 'Generar Orden de Trabajo'}
             </button>
           </div>
-        </div>
-      )}
+        }
+      >
+        <div className="flex flex-col gap-10 py-4">
+           {/* Primary Identifiers */}
+           <div className="flex flex-col gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="flex flex-col gap-2.5">
+                  <label className="form-label flex items-center gap-2">
+                    <Hash size={12} className="text-brand-500" />
+                    Código de Orden *
+                  </label>
+                  <input 
+                    className="input-premium font-mono font-black tracking-widest" 
+                    value={form.codigo} 
+                    onChange={(e) => setForm({ ...form, codigo: e.target.value })} 
+                    placeholder="OT-XXXX-2024" 
+                  />
+                </div>
 
-      {modal && (
-        <div style={overlay}>
-          <div style={modalBox}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-              <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0f172a' }}>Nueva orden de trabajo</h3>
-              <button className="btn-secondary" style={{ padding: '0.25rem 0.625rem' }} onClick={() => setModal(false)}>✕</button>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 1rem' }}>
-              <div className="form-group">
-                <label>Código *</label>
-                <input className="input-field" value={form.codigo} onChange={(e) => setForm({ ...form, codigo: e.target.value })} placeholder="OT-001" />
+                <div className="flex flex-col gap-2.5">
+                  <label className="form-label flex items-center gap-2">
+                    <AlertTriangle size={12} className="text-brand-500" />
+                    Criterio de Prioridad
+                  </label>
+                  <div className="relative">
+                    <select 
+                      className="input-premium font-bold pl-12 h-14 appearance-none" 
+                      value={form.prioridad} 
+                      onChange={(e) => setForm({ ...form, prioridad: e.target.value })}
+                    >
+                      {PRIORIDADES.map((p) => <option key={p} value={p}>{p.toUpperCase()}</option>)}
+                    </select>
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 opacity-50 pointer-events-none">
+                       <Tag size={18} />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="form-group">
-                <label>Prioridad</label>
-                <select className="input-field" value={form.prioridad} onChange={(e) => setForm({ ...form, prioridad: e.target.value })}>
-                  {PRIORIDADES.map((p) => <option key={p} value={p}>{p}</option>)}
-                </select>
+
+              <div className="flex items-center gap-3">
+                 <div className="w-10 h-px bg-slate-200 dark:bg-slate-800" />
+                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">Asignación Inicial</span>
+                 <div className="flex-1 h-px bg-slate-200 dark:bg-slate-800" />
               </div>
-              <div className="form-group">
-                <label>Área</label>
-                <select className="input-field" value={form.area_id} onChange={(e) => setForm({ ...form, area_id: e.target.value })}>
-                  <option value="">Sin área</option>
-                  {areas.map((a) => <option key={a.id} value={a.id}>{a.nombre}</option>)}
-                </select>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="flex flex-col gap-2.5">
+                  <label className="form-label flex items-center gap-2">
+                    <Layout size={12} className="text-brand-500" />
+                    Área Responsable
+                  </label>
+                  <div className="relative">
+                    <select 
+                      className="input-premium font-bold pl-12 h-14 appearance-none" 
+                      value={form.area_id} 
+                      onChange={(e) => setForm({ ...form, area_id: e.target.value })}
+                    >
+                      <option value="">Sin Área Específica</option>
+                      {areas.map((a) => <option key={a.id} value={a.id}>{a.nombre}</option>)}
+                    </select>
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 opacity-50 pointer-events-none">
+                       <MapPin size={18} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2.5">
+                  <label className="form-label flex items-center gap-2">
+                    <Briefcase size={12} className="text-brand-500" />
+                    Equipo Operativo Directo
+                  </label>
+                  <div className="relative">
+                    <select 
+                      className="input-premium font-bold pl-12 h-14 appearance-none" 
+                      value={form.cuadrilla_id} 
+                      onChange={(e) => setForm({ ...form, cuadrilla_id: e.target.value })}
+                    >
+                      <option value="">Postergar Asignación</option>
+                      {cuadrillas.map((c) => <option key={c.id} value={c.id}>{c.nombre}</option>)}
+                    </select>
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 opacity-50 pointer-events-none">
+                       <Users size={18} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2.5">
+                  <label className="form-label flex items-center gap-2">
+                    <Calendar size={12} className="text-brand-500" />
+                    Fecha Programada de Inicio
+                  </label>
+                  <div className="relative">
+                    <input 
+                      className="input-premium pl-12 h-14 font-bold" 
+                      type="date" 
+                      value={form.fecha_asignacion} 
+                      onChange={(e) => setForm({ ...form, fecha_asignacion: e.target.value })} 
+                    />
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 opacity-50 pointer-events-none">
+                       <Clock size={18} />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="form-group">
-                <label>Cuadrilla</label>
-                <select className="input-field" value={form.cuadrilla_id} onChange={(e) => setForm({ ...form, cuadrilla_id: e.target.value })}>
-                  <option value="">Sin asignar</option>
-                  {cuadrillas.map((c) => <option key={c.id} value={c.id}>{c.nombre}</option>)}
-                </select>
+
+              <div className="flex flex-col gap-2.5">
+                <label className="form-label flex items-center gap-2">
+                  <ClipboardList size={12} className="text-brand-500" />
+                  Descripción del Requerimiento Operativo
+                </label>
+                <textarea 
+                  className="input-premium min-h-[120px] py-4" 
+                  rows={3} 
+                  value={form.descripcion} 
+                  onChange={(e) => setForm({ ...form, descripcion: e.target.value })} 
+                  placeholder="Detalle de la tarea, ubicación exacta y requerimientos técnicos..." 
+                />
               </div>
-              <div className="form-group">
-                <label>Fecha asignación</label>
-                <input className="input-field" type="date" value={form.fecha_asignacion} onChange={(e) => setForm({ ...form, fecha_asignacion: e.target.value })} />
-              </div>
-              <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                <label>Descripción</label>
-                <textarea className="input-field" rows={3} value={form.descripcion} onChange={(e) => setForm({ ...form, descripcion: e.target.value })} style={{ resize: 'vertical' }} placeholder="Descripción del trabajo a realizar..." />
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
-              <button className="btn-secondary" onClick={() => setModal(false)}>Cancelar</button>
-              <button onClick={handleCrear} disabled={guardando}>{guardando ? 'Guardando...' : 'Crear orden'}</button>
-            </div>
-          </div>
+           </div>
         </div>
-      )}
+      </Modal>
     </div>
   );
 }
-
-const overlay: React.CSSProperties = { position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 };
-const modalBox: React.CSSProperties = { background: '#fff', borderRadius: '0.75rem', padding: '1.75rem', width: '100%', maxWidth: '580px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)', maxHeight: '90vh', overflowY: 'auto' };

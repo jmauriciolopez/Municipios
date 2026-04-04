@@ -1,0 +1,4 @@
+ALTER TABLE "categorias"
+  ADD COLUMN "orden" INTEGER NOT NULL DEFAULT 0,
+  ADD COLUMN "icono" TEXT,
+  ADD COLUMN "color" TEXT;

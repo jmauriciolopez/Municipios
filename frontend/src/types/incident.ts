@@ -8,4 +8,6 @@ export type Incident = {
   lng: number;
   direccion: string;
   fecha: string;
+  categoriaCodigo?: string;
+  categoriaColor?: string;
 };

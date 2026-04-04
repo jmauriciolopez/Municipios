@@ -7,6 +7,20 @@ import toast from 'react-hot-toast';
 import { confirm } from '../components/ui/ConfirmDialog';
 import StatusBadge from '../components/ui/StatusBadge';
 import EvidenciasPanel from '../components/ui/EvidenciasPanel';
+import Modal from '../components/ui/Modal';
+import { 
+  ChevronLeft, 
+  Package, 
+  Trash2, 
+  Plus, 
+  Users, 
+  Calendar, 
+  Clock, 
+  Briefcase,
+  AlertCircle,
+  FileText,
+  ArrowRight
+} from 'lucide-react';
 
 const ESTADOS_ORDEN = ['detectado', 'asignado', 'en_proceso', 'resuelto', 'verificado'];
 const TRANSICIONES: Record<string, string[]> = {
@@ -58,6 +72,7 @@ export default function OrdenDetallePage() {
     try {
       const updated = await cambiarEstadoOrden(id, nuevoEstado);
       setOrden((prev: any) => ({ ...prev, ...(updated as any) }));
+      toast.success(`Estado actualizado: ${nuevoEstado.replace(/_/g, ' ')}`);
     } catch (e: any) {
       const msg = e?.message ?? '';
       toast.error(msg.includes('API error') ? 'Transición de estado no permitida.' : 'Error al cambiar el estado.');
@@ -73,6 +88,7 @@ export default function OrdenDetallePage() {
       const updated = await asignarCuadrilla(id, cuadrillaId);
       const cuadrilla = cuadrillas.find((c: any) => c.id === cuadrillaId);
       setOrden((prev: any) => ({ ...prev, ...(updated as any), cuadrilla }));
+      toast.success(`Cuadrilla ${cuadrilla.nombre} asignada`);
     } catch {
       toast.error('Error al asignar la cuadrilla.');
     } finally {
@@ -94,6 +110,7 @@ export default function OrdenDetallePage() {
       setMateriales((prev) => [...prev, nuevo]);
       setModalMaterial(false);
       setFormMaterial({ item: '', cantidad: '', unidad: '', estado: '' });
+      toast.success('Material agregado');
     } catch { toast.error('Error al agregar el material.'); }
     finally { setGuardandoMaterial(false); }
   };
@@ -103,6 +120,7 @@ export default function OrdenDetallePage() {
     try {
       await apiFetch(`/ordenes-trabajo/${id}/materiales/${materialId}`, { method: 'DELETE' });
       setMateriales((prev) => prev.filter((m) => m.id !== materialId));
+      toast.success('Material eliminado');
     } catch { toast.error('Error al eliminar el material.'); }
   };
 
@@ -115,147 +133,251 @@ export default function OrdenDetallePage() {
   const siguientes = TRANSICIONES[orden.estado] ?? [];
 
   return (
-    <section>
-      <header className="page-header">
-        <div>
-          <h2>{orden.codigo}</h2>
-          <div style={{ fontSize: '0.8125rem', color: '#64748b', marginTop: '0.25rem', display: 'flex', gap: '0.75rem' }}>
-            {area && <span>{area}</span>}
-            {duracion?.real_horas != null && (
-              <span>· Duración: <strong>{duracion.real_horas.toFixed(1)}h</strong></span>
-            )}
+    <section className="space-y-6">
+      <header className="page-header bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 shadow-sm">
+            <Package size={28} />
+          </div>
+          <div>
+            <div className="flex items-center gap-3">
+              <h2 className="text-xl font-black text-slate-900 leading-tight uppercase tracking-tight">{orden.codigo}</h2>
+              <StatusBadge status={orden.estado} />
+            </div>
+            <div className="flex items-center gap-2 text-xs text-slate-400 mt-1 font-bold">
+              <span className="flex items-center gap-1"><Briefcase size={12} /> {area || 'Sin Área'}</span>
+              <span className="text-slate-200">|</span>
+              {duracion?.real_horas != null && (
+                 <span className="text-indigo-600/70">Duración: <strong>{duracion.real_horas.toFixed(1)}h</strong></span>
+              )}
+            </div>
           </div>
         </div>
-        <div className="actions">
-          <button className="btn-secondary" onClick={() => navigate(-1)}>← Volver</button>
-          {siguientes.filter((s) => s !== 'cancelado').map((sig) => (
-            <button key={sig} disabled={cambiandoEstado} onClick={() => handleCambiarEstado(sig)}>
-              {cambiandoEstado ? '...' : `→ ${sig.replace(/_/g, ' ')}`}
-            </button>
-          ))}
-          {siguientes.includes('cancelado') && (
-            <button className="btn-danger" disabled={cambiandoEstado} onClick={() => handleCambiarEstado('cancelado')}>
-              Cancelar orden
-            </button>
-          )}
+        <div className="flex items-center gap-2 w-full md:w-auto">
+          <button className="btn-secondary flex-1 md:flex-none justify-center" onClick={() => navigate(-1)}>
+            <ChevronLeft size={16} /> Volver
+          </button>
+          
+          <div className="flex items-center gap-2 flex-2 md:flex-none">
+            {siguientes.filter((s) => s !== 'cancelado').map((sig) => (
+              <button key={sig} className="btn-primary bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-100 transition-all flex items-center gap-2 active:scale-95" disabled={cambiandoEstado} onClick={() => handleCambiarEstado(sig)}>
+                {cambiandoEstado ? <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" /> : <ArrowRight size={18} />}
+                {sig.replace(/_/g, ' ').toUpperCase()}
+              </button>
+            ))}
+            {siguientes.includes('cancelado') && (
+              <button title="Cancelar Orden" className="p-2.5 text-red-500 hover:bg-red-50 rounded-xl transition-all" disabled={cambiandoEstado} onClick={() => handleCambiarEstado('cancelado')}>
+                <Trash2 size={20} />
+              </button>
+            )}
+          </div>
         </div>
       </header>
 
-      <ol className="timeline">
-        {ESTADOS_ORDEN.map((e, idx) => (
-          <li key={e} className={idx <= estadoActualIdx ? 'timeline-done' : 'timeline-pending'}>
-            {e.replace(/_/g, ' ')}
-          </li>
-        ))}
-      </ol>
+      <div className="bg-white/50 backdrop-blur-md p-4 rounded-2xl border border-slate-200/40 shadow-inner">
+        <ol className="flex items-center w-full">
+          {ESTADOS_ORDEN.map((e, idx) => (
+            <li key={e} className={`relative flex-1 flex flex-col items-center group ${idx < ESTADOS_ORDEN.length - 1 ? "after:content-[''] after:w-full after:h-1 after:bg-slate-100 after:absolute after:top-3 after:left-1/2 after:-z-10" : ""}`}>
+              <div className={`w-6 h-6 rounded-full border-4 transition-all duration-500 z-10 ${idx <= estadoActualIdx ? 'bg-indigo-600 border-indigo-100' : 'bg-white border-slate-100'}`} />
+              <span className={`text-[10px] font-black uppercase tracking-widest mt-2 transition-colors ${idx <= estadoActualIdx ? 'text-indigo-600' : 'text-slate-300'}`}>
+                {e.replace(/_/g, ' ')}
+              </span>
+              {idx < estadoActualIdx && (
+                <div className="absolute top-3 left-1/2 w-full h-1 bg-indigo-600 -z-10 transition-all duration-1000" />
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
 
-      <div className="detail-grid">
-        <div>
-          <strong>Estado</strong>
-          <div style={{ marginTop: '0.25rem' }}><StatusBadge status={orden.estado} /></div>
-        </div>
-        <div>
-          <strong>Prioridad</strong>
-          <div style={{ marginTop: '0.25rem' }}><StatusBadge status={orden.prioridad} /></div>
-        </div>
-        <div><strong>Área</strong><span>{area || 'N/A'}</span></div>
-        <div>
-          <strong>Cuadrilla</strong>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem' }}>
-            <span>{cuadrilla}</span>
-            {['detectado', 'asignado'].includes(orden.estado) && (
-              <select
-                defaultValue="" disabled={asignando}
-                onChange={(e) => e.target.value && handleAsignarCuadrilla(e.target.value)}
-                style={{ fontSize: '0.75rem', padding: '0.125rem 0.375rem', border: '1px solid #e2e8f0', borderRadius: '0.375rem', background: '#f8fafc', cursor: 'pointer' }}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-6">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm space-y-6">
+            <div className="flex items-center gap-2 pb-4 border-b border-slate-100">
+              <FileText size={18} className="text-indigo-500" />
+              <h3 className="font-bold text-slate-800 uppercase tracking-wider text-sm">Registro de Tareas</h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               <div className="space-y-1.5">
+                  <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest block">Código Identificador</label>
+                  <p className="text-sm font-black text-slate-800 bg-slate-50 p-2.5 rounded-xl border border-slate-100 font-mono">{orden.codigo}</p>
+               </div>
+               <div className="space-y-1.5">
+                  <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest block">Prioridad Asignada</label>
+                  <div className="p-2 flex items-center h-10">
+                    <StatusBadge status={orden.prioridad} />
+                  </div>
+               </div>
+               <div className="space-y-1.5">
+                  <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest block">Unidad de Gestión</label>
+                  <p className="text-sm font-bold text-slate-700 p-1 truncate">{area || 'SIN ÁREA'}</p>
+               </div>
+
+               <div className="md:col-span-3 space-y-1.5">
+                  <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest block">Observaciones Operativas</label>
+                  <div className="p-4 bg-slate-50/50 rounded-2xl border border-slate-100 text-sm text-slate-600 leading-relaxed italic">
+                    "{orden.descripcion || 'Sin descripción detallada para esta orden.'}"
+                  </div>
+               </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm space-y-6">
+            <div className="flex justify-between items-center pb-4 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <Package size={18} className="text-indigo-500" />
+                <h3 className="font-bold text-slate-800 uppercase tracking-wider text-sm">Materiales e Insumos</h3>
+              </div>
+              <button 
+                className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-600 rounded-lg text-xs font-bold hover:bg-indigo-100 transition-all active:scale-95" 
+                onClick={() => setModalMaterial(true)}
               >
-                <option value="">Reasignar...</option>
-                {cuadrillas.map((c: any) => <option key={c.id} value={c.id}>{c.nombre}</option>)}
-              </select>
+                <Plus size={14} /> Agregar Item
+              </button>
+            </div>
+
+            {materiales.length === 0 ? (
+              <div className="bg-slate-50/50 border-2 border-dashed border-slate-100 rounded-xl p-8 text-center">
+                <p className="text-xs text-slate-400 font-medium italic">No se han registrado materiales consumidos para esta orden.</p>
+              </div>
+            ) : (
+              <div className="overflow-hidden rounded-xl border border-slate-100 shadow-sm">
+                <table className="w-full text-left border-collapse">
+                  <thead className="bg-slate-50">
+                    <tr>
+                      <th className="px-4 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest">Ítem / Recurso</th>
+                      <th className="px-4 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">Cantidad</th>
+                      <th className="px-4 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest">Unidad</th>
+                      <th className="px-4 py-3 text-[10px] font-black text-slate-400 uppercase tracking-widest">Estado</th>
+                      <th className="px-4 py-3"></th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {materiales.map((m: any) => (
+                      <tr key={m.id} className="hover:bg-slate-50/50 transition-colors group">
+                        <td className="px-4 py-3 text-sm font-bold text-slate-700">{m.item}</td>
+                        <td className="px-4 py-3 text-sm font-black text-slate-900 text-center">{m.cantidad}</td>
+                        <td className="px-4 py-3 text-xs font-medium text-slate-500">{m.unidad}</td>
+                        <td className="px-4 py-3 text-xs">
+                          {m.estado ? <span className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded-md font-bold">{m.estado}</span> : '—'}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <button className="p-1.5 text-slate-300 hover:text-red-500 transition-colors" onClick={() => handleRemoveMaterial(m.id)}>
+                            <Trash2 size={14} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
-        </div>
-        <div><strong>Fecha asignación</strong><span>{orden.fechaAsignacion?.slice(0, 10) ?? 'N/A'}</span></div>
-        <div><strong>Fecha inicio</strong><span>{orden.fechaInicio?.slice(0, 10) ?? 'N/A'}</span></div>
-        <div><strong>Fecha cierre</strong><span>{orden.fechaCierre?.slice(0, 10) ?? 'Pendiente'}</span></div>
-        <div>
-          <strong>Incidente origen</strong>
-          {orden.incidente
-            ? <button className="btn-secondary" style={{ marginTop: '0.25rem', padding: '0.25rem 0.75rem', fontSize: '0.8125rem' }} onClick={() => navigate(`/incidentes/${orden.incidente.id}`)}>Ver incidente →</button>
-            : <span>Sin incidente</span>
-          }
-        </div>
-        {duracion && (
-          <div>
-            <strong>Duración estimada</strong>
-            <span>{duracion.estimada_horas != null ? `${Number(duracion.estimada_horas).toFixed(1)}h` : 'N/A'}</span>
+
+          <div className="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm">
+             <EvidenciasPanel entidadTipo="orden" entidadId={id!} />
           </div>
-        )}
-        {orden.descripcion && (
-          <div className="col-span-2"><strong>Descripción</strong><span>{orden.descripcion}</span></div>
-        )}
+        </div>
+
+        <div className="space-y-6">
+           <div className="bg-white p-5 rounded-2xl border border-slate-200/60 shadow-sm space-y-5">
+              <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
+                <Users size={18} className="text-indigo-500" />
+                <h3 className="font-bold text-slate-800 uppercase tracking-wider text-sm">Equipo de Trabajo</h3>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="p-4 bg-indigo-50/40 rounded-2xl border border-indigo-100 flex flex-col items-center text-center">
+                   <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-indigo-600 shadow-sm mb-3 border border-indigo-50">
+                      <Users size={24} />
+                   </div>
+                   <p className="text-[10px] uppercase font-black text-indigo-400 tracking-widest mb-1">Cuadrilla Asignada</p>
+                   <p className="text-sm font-black text-slate-700 uppercase">{cuadrilla}</p>
+                </div>
+
+                {['detectado', 'asignado'].includes(orden.estado) && (
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest pl-1">Asignar Nuevo Equipo</label>
+                    <select
+                      defaultValue="" disabled={asignando}
+                      onChange={(e) => e.target.value && handleAsignarCuadrilla(e.target.value)}
+                      className="input-premium h-11 text-xs font-bold text-slate-700"
+                    >
+                      <option value="">SELECCIONAR CUADRILLA...</option>
+                      {cuadrillas.map((c: any) => <option key={c.id} value={c.id}>{c.nombre.toUpperCase()}</option>)}
+                    </select>
+                  </div>
+                )}
+              </div>
+           </div>
+
+           <div className="bg-white p-5 rounded-2xl border border-slate-200/60 shadow-sm space-y-4">
+              <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
+                <Calendar size={18} className="text-indigo-500" />
+                <h3 className="font-bold text-slate-800 uppercase tracking-wider text-sm">Línea de Tiempo</h3>
+              </div>
+              
+              <div className="space-y-3">
+                 {[
+                   { label: 'Asignación', date: orden.fechaAsignacion },
+                   { label: 'Inicio', date: orden.fechaInicio },
+                   { label: 'Cierre', date: orden.fechaCierre, fallback: 'Pendiente' }
+                 ].map((step, i) => (
+                   <div key={i} className="flex justify-between items-center p-2.5 bg-slate-50/50 rounded-xl border border-slate-100 transition-all hover:bg-slate-50">
+                      <span className="text-[11px] font-black text-slate-400 uppercase tracking-wider">{step.label}</span>
+                      <span className="text-xs font-bold text-slate-600 flex items-center gap-1.5">
+                        <Clock size={12} className="text-slate-300" />
+                        {step.date ? new Date(step.date).toLocaleDateString('es-AR') : <span className="text-slate-300 italic">{step.fallback}</span>}
+                      </span>
+                   </div>
+                 ))}
+              </div>
+           </div>
+        </div>
       </div>
-
-      {materiales.length > 0 && (
-        <>
-          <h3>Materiales</h3>
-          <table className="data-table">
-            <thead><tr><th>Ítem</th><th>Cantidad</th><th>Unidad</th><th>Estado</th><th></th></tr></thead>
-            <tbody>
-              {materiales.map((m: any) => (
-                <tr key={m.id}>
-                  <td>{m.item}</td>
-                  <td>{m.cantidad}</td>
-                  <td>{m.unidad}</td>
-                  <td>{m.estado ?? '—'}</td>
-                  <td><button className="btn-danger" style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }} onClick={() => handleRemoveMaterial(m.id)}>✕</button></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
-      )}
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1.5rem 0 0.75rem' }}>
-        <h3 style={{ margin: 0 }}>Materiales</h3>
-        <button style={{ padding: '0.375rem 0.875rem', fontSize: '0.8125rem' }} onClick={() => setModalMaterial(true)}>+ Agregar</button>
-      </div>
-      {materiales.length === 0 && <div className="empty-state" style={{ padding: '1.5rem' }}>Sin materiales registrados.</div>}
-
-      <h3>Evidencias</h3>
-      <EvidenciasPanel entidadTipo="orden" entidadId={id!} />
 
       {modalMaterial && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(15,23,42,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50 }}>
-          <div style={{ background: '#fff', borderRadius: '0.75rem', padding: '1.75rem', width: '100%', maxWidth: '440px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-              <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0f172a' }}>Agregar material</h3>
-              <button className="btn-secondary" style={{ padding: '0.25rem 0.625rem' }} onClick={() => setModalMaterial(false)}>✕</button>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 1rem' }}>
-              <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                <label>Ítem *</label>
-                <input className="input-field" value={formMaterial.item} onChange={(e) => setFormMaterial({ ...formMaterial, item: e.target.value })} placeholder="Ej: Cemento" />
-              </div>
-              <div className="form-group">
-                <label>Cantidad *</label>
-                <input className="input-field" type="number" min={0} step="any" value={formMaterial.cantidad} onChange={(e) => setFormMaterial({ ...formMaterial, cantidad: e.target.value })} />
-              </div>
-              <div className="form-group">
-                <label>Unidad *</label>
-                <input className="input-field" value={formMaterial.unidad} onChange={(e) => setFormMaterial({ ...formMaterial, unidad: e.target.value })} placeholder="kg, m2, unid..." />
-              </div>
-              <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                <label>Estado</label>
-                <input className="input-field" value={formMaterial.estado} onChange={(e) => setFormMaterial({ ...formMaterial, estado: e.target.value })} placeholder="en uso, listo..." />
+        <Modal 
+          isOpen={modalMaterial} 
+          onClose={() => setModalMaterial(false)} 
+          title="Agregar Consumo de Material"
+          maxWidth="max-w-md"
+        >
+          <div className="space-y-4">
+            <div className="form-group">
+              <label className="form-label font-black text-slate-700 mb-1.5 block">Ítem / Recurso *</label>
+              <div className="relative">
+                 <input className="input-premium h-11 pl-10" value={formMaterial.item} onChange={(e) => setFormMaterial({ ...formMaterial, item: e.target.value })} placeholder="Ej: Bolsa de cemento 50kg" />
+                 <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-300"><Plus size={16} /></div>
               </div>
             </div>
-            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
-              <button className="btn-secondary" onClick={() => setModalMaterial(false)}>Cancelar</button>
-              <button onClick={handleAddMaterial} disabled={guardandoMaterial}>{guardandoMaterial ? 'Guardando...' : 'Agregar'}</button>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="form-group">
+                <label className="form-label font-black text-slate-700 mb-1.5 block">Cantidad *</label>
+                <input className="input-premium h-11 font-black text-indigo-600" type="number" min={0} step="any" value={formMaterial.cantidad} onChange={(e) => setFormMaterial({ ...formMaterial, cantidad: e.target.value })} />
+              </div>
+              <div className="form-group">
+                <label className="form-label font-black text-slate-700 mb-1.5 block">Unidad *</label>
+                <input className="input-premium h-11" value={formMaterial.unidad} onChange={(e) => setFormMaterial({ ...formMaterial, unidad: e.target.value })} placeholder="kg, m3, unid..." />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label font-black text-slate-700 mb-1.5 block">Estado del Material (Opcional)</label>
+              <input className="input-premium h-11" value={formMaterial.estado} onChange={(e) => setFormMaterial({ ...formMaterial, estado: e.target.value })} placeholder="Ej: Nuevo, recuperado..." />
+            </div>
+
+            <div className="flex gap-3 justify-end pt-5 border-t border-slate-100 mt-4">
+              <button className="px-6 py-2.5 rounded-xl text-sm font-bold text-slate-500 hover:bg-slate-100 transition-all uppercase tracking-widest" onClick={() => setModalMaterial(false)}>Cerrar</button>
+              <button className="px-8 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-black transition-all shadow-lg shadow-indigo-200/50 flex items-center gap-2 active:scale-95" onClick={handleAddMaterial} disabled={guardandoMaterial}>
+                {guardandoMaterial ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Plus size={16} />}
+                REGISTRAR ITEM
+              </button>
             </div>
           </div>
-        </div>
+        </Modal>
       )}
     </section>
   );

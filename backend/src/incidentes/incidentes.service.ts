@@ -5,6 +5,15 @@ import { CreateIncidenteDto } from './dto/create-incidente.dto';
 import { UpdateIncidenteDto } from './dto/update-incidente.dto';
 import { FindIncidentesQueryDto } from './dto/find-incidentes-query.dto';
 
+const INCLUDE = {
+  area: true,
+  activo: true,
+  riesgo: true,
+  categoria: true,
+  reportadoPorU: true,
+  orden: true,
+};
+
 @Injectable()
 export class IncidentesService {
   constructor(
@@ -25,9 +34,11 @@ export class IncidentesService {
         areaId: data.area_id,
         activoId: data.activo_id,
         riesgoId: data.riesgo_id,
+        categoriaId: data.categoria_id,
         reportadoPor: data.reportado_por ?? userId,
         fechaReporte: data.fecha_reporte ? new Date(data.fecha_reporte) : new Date(),
       },
+      include: INCLUDE,
     });
 
     if (userId) {
@@ -45,28 +56,13 @@ export class IncidentesService {
     if (query.fecha_desde) where.fechaReporte = { gte: new Date(query.fecha_desde) };
     if (query.fecha_hasta) where.fechaReporte = { ...where.fechaReporte, lte: new Date(query.fecha_hasta) };
 
-    return this.prisma.incidente.findMany({
-      where,
-      include: {
-        area: true,
-        activo: true,
-        riesgo: true,
-        reportadoPorU: true,
-        orden: true,
-      },
-    });
+    return this.prisma.incidente.findMany({ where, include: INCLUDE });
   }
 
   async findOne(id: string) {
     const incidente = await this.prisma.incidente.findUnique({
       where: { id, deletedAt: null },
-      include: {
-        area: true,
-        activo: true,
-        riesgo: true,
-        reportadoPorU: true,
-        orden: true,
-      },
+      include: INCLUDE,
     });
     if (!incidente) throw new NotFoundException('Incidente no encontrado');
     return incidente;
@@ -84,12 +80,13 @@ export class IncidentesService {
     if (data.area_id !== undefined) payload.areaId = data.area_id;
     if (data.activo_id !== undefined) payload.activoId = data.activo_id;
     if (data.riesgo_id !== undefined) payload.riesgoId = data.riesgo_id;
+    if (data.categoria_id !== undefined) payload.categoriaId = data.categoria_id;
     if (data.fecha_reporte !== undefined) payload.fechaReporte = new Date(data.fecha_reporte);
 
     const incidente = await this.prisma.incidente.update({
       where: { id },
       data: payload,
-      include: { area: true, activo: true, riesgo: true, reportadoPorU: true, orden: true },
+      include: INCLUDE,
     });
 
     if (userId) {
@@ -100,7 +97,7 @@ export class IncidentesService {
   }
 
   async remove(id: string, userId?: string) {
-    const incidente = await this.findOne(id);
+    await this.findOne(id);
     await this.prisma.incidente.update({
       where: { id },
       data: { deletedAt: new Date(), estado: 'cancelado' },
@@ -117,14 +114,8 @@ export class IncidentesService {
     const incidente = await this.findOne(id);
 
     const result = await this.prisma.$transaction(async (tx) => {
-      // Update incidente status
-      await tx.incidente.update({
-        where: { id },
-        data: { estado: 'en_proceso' },
-      });
-
-      // Create orden de trabajo
-      const orden = await tx.ordenTrabajo.create({
+      await tx.incidente.update({ where: { id }, data: { estado: 'en_proceso' } });
+      return tx.ordenTrabajo.create({
         data: {
           incidenteId: incidente.id,
           areaId: incidente.areaId,
@@ -134,8 +125,6 @@ export class IncidentesService {
           codigo: `ORD-${Date.now()}`,
         },
       });
-
-      return orden;
     });
 
     if (userId) {
@@ -152,4 +141,3 @@ export class IncidentesService {
     });
   }
 }
-

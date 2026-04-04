@@ -1,0 +1,42 @@
+INSERT INTO riesgos 
+(codigo, nombre, descripcion, area_id, categoria, severidad_base, probabilidad_base, activo_tipo, requiere_accion_inmediata, es_preventivo, sla_sugerido_horas)
+VALUES
+
+-- 🌳 PODA / ARBOLADO
+('ARBOL_CAIDA', 'Árbol con riesgo de caída', 'Árbol inclinado o con raíces expuestas', 1, 'infraestructura', 5, 3, 'arbol', true, false, 24),
+('RAMA_PELIGROSA', 'Rama sobre vía pública', 'Rama que puede caer sobre peatones o vehículos', 1, 'infraestructura', 4, 4, 'arbol', true, false, 24),
+('ARBOL_CABLES', 'Árbol en contacto con cables', 'Interferencia con tendido eléctrico', 1, 'electrico', 5, 4, 'arbol', true, false, 12),
+('ARBOL_SECO', 'Árbol seco', 'Árbol sin vida con potencial de caída', 1, 'infraestructura', 4, 3, 'arbol', false, true, 72),
+
+-- 💡 LUMINARIA / ELÉCTRICO
+('LUMINARIA_APAGADA', 'Luminaria apagada', 'Falta de iluminación en vía pública', 2, 'servicio', 3, 5, 'luminaria', false, false, 48),
+('POSTE_INCLINADO', 'Poste inclinado', 'Poste con riesgo estructural', 2, 'infraestructura', 5, 2, 'poste', true, false, 24),
+('CABLE_EXPUESTO', 'Cable expuesto', 'Cableado eléctrico visible y peligroso', 2, 'electrico', 5, 3, 'cable', true, false, 12),
+('LUMINARIA_INTERMITENTE', 'Luminaria intermitente', 'Encendido irregular', 2, 'servicio', 2, 4, 'luminaria', false, true, 72),
+
+-- 🗑️ HIGIENE URBANA
+('BASURAL', 'Basural a cielo abierto', 'Acumulación de residuos', 3, 'sanitario', 4, 5, 'zona', true, false, 24),
+('CONTENEDOR_DESBORDADO', 'Contenedor desbordado', 'Capacidad superada', 3, 'sanitario', 3, 5, 'contenedor', false, false, 48),
+('QUEMA_BASURA', 'Quema de basura', 'Riesgo ambiental y sanitario', 3, 'ambiental', 5, 3, 'zona', true, false, 12),
+('RESIDUOS_PELIGROSOS', 'Residuos peligrosos', 'Desechos contaminantes', 3, 'ambiental', 5, 2, 'zona', true, false, 12),
+
+-- 🚧 INFRAESTRUCTURA
+('BACHE', 'Bache en calzada', 'Deterioro del pavimento', 4, 'infraestructura', 3, 5, 'calle', false, false, 72),
+('VEREDA_ROTA', 'Vereda rota', 'Riesgo para peatones', 4, 'infraestructura', 4, 4, 'vereda', false, false, 48),
+('ZANJA_ABIERTA', 'Zanja sin señalizar', 'Obra sin protección', 4, 'obra', 5, 3, 'obra', true, false, 12),
+('HUNDIMIENTO', 'Hundimiento de calzada', 'Riesgo estructural', 4, 'infraestructura', 5, 2, 'calle', true, false, 24),
+
+-- 🚦 TRÁNSITO
+('SEMAFORO_ROTO', 'Semáforo fuera de servicio', 'Intersección sin control', 5, 'transito', 5, 3, 'semaforo', true, false, 12),
+('SENAL_FALTANTE', 'Falta de señalización', 'Ausencia de cartelería', 5, 'transito', 3, 4, 'senal', false, true, 72),
+('CRUCE_PELIGROSO', 'Cruce peligroso', 'Alta tasa de accidentes', 5, 'transito', 5, 4, 'zona', true, false, 12),
+
+-- 🔥 DEFENSA CIVIL
+('INCENDIO_BALDIO', 'Incendio en baldío', 'Quema no controlada', 6, 'emergencia', 5, 3, 'terreno', true, false, 12),
+('INUNDACION', 'Zona inundada', 'Acumulación de agua', 6, 'climatico', 5, 4, 'zona', true, false, 12),
+('VIENTO_PELIGROSO', 'Riesgo por tormenta', 'Condiciones climáticas severas', 6, 'climatico', 4, 4, 'zona', true, false, 24),
+
+-- 🏫 ESPACIOS PÚBLICOS
+('JUEGO_ROTO', 'Juego infantil roto', 'Riesgo para niños', 7, 'seguridad', 4, 3, 'plaza', true, false, 24),
+('PLAZA_ABANDONADA', 'Plaza sin mantenimiento', 'Deterioro general', 7, 'infraestructura', 3, 4, 'plaza', false, true, 72),
+('ILUMINACION_PLAZA', 'Falta de luz en plaza', 'Zona insegura', 7, 'seguridad', 4, 4, 'plaza', false, false, 48);

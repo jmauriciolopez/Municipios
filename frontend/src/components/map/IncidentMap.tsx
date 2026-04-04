@@ -7,8 +7,8 @@ import HeatmapLayer from './HeatmapLayer';
 
 const CORRIENTES = [-27.46, -58.83] as [number, number];
 
-const MARKER_COLORS: Record<string, string> = {
-  critica: 'red', alta: 'orange', media: 'yellow', baja: 'green',
+const PRIORIDAD_COLORS: Record<string, string> = {
+  critica: '#dc2626', alta: '#f97316', media: '#eab308', baja: '#22c55e',
 };
 
 const createIcon = (color: string) => L.divIcon({
@@ -59,7 +59,7 @@ export default function IncidentMap({ incidents, heatPoints = [], onSelectIncide
         <Marker
           key={inc.id}
           position={[inc.lat, inc.lng]}
-          icon={createIcon(MARKER_COLORS[inc.prioridad] ?? 'blue')}
+          icon={createIcon(inc.categoriaColor || PRIORIDAD_COLORS[inc.prioridad] || '#64748b')}
           eventHandlers={{ click: () => onSelectIncident(inc) }}
         >
           <Popup>

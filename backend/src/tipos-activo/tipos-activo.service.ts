@@ -9,7 +9,7 @@ export class TiposActivoService {
   findAll() {
     return this.prisma.tipoActivo.findMany({
       where: { deletedAt: null },
-      include: { _count: { select: { activos: true } } },
+      include: { _count: { select: { activos: true, riesgos: true } } },
       orderBy: { nombre: 'asc' },
     });
   }
