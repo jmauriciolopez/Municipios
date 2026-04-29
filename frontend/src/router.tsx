@@ -34,15 +34,16 @@ export default function AppRouter() {
       <Route path="/inspecciones" element={<ProtectedRoute><AppLayout><InspeccionesPage /></AppLayout></ProtectedRoute>} />
       <Route path="/inventario" element={<ProtectedRoute><AppLayout><InventarioPage /></AppLayout></ProtectedRoute>} />
       <Route path="/personas" element={<ProtectedRoute><AppLayout><PersonasPage /></AppLayout></ProtectedRoute>} />
-      <Route path="/municipios" element={<ProtectedRoute><AppLayout><MunicipiosPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/municipios" element={<ProtectedRoute roles={['ADMIN']}><AppLayout><MunicipiosPage /></AppLayout></ProtectedRoute>} />
       <Route path="/riesgos" element={<ProtectedRoute><AppLayout><RiesgosPage /></AppLayout></ProtectedRoute>} />
-      <Route path="/tipos-activo" element={<ProtectedRoute><AppLayout><TiposActivoPage /></AppLayout></ProtectedRoute>} />
-      <Route path="/auditoria" element={<ProtectedRoute><AppLayout><AuditoriaPage /></AppLayout></ProtectedRoute>} />
-      <Route path="/usuarios" element={<ProtectedRoute><AppLayout><UsuariosPage /></AppLayout></ProtectedRoute>} />
-      <Route path="/areas" element={<ProtectedRoute><AppLayout><AreasPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/tipos-activo" element={<ProtectedRoute roles={['ADMIN']}><AppLayout><TiposActivoPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/auditoria" element={<ProtectedRoute roles={['ADMIN']}><AppLayout><AuditoriaPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/usuarios" element={<ProtectedRoute roles={['ADMIN']}><AppLayout><UsuariosPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/areas" element={<ProtectedRoute roles={['ADMIN']}><AppLayout><AreasPage /></AppLayout></ProtectedRoute>} />
       <Route path="/activos" element={<ProtectedRoute><AppLayout><ActivosPage /></AppLayout></ProtectedRoute>} />
       <Route path="/cuadrillas" element={<ProtectedRoute><AppLayout><CuadrillasPage /></AppLayout></ProtectedRoute>} />
-      <Route path="/categorias" element={<ProtectedRoute><AppLayout><CategoriasPage /></AppLayout></ProtectedRoute>} />
+      <Route path="/categorias" element={<ProtectedRoute roles={['ADMIN']}><AppLayout><CategoriasPage /></AppLayout></ProtectedRoute>} />
+
       <Route path="/mapa" element={<ProtectedRoute><AppLayout><MapaPage /></AppLayout></ProtectedRoute>} />
       <Route path="*" element={<Navigate to='/' replace />} />
     </Routes>

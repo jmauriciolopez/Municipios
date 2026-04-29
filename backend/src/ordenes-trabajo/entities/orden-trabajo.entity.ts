@@ -1,5 +1,5 @@
-import { OrdenEstado } from '../../common/enums/orden-estado.enum';
-import { Prioridad } from '../../common/enums/prioridad.enum';
+import { OrdenEstado } from "../../common/enums/orden-estado.enum";
+import { Prioridad } from "../../common/enums/prioridad.enum";
 
 export class OrdenTrabajoEntity {
   id: string;

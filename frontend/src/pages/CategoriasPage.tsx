@@ -7,11 +7,7 @@ import { toast } from 'react-hot-toast';
 import { confirm } from '../components/ui/ConfirmDialog';
 import { 
   Plus, 
-  Search, 
   Trash2, 
-  Edit3, 
-  X, 
-  ChevronRight, 
   Layers, 
   AlertTriangle,
   Play,

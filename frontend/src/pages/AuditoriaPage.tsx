@@ -11,8 +11,7 @@ import {
   Activity, 
   Code,
   ShieldCheck,
-  ChevronRight,
-  Eye
+  ChevronRight
 } from 'lucide-react';
 
 type Evento = {
@@ -125,7 +124,7 @@ export default function AuditoriaPage() {
     {
       key: 'detalles',
       label: '',
-      render: (ev: Evento) => (
+      render: (_: Evento) => (
         <div className="flex justify-end pr-2">
           <div className="w-8 h-8 rounded-full bg-brand-50 flex items-center justify-center text-brand-600 opacity-0 group-hover:opacity-100 transition-opacity">
             <ChevronRight size={18} />

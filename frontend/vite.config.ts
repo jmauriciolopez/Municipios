@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode, command }) => {
+export default defineConfig(({ mode }) => {
   // Carga las variables del .env en base al modo (development, production)
   const env = loadEnv(mode, process.cwd(), 'VITE_')
 

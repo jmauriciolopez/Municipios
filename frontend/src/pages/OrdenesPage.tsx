@@ -87,8 +87,8 @@ export default function OrdenesPage() {
 
   useEffect(() => {
     cargar();
-    getCuadrillas().then((d: any[]) => setCuadrillas(d.map((c) => ({ id: c.id, nombre: c.nombre })))).catch(() => {});
-    apiFetch<any[]>('/areas').then((d) => setAreas(d.map((a) => ({ id: a.id, nombre: a.nombre })))).catch(() => {});
+    getCuadrillas().then((d: any[]) => setCuadrillas(d.map((c) => ({ id: c.id, nombre: c.nombre })))).catch((err) => console.error('Error al cargar cuadrillas:', err));
+    apiFetch<any[]>('/areas').then((d) => setAreas(d.map((a) => ({ id: a.id, nombre: a.nombre })))).catch((err) => console.error('Error al cargar áreas:', err));
   }, []);
 
   const areasUnicas = useMemo(

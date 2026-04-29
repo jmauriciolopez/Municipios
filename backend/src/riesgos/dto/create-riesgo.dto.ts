@@ -1,5 +1,13 @@
-import { IsString, IsOptional, IsInt, IsBoolean, IsUUID, Min, Max } from 'class-validator';
-import { Type } from 'class-transformer';
+import {
+  IsString,
+  IsOptional,
+  IsInt,
+  IsBoolean,
+  IsUUID,
+  Min,
+  Max,
+} from "class-validator";
+import { Type } from "class-transformer";
 
 export class CreateRiesgoDto {
   @IsString()
@@ -12,38 +20,53 @@ export class CreateRiesgoDto {
   @IsOptional()
   descripcion?: string;
 
-  @IsInt() @Min(1) @Max(5) @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  @Max(5)
+  @Type(() => Number)
   @IsOptional()
   severidadBase?: number;
 
-  @IsInt() @Min(1) @Max(5) @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  @Max(5)
+  @Type(() => Number)
   @IsOptional()
   probabilidadBase?: number;
 
-  @IsBoolean() @IsOptional()
+  @IsBoolean()
+  @IsOptional()
   requiereAccionInmediata?: boolean;
 
-  @IsBoolean() @IsOptional()
+  @IsBoolean()
+  @IsOptional()
   esPreventivo?: boolean;
 
-  @IsInt() @IsOptional()
+  @IsInt()
+  @IsOptional()
   slaSugeridoHoras?: number;
 
-  @IsString() @IsOptional()
+  @IsString()
+  @IsOptional()
   icono?: string;
 
-  @IsString() @IsOptional()
+  @IsString()
+  @IsOptional()
   color?: string;
 
-  @IsBoolean() @IsOptional()
+  @IsBoolean()
+  @IsOptional()
   activo?: boolean;
 
-  @IsUUID() @IsOptional()
+  @IsUUID()
+  @IsOptional()
   areaId?: string;
 
-  @IsUUID() @IsOptional()
+  @IsUUID()
+  @IsOptional()
   categoriaId?: string;
 
-  @IsUUID() @IsOptional()
+  @IsUUID()
+  @IsOptional()
   tipoActivoId?: string;
 }

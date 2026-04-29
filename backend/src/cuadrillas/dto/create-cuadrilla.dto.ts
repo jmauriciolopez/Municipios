@@ -1,5 +1,5 @@
-import { IsString, IsOptional, IsEnum } from 'class-validator';
-import { CuadrillaEstado } from '../../common/enums/cuadrilla-estado.enum';
+import { IsString, IsOptional, IsEnum } from "class-validator";
+import { CuadrillaEstado } from "../../common/enums/cuadrilla-estado.enum";
 
 export class CreateCuadrillaDto {
   @IsString()

@@ -1,6 +1,11 @@
-import { IsString, IsEnum, IsOptional } from 'class-validator';
+import { IsString, IsEnum, IsOptional } from "class-validator";
 
-export enum EvidenciaTipo { ANTES = 'antes', DESPUES = 'despues', INSPECCION = 'inspeccion', INTERVENCION = 'intervencion' }
+export enum EvidenciaTipo {
+  ANTES = "antes",
+  DESPUES = "despues",
+  INSPECCION = "inspeccion",
+  INTERVENCION = "intervencion",
+}
 
 export class CreateEvidenciaDto {
   @IsString() entidadTipo: string;

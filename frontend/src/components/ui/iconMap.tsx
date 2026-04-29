@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 
 // Mapa por CÓDIGO de categoría
-const categoriaIconMap: Record<string, React.ComponentType<{ size?: number; color?: string; className?: string }>> = {
+const categoriaIconMap: Record<string, React.ComponentType<{ size?: number | string; color?: string; className?: string }>> = {
   INFRAESTRUCTURA: Building2, ELECTRICO: Zap, SANITARIO: ShieldAlert, AMBIENTAL: Leaf,
   TRANSITO: Car, SEGURIDAD: Shield, CLIMATICO: CloudRain, EMERGENCIA: Siren,
   ARBOLADO: Trees, ESPACIOS_PUBLICOS: Map,
@@ -41,8 +41,8 @@ const categoriaIconMap: Record<string, React.ComponentType<{ size?: number; colo
 
 export default categoriaIconMap;
 
-type IconProps = { codigo?: string; size?: number; color?: string; className?: string };
-type RiesgoIconProps = { icono?: string; size?: number; color?: string; className?: string };
+type IconProps = { codigo?: string; size?: number | string; color?: string; className?: string };
+type RiesgoIconProps = { icono?: string; size?: number | string; color?: string; className?: string };
 
 // CategoriaIcon: busca por código en el mapa estático
 export function CategoriaIcon({ codigo, size = 16, color, className }: IconProps) {

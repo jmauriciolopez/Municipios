@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { OrdenesTrabajoService } from './ordenes-trabajo.service';
-import { PrismaService } from '../prisma/prisma.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { OrdenesTrabajoService } from "./ordenes-trabajo.service";
+import { PrismaService } from "../prisma/prisma.service";
 
-describe('OrdenesTrabajoService', () => {
+describe("OrdenesTrabajoService", () => {
   let service: OrdenesTrabajoService;
 
   beforeEach(async () => {
@@ -29,11 +29,11 @@ describe('OrdenesTrabajoService', () => {
     service = module.get<OrdenesTrabajoService>(OrdenesTrabajoService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 
-  it('findAll should return array from prisma findMany', async () => {
+  it("findAll should return array from prisma findMany", async () => {
     const result = await service.findAll();
     expect(result).toEqual([]);
   });

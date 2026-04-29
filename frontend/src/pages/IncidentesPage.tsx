@@ -18,17 +18,10 @@ import {
   MapPin, 
   Activity, 
   FileText, 
-  Shield, 
-  List,
-  Search,
-  Map as MapIcon,
-  Filter,
-  Calendar,
-  ChevronRight,
-  TrendingUp,
-  AlertCircle,
-  Layout,
-  Clock
+  Search, 
+  Map as MapIcon, 
+  Calendar, 
+  ChevronRight 
 } from 'lucide-react';
 
 type IncidenteRow = {
@@ -74,7 +67,6 @@ export default function IncidentesPage() {
   const navigate = useNavigate();
   const [incidentes, setIncidentes] = useState<IncidenteRow[]>([]);
   const [areas, setAreas] = useState<AreaOpt[]>([]);
-  const [riesgos, setRiesgos] = useState<{ id: string; nombre: string }[]>([]);
   const [categorias, setCategorias] = useState<CatOpt[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -108,9 +100,8 @@ export default function IncidentesPage() {
 
   useEffect(() => {
     cargar();
-    apiFetch<any[]>('/areas').then((data) => setAreas(data.map((a) => ({ id: a.id, nombre: a.nombre })))).catch(() => {});
-    apiFetch<any[]>('/riesgos').then((data) => setRiesgos(data.map((r: any) => ({ id: r.id, nombre: r.nombre })))).catch(() => {});
-    apiFetch<any[]>('/categorias?activo=true').then((data) => setCategorias(data.map((c: any) => ({ id: c.id, nombre: c.nombre, codigo: c.codigo, color: c.color ?? '', padreId: c.padre?.id ?? '' })))).catch(() => {});
+    apiFetch<any[]>('/areas').then((data) => setAreas(data.map((a) => ({ id: a.id, nombre: a.nombre })))).catch((err) => console.error('Error al cargar áreas:', err));
+    apiFetch<any[]>('/categorias?activo=true').then((data) => setCategorias(data.map((c: any) => ({ id: c.id, nombre: c.nombre, codigo: c.codigo, color: c.color ?? '', padreId: c.padre?.id ?? '' })))).catch((err) => console.error('Error al cargar categorías:', err));
   }, []);
 
   const areasUnicas = useMemo(

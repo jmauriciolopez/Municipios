@@ -1,30 +1,50 @@
-import { IsString, IsNotEmpty, IsOptional, IsInt, IsBoolean, IsUUID, Min, Max } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsInt,
+  IsBoolean,
+  IsUUID,
+  Min,
+  Max,
+} from "class-validator";
 
 export class CreateCategoriaDto {
-  @IsString() @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   codigo: string;
 
-  @IsString() @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   nombre: string;
 
-  @IsString() @IsOptional()
+  @IsString()
+  @IsOptional()
   descripcion?: string;
 
-  @IsInt() @Min(1) @Max(2) @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(2)
+  @IsOptional()
   nivel?: number;
 
-  @IsUUID() @IsOptional()
+  @IsUUID()
+  @IsOptional()
   padreId?: string;
 
-  @IsBoolean() @IsOptional()
+  @IsBoolean()
+  @IsOptional()
   activo?: boolean;
 
-  @IsInt() @IsOptional()
+  @IsInt()
+  @IsOptional()
   orden?: number;
 
-  @IsString() @IsOptional()
+  @IsString()
+  @IsOptional()
   icono?: string;
 
-  @IsString() @IsOptional()
+  @IsString()
+  @IsOptional()
   color?: string;
 }

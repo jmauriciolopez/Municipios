@@ -70,7 +70,7 @@ export default function AreasPage() {
 
   useEffect(() => {
     cargar();
-    apiFetch<any[]>('/municipios').then(setMunicipios).catch(() => {});
+    apiFetch<any[]>('/municipios').then(setMunicipios).catch((err) => console.error('Error al cargar municipios:', err));
   }, []);
 
   const filtered = useMemo(

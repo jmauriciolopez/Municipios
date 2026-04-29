@@ -1,5 +1,5 @@
-import { IsString, IsOptional, IsNumber, IsEnum } from 'class-validator';
-import { ActivoEstado } from '../../common/enums/activo-estado.enum';
+import { IsString, IsOptional, IsNumber, IsEnum } from "class-validator";
+import { ActivoEstado } from "../../common/enums/activo-estado.enum";
 
 export class CreateActivoDto {
   @IsString()

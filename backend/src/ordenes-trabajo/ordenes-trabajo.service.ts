@@ -1,14 +1,22 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateOrdenTrabajoDto } from './dto/create-orden-trabajo.dto';
-import { UpdateOrdenTrabajoDto } from './dto/update-orden-trabajo.dto';
-import { AsignarCuadrillaDto } from './dto/asignar-cuadrilla.dto';
-import { CambiarEstadoOrdenDto } from './dto/cambiar-estado-orden.dto';
-import { OrdenEstado } from '../common/enums/orden-estado.enum';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { AuditoriaService } from "../auditoria/auditoria.service";
+import { CreateOrdenTrabajoDto } from "./dto/create-orden-trabajo.dto";
+import { UpdateOrdenTrabajoDto } from "./dto/update-orden-trabajo.dto";
+import { AsignarCuadrillaDto } from "./dto/asignar-cuadrilla.dto";
+import { CambiarEstadoOrdenDto } from "./dto/cambiar-estado-orden.dto";
+import { OrdenEstado } from "../common/enums/orden-estado.enum";
 
 @Injectable()
 export class OrdenesTrabajoService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly auditoria: AuditoriaService,
+  ) {}
 
   private normalizeFecha(value?: string | null) {
     if (!value) return undefined;
@@ -17,7 +25,7 @@ export class OrdenesTrabajoService {
     return date;
   }
 
-  async create(data: CreateOrdenTrabajoDto) {
+  async create(data: CreateOrdenTrabajoDto, userId?: string) {
     const payload: any = {
       codigo: data.codigo,
       incidenteId: data.incidente_id,
@@ -31,9 +39,21 @@ export class OrdenesTrabajoService {
       fechaCierre: this.normalizeFecha(data.fecha_cierre),
     };
 
-    return this.prisma.ordenTrabajo.create({
+    const orden = await this.prisma.ordenTrabajo.create({
       data: payload,
     });
+
+    if (userId) {
+      await this.auditoria.logEvent(
+        "orden_trabajo",
+        orden.id,
+        "CREATE",
+        userId,
+        data,
+      );
+    }
+
+    return orden;
   }
 
   async findAll(query?: any) {
@@ -45,8 +65,10 @@ export class OrdenesTrabajoService {
     if (query?.cuadrilla_id) where.cuadrillaId = query.cuadrilla_id;
     if (query?.fecha_desde || query?.fecha_hasta) {
       where.fechaAsignacion = {};
-      if (query.fecha_desde) where.fechaAsignacion.gte = new Date(query.fecha_desde);
-      if (query.fecha_hasta) where.fechaAsignacion.lte = new Date(query.fecha_hasta);
+      if (query.fecha_desde)
+        where.fechaAsignacion.gte = new Date(query.fecha_desde);
+      if (query.fecha_hasta)
+        where.fechaAsignacion.lte = new Date(query.fecha_hasta);
     }
 
     return this.prisma.ordenTrabajo.findMany({
@@ -68,11 +90,11 @@ export class OrdenesTrabajoService {
         incidente: true,
       },
     });
-    if (!orden) throw new NotFoundException('Orden no encontrada');
+    if (!orden) throw new NotFoundException("Orden no encontrada");
     return orden;
   }
 
-  async update(id: string, data: UpdateOrdenTrabajoDto) {
+  async update(id: string, data: UpdateOrdenTrabajoDto, userId?: string) {
     await this.findOne(id);
 
     const payload: any = {
@@ -87,15 +109,31 @@ export class OrdenesTrabajoService {
       fechaCierre: this.normalizeFecha(data.fecha_cierre),
     };
 
-    return this.prisma.ordenTrabajo.update({
+    const orden = await this.prisma.ordenTrabajo.update({
       where: { id },
       data: payload,
     });
+
+    if (userId) {
+      await this.auditoria.logEvent(
+        "orden_trabajo",
+        id,
+        "UPDATE",
+        userId,
+        data,
+      );
+    }
+
+    return orden;
   }
 
-  async asignarCuadrilla(id: string, data: AsignarCuadrillaDto) {
-    const orden = await this.findOne(id);
-    return this.prisma.ordenTrabajo.update({
+  async asignarCuadrilla(
+    id: string,
+    data: AsignarCuadrillaDto,
+    userId?: string,
+  ) {
+    await this.findOne(id);
+    const orden = await this.prisma.ordenTrabajo.update({
       where: { id },
       data: {
         cuadrillaId: data.cuadrilla_id,
@@ -103,16 +141,42 @@ export class OrdenesTrabajoService {
         estado: OrdenEstado.ASIGNADO,
       },
     });
+
+    if (userId) {
+      await this.auditoria.logEvent(
+        "orden_trabajo",
+        id,
+        "ASSIGN_CREW",
+        userId,
+        data,
+      );
+    }
+
+    return orden;
   }
 
-  async cambiarEstado(id: string, data: CambiarEstadoOrdenDto) {
+  async cambiarEstado(
+    id: string,
+    data: CambiarEstadoOrdenDto,
+    userId?: string,
+  ) {
     const orden = await this.findOne(id);
 
-    if (data.estado === OrdenEstado.RESUELTO && orden.estado !== OrdenEstado.EN_PROCESO) {
-      throw new BadRequestException('No se puede pasar a resuelto si no está en proceso');
+    if (
+      data.estado === OrdenEstado.RESUELTO &&
+      orden.estado !== OrdenEstado.EN_PROCESO
+    ) {
+      throw new BadRequestException(
+        "No se puede pasar a resuelto si no está en proceso",
+      );
     }
-    if (data.estado === OrdenEstado.VERIFICADO && orden.estado !== OrdenEstado.RESUELTO) {
-      throw new BadRequestException('No se puede verificar si no está resuelto');
+    if (
+      data.estado === OrdenEstado.VERIFICADO &&
+      orden.estado !== OrdenEstado.RESUELTO
+    ) {
+      throw new BadRequestException(
+        "No se puede verificar si no está resuelto",
+      );
     }
 
     const updatePayload: any = {
@@ -127,17 +191,29 @@ export class OrdenesTrabajoService {
       updatePayload.fechaCierre = new Date();
     }
 
-    return this.prisma.ordenTrabajo.update({
+    const ordenUpdated = await this.prisma.ordenTrabajo.update({
       where: { id },
       data: updatePayload,
     });
+
+    if (userId) {
+      await this.auditoria.logEvent(
+        "orden_trabajo",
+        id,
+        "CHANGE_STATUS",
+        userId,
+        data,
+      );
+    }
+
+    return ordenUpdated;
   }
 
   async getEvidencias(id: string) {
     await this.findOne(id);
     return this.prisma.evidencia.findMany({
       where: {
-        entidadTipo: 'orden',
+        entidadTipo: "orden",
         entidadId: id,
         deletedAt: null,
       },
@@ -145,27 +221,98 @@ export class OrdenesTrabajoService {
   }
 
   calcularDuracion(orden: any) {
-    const inicio = orden.fechaInicio ? new Date(orden.fechaInicio).getTime() : null;
-    const cierre = orden.fechaCierre ? new Date(orden.fechaCierre).getTime() : null;
-    const horas = inicio && cierre ? (cierre - inicio) / (1000 * 60 * 60) : null;
+    const inicio = orden.fechaInicio
+      ? new Date(orden.fechaInicio).getTime()
+      : null;
+    const cierre = orden.fechaCierre
+      ? new Date(orden.fechaCierre).getTime()
+      : null;
+    const horas =
+      inicio && cierre ? (cierre - inicio) / (1000 * 60 * 60) : null;
     return { estimada_horas: horas, real_horas: horas };
   }
 
   async getMateriales(id: string) {
     await this.findOne(id);
-    return this.prisma.ordenMaterial.findMany({ where: { ordenId: id }, orderBy: { createdAt: 'asc' } });
+    return this.prisma.ordenMaterial.findMany({
+      where: { ordenId: id },
+      orderBy: { createdAt: "asc" },
+    });
   }
 
-  async addMaterial(id: string, data: { item: string; cantidad: number; unidad: string; estado?: string }) {
+  async addMaterial(
+    id: string,
+    data: { item: string; cantidad: number; unidad: string; estado?: string },
+    userId?: string,
+  ) {
     await this.findOne(id);
-    return this.prisma.ordenMaterial.create({ data: { ordenId: id, item: data.item, cantidad: data.cantidad, unidad: data.unidad, estado: data.estado } });
+    const material = await this.prisma.ordenMaterial.create({
+      data: {
+        ordenId: id,
+        item: data.item,
+        cantidad: data.cantidad,
+        unidad: data.unidad,
+        estado: data.estado,
+      },
+    });
+
+    if (userId) {
+      await this.auditoria.logEvent(
+        "orden_trabajo",
+        id,
+        "ADD_MATERIAL",
+        userId,
+        data,
+      );
+    }
+
+    return material;
   }
 
-  async updateMaterial(ordenId: string, materialId: string, data: Partial<{ item: string; cantidad: number; unidad: string; estado: string }>) {
-    return this.prisma.ordenMaterial.update({ where: { id: materialId }, data });
+  async updateMaterial(
+    ordenId: string,
+    materialId: string,
+    data: Partial<{
+      item: string;
+      cantidad: number;
+      unidad: string;
+      estado: string;
+    }>,
+    userId?: string,
+  ) {
+    const material = await this.prisma.ordenMaterial.update({
+      where: { id: materialId },
+      data,
+    });
+
+    if (userId) {
+      await this.auditoria.logEvent(
+        "orden_trabajo",
+        ordenId,
+        "UPDATE_MATERIAL",
+        userId,
+        { materialId, ...data },
+      );
+    }
+
+    return material;
   }
 
-  async removeMaterial(ordenId: string, materialId: string) {
-    return this.prisma.ordenMaterial.delete({ where: { id: materialId } });
+  async removeMaterial(ordenId: string, materialId: string, userId?: string) {
+    const material = await this.prisma.ordenMaterial.delete({
+      where: { id: materialId },
+    });
+
+    if (userId) {
+      await this.auditoria.logEvent(
+        "orden_trabajo",
+        ordenId,
+        "REMOVE_MATERIAL",
+        userId,
+        { materialId },
+      );
+    }
+
+    return material;
   }
 }

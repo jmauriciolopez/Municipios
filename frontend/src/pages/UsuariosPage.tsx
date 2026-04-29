@@ -6,7 +6,7 @@ import DataTable from '../components/ui/DataTable';
 import FilterBar from '../components/ui/FilterBar';
 import Modal from '../components/ui/Modal';
 import { 
-  User, Mail, Phone, Shield, Activity, 
+  User, Mail, Phone, Activity, 
   Trash2, Edit3, X, CheckCircle2, 
   XCircle, Lock, Plus,
   ShieldCheck, ShieldAlert,
@@ -48,7 +48,7 @@ export default function UsuariosPage() {
 
   useEffect(() => {
     cargar();
-    apiFetch<Rol[]>('/usuarios/roles').then(setRoles).catch(() => {});
+    apiFetch<Rol[]>('/usuarios/roles').then(setRoles).catch((err) => console.error('Error al cargar roles:', err));
   }, []);
 
   const filtered = useMemo(() =>

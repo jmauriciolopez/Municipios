@@ -1,25 +1,25 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { CommonModule } from './common/common.module';
-import { IncidentesModule } from './incidentes/incidentes.module';
-import { OrdenesTrabajoModule } from './ordenes-trabajo/ordenes-trabajo.module';
-import { ActivosModule } from './activos/activos.module';
-import { CuadrillasModule } from './cuadrillas/cuadrillas.module';
-import { AreasModule } from './areas/areas.module';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { AuthModule } from './auth/auth.module';
-import { AuditoriaModule } from './auditoria/auditoria.module';
-import { UsuariosModule } from './usuarios/usuarios.module';
-import { TiposActivoModule } from './tipos-activo/tipos-activo.module';
-import { RiesgosModule } from './riesgos/riesgos.module';
-import { InspeccionesModule } from './inspecciones/inspecciones.module';
-import { InventarioModule } from './inventario/inventario.module';
-import { MunicipiosModule } from './municipios/municipios.module';
-import { UbicacionesModule } from './ubicaciones/ubicaciones.module';
-import { EvidenciasModule } from './evidencias/evidencias.module';
-import { PersonasModule } from './personas/personas.module';
-import { CategoriasModule } from './categorias/categorias.module';
-import { PrismaModule } from './prisma/prisma.module';
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { CommonModule } from "./common/common.module";
+import { IncidentesModule } from "./incidentes/incidentes.module";
+import { OrdenesTrabajoModule } from "./ordenes-trabajo/ordenes-trabajo.module";
+import { ActivosModule } from "./activos/activos.module";
+import { CuadrillasModule } from "./cuadrillas/cuadrillas.module";
+import { AreasModule } from "./areas/areas.module";
+import { DashboardModule } from "./dashboard/dashboard.module";
+import { AuthModule } from "./auth/auth.module";
+import { AuditoriaModule } from "./auditoria/auditoria.module";
+import { UsuariosModule } from "./usuarios/usuarios.module";
+import { TiposActivoModule } from "./tipos-activo/tipos-activo.module";
+import { RiesgosModule } from "./riesgos/riesgos.module";
+import { InspeccionesModule } from "./inspecciones/inspecciones.module";
+import { InventarioModule } from "./inventario/inventario.module";
+import { MunicipiosModule } from "./municipios/municipios.module";
+import { UbicacionesModule } from "./ubicaciones/ubicaciones.module";
+import { EvidenciasModule } from "./evidencias/evidencias.module";
+import { PersonasModule } from "./personas/personas.module";
+import { CategoriasModule } from "./categorias/categorias.module";
+import { PrismaModule } from "./prisma/prisma.module";
 
 @Module({
   imports: [

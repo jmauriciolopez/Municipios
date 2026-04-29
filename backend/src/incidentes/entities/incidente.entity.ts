@@ -1,5 +1,5 @@
-import { IncidenteEstado } from '../enums/incidente-estado.enum';
-import { Prioridad } from '../../common/enums/prioridad.enum';
+import { IncidenteEstado } from "../enums/incidente-estado.enum";
+import { Prioridad } from "../../common/enums/prioridad.enum";
 
 export class IncidenteEntity {
   id: string;

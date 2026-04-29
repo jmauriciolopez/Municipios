@@ -50,7 +50,7 @@ export default function MapaPage() {
     if (!modoCalor) return;
     getMapaCalor({ fecha_desde: desde || undefined, fecha_hasta: hasta || undefined, tipo: tipo || undefined })
       .then((data: any) => setHeatPoints(data?.puntos ?? []))
-      .catch(() => {});
+      .catch((err) => console.error('Error al obtener mapa de calor:', err));
   }, [modoCalor, desde, hasta, tipo]);
 
   const tiposUnicos = useMemo(() => [...new Set(incidentes.map((i) => i.tipo))], [incidentes]);

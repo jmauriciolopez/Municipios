@@ -15,8 +15,6 @@ import {
   CheckCircle2, 
   AlertCircle, 
   Activity, 
-  Search,
-  Filter,
   ShieldCheck,
   Layout,
   Info,

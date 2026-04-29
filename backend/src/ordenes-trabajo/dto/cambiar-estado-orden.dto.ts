@@ -1,5 +1,5 @@
-import { IsEnum } from 'class-validator';
-import { OrdenEstado } from '../../common/enums/orden-estado.enum';
+import { IsEnum } from "class-validator";
+import { OrdenEstado } from "../../common/enums/orden-estado.enum";
 
 export class CambiarEstadoOrdenDto {
   @IsEnum(OrdenEstado)

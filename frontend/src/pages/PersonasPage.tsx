@@ -13,9 +13,7 @@ import {
   Shield, 
   Plus, 
   Edit3, 
-  Trash2, 
   Activity, 
-  Users, 
   CheckCircle2, 
   XCircle,
   Contact,
@@ -24,7 +22,7 @@ import {
   Briefcase,
   ArrowRight
 } from 'lucide-react';
-import { confirm } from '../components/ui/ConfirmDialog';
+
 
 type PersonaRow = {
   id: string; 

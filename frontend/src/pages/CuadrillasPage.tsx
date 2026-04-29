@@ -94,8 +94,8 @@ export default function CuadrillasPage() {
 
   useEffect(() => {
     cargar();
-    apiFetch<any[]>('/areas').then(setAreas).catch(() => { });
-    apiFetch<any[]>('/personas?activo=true').then(setPersonas).catch(() => { });
+    apiFetch<any[]>('/areas').then(setAreas).catch((err) => console.error('Error al cargar áreas:', err));
+    apiFetch<any[]>('/personas?activo=true').then(setPersonas).catch((err) => console.error('Error al cargar personas:', err));
   }, []);
 
   const areasUnicas = useMemo(

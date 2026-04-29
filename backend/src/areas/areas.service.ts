@@ -1,14 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateAreaDto } from './dto/create-area.dto';
-import { UpdateAreaDto } from './dto/update-area.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { CreateAreaDto } from "./dto/create-area.dto";
+import { UpdateAreaDto } from "./dto/update-area.dto";
+import { AuditoriaService } from "../auditoria/auditoria.service";
 
 @Injectable()
 export class AreasService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly auditoria: AuditoriaService,
+  ) {}
 
-  async create(data: CreateAreaDto) {
-    return this.prisma.area.create({
+  async create(data: CreateAreaDto, userId?: string) {
+    const area = await this.prisma.area.create({
       data: {
         municipioId: data.municipioId,
         nombre: data.nombre,
@@ -18,6 +22,12 @@ export class AreasService {
         municipio: true,
       },
     });
+
+    if (userId) {
+      await this.auditoria.logEvent("area", area.id, "CREATE", userId, data);
+    }
+
+    return area;
   }
 
   async findAll() {
@@ -48,14 +58,14 @@ export class AreasService {
         inventario: true,
       },
     });
-    if (!area) throw new NotFoundException('Área no encontrada');
+    if (!area) throw new NotFoundException("Área no encontrada");
     return area;
   }
 
-  async update(id: string, data: UpdateAreaDto) {
+  async update(id: string, data: UpdateAreaDto, userId?: string) {
     await this.findOne(id);
 
-    return this.prisma.area.update({
+    const area = await this.prisma.area.update({
       where: { id },
       data: {
         municipioId: data.municipioId,
@@ -66,14 +76,26 @@ export class AreasService {
         municipio: true,
       },
     });
+
+    if (userId) {
+      await this.auditoria.logEvent("area", id, "UPDATE", userId, data);
+    }
+
+    return area;
   }
 
-  async remove(id: string) {
+  async remove(id: string, userId?: string) {
     await this.findOne(id);
 
-    return this.prisma.area.update({
+    const area = await this.prisma.area.update({
       where: { id },
       data: { deletedAt: new Date() },
     });
+
+    if (userId) {
+      await this.auditoria.logEvent("area", id, "DELETE", userId);
+    }
+
+    return area;
   }
 }

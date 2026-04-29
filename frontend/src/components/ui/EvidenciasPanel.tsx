@@ -28,7 +28,7 @@ export default function EvidenciasPanel({ entidadTipo, entidadId }: Props) {
   const cargar = () =>
     apiFetch<Evidencia[]>(`/evidencias?entidad_tipo=${entidadTipo}&entidad_id=${entidadId}`)
       .then(setEvidencias)
-      .catch(() => {})
+      .catch((err) => console.error('Error al cargar evidencias:', err))
       .finally(() => setLoading(false));
 
   useEffect(() => { cargar(); }, [entidadTipo, entidadId]);

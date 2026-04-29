@@ -15,7 +15,6 @@ import {
   X, 
   Plus, 
   Zap,
-  ShieldAlert,
   Activity,
   Hash,
   Shield,
@@ -113,9 +112,9 @@ export default function RiesgosPage() {
 
   useEffect(() => {
     cargar();
-    apiFetch<any[]>('/areas').then((d) => setAreas(d.map((a) => ({ id: a.id, nombre: a.nombre })))).catch(() => {});
-    apiFetch<any[]>('/categorias?activo=true').then(setCategorias).catch(() => {});
-    apiFetch<any[]>('/tipos-activo').then((d) => setTipos(d.map((t) => ({ id: t.id, nombre: t.nombre })))).catch(() => {});
+    apiFetch<any[]>('/areas').then((d) => setAreas(d.map((a) => ({ id: a.id, nombre: a.nombre })))).catch((err) => console.error('Error al cargar áreas:', err));
+    apiFetch<any[]>('/categorias?activo=true').then(setCategorias).catch((err) => console.error('Error al cargar categorías:', err));
+    apiFetch<any[]>('/tipos-activo').then((d) => setTipos(d.map((t) => ({ id: t.id, nombre: t.nombre })))).catch((err) => console.error('Error al cargar tipos de activo:', err));
   }, []);
 
   const filtered = useMemo(() => riesgos.filter((r) => {

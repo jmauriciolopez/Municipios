@@ -12,7 +12,7 @@ export default function UbicacionHistorial({ entidadTipo, entidadId }: Props) {
   useEffect(() => {
     apiFetch<Ubicacion[]>(`/ubicaciones?entidad_tipo=${entidadTipo}&entidad_id=${entidadId}`)
       .then(setUbicaciones)
-      .catch(() => {})
+      .catch((err) => console.error('Error al cargar historial:', err))
       .finally(() => setLoading(false));
   }, [entidadTipo, entidadId]);
 

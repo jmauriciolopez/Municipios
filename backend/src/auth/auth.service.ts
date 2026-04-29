@@ -1,8 +1,12 @@
-import { Injectable, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from '../prisma/prisma.service';
-import { AuditoriaService } from '../auditoria/auditoria.service';
-import * as bcrypt from 'bcryptjs';
+import {
+  Injectable,
+  UnauthorizedException,
+  InternalServerErrorException,
+} from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { PrismaService } from "../prisma/prisma.service";
+import { AuditoriaService } from "../auditoria/auditoria.service";
+import * as bcrypt from "bcryptjs";
 
 @Injectable()
 export class AuthService {
@@ -41,20 +45,13 @@ export class AuthService {
       };
 
       // Log login event
-      await this.auditoria.logEvent('usuario', user.id, 'LOGIN', user.id, { email: user.email });
+      await this.auditoria.logEvent("usuario", user.id, "LOGIN", user.id, {
+        email: user.email,
+      });
 
       return result;
     } catch (error) {
-      throw new InternalServerErrorException('Error generando token');
-    }
-  }
-
-  async verifyToken(token: string) {
-    try {
-      return this.jwtService.verify(token);
-    } catch {
-      throw new UnauthorizedException('Token inválido');
+      throw new InternalServerErrorException("Error generando token");
     }
   }
 }
-

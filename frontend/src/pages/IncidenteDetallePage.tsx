@@ -45,7 +45,6 @@ export default function IncidenteDetallePage() {
   const navigate = useNavigate();
   const [incidente, setIncidente] = useState<any>(null);
   const [areas, setAreas] = useState<any[]>([]);
-  const [riesgos, setRiesgos] = useState<{ id: string; nombre: string }[]>([]);
   const [categorias, setCategorias] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -60,11 +59,10 @@ export default function IncidenteDetallePage() {
 
   useEffect(() => {
     if (!id) return;
-    Promise.all([getIncidente(id), apiFetch<any[]>('/areas'), apiFetch<any[]>('/riesgos'), apiFetch<any[]>('/categorias?activo=true')])
-      .then(([inc, areasData, riesgosData, catsData]) => {
+    Promise.all([getIncidente(id), apiFetch<any[]>('/areas'), apiFetch<any[]>('/categorias?activo=true')])
+      .then(([inc, areasData, catsData]) => {
         setIncidente(inc);
         setAreas(areasData);
-        setRiesgos(riesgosData.map((r: any) => ({ id: r.id, nombre: r.nombre })));
         setCategorias(catsData);
       })
       .catch(() => setError('No se pudo cargar el incidente.'))

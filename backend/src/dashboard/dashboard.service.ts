@@ -1,19 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { IncidenteEstado } from '../common/enums/incidente-estado.enum';
-import { OrdenEstado } from '../common/enums/orden-estado.enum';
-import { Prioridad } from '../common/enums/prioridad.enum';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { OrdenEstado } from "../common/enums/orden-estado.enum";
+import { Prioridad } from "../common/enums/prioridad.enum";
 
 @Injectable()
 export class DashboardService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getResumen() {
-    const [totalIncidentes, totalOrdenes, ordenesEnProceso, incidentesCriticos] = await Promise.all([
+    const [
+      totalIncidentes,
+      totalOrdenes,
+      ordenesEnProceso,
+      incidentesCriticos,
+    ] = await Promise.all([
       this.prisma.incidente.count({ where: { deletedAt: null } }),
       this.prisma.ordenTrabajo.count({ where: { deletedAt: null } }),
-      this.prisma.ordenTrabajo.count({ where: { deletedAt: null, estado: OrdenEstado.EN_PROCESO } }),
-      this.prisma.incidente.count({ where: { deletedAt: null, prioridad: Prioridad.CRITICA } }),
+      this.prisma.ordenTrabajo.count({
+        where: { deletedAt: null, estado: OrdenEstado.EN_PROCESO },
+      }),
+      this.prisma.incidente.count({
+        where: { deletedAt: null, prioridad: Prioridad.CRITICA },
+      }),
     ]);
 
     return {
@@ -26,12 +34,12 @@ export class DashboardService {
 
   async getIncidentesPorEstado() {
     const result = await this.prisma.incidente.groupBy({
-      by: ['estado'],
+      by: ["estado"],
       where: { deletedAt: null },
       _count: { estado: true },
     });
 
-    return result.map(item => ({
+    return result.map((item) => ({
       estado: item.estado,
       cantidad: item._count.estado,
     }));
@@ -45,11 +53,14 @@ export class DashboardService {
       },
     });
 
-    const grouped = ordenes.reduce((acc, orden) => {
-      const areaNombre = orden.area?.nombre || 'Sin área';
-      acc[areaNombre] = (acc[areaNombre] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    const grouped = ordenes.reduce(
+      (acc, orden) => {
+        const areaNombre = orden.area?.nombre || "Sin área";
+        acc[areaNombre] = (acc[areaNombre] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
 
     return Object.entries(grouped).map(([area, cantidad]) => ({
       area,
@@ -74,14 +85,16 @@ export class DashboardService {
       return { promedioHoras: 0, desviacion: 0 };
     }
 
-    const tiempos = ordenes.map(orden => {
+    const tiempos = ordenes.map((orden) => {
       const inicio = new Date(orden.fechaInicio!);
       const cierre = new Date(orden.fechaCierre!);
       return (cierre.getTime() - inicio.getTime()) / (1000 * 60 * 60); // horas
     });
 
     const promedio = tiempos.reduce((a, b) => a + b, 0) / tiempos.length;
-    const varianza = tiempos.reduce((a, b) => a + Math.pow(b - promedio, 2), 0) / tiempos.length;
+    const varianza =
+      tiempos.reduce((a, b) => a + Math.pow(b - promedio, 2), 0) /
+      tiempos.length;
     const desviacion = Math.sqrt(varianza);
 
     return {
@@ -90,7 +103,7 @@ export class DashboardService {
     };
   }
 
-  async getMapaCalor(query: any) {
+  async getMapaCalor() {
     const incidentes = await this.prisma.incidente.findMany({
       where: { deletedAt: null },
       select: {
@@ -100,10 +113,15 @@ export class DashboardService {
       },
     });
 
-    const puntos = incidentes.map(incidente => ({
+    const puntos = incidentes.map((incidente) => ({
       lat: incidente.lat.toNumber(),
       lng: incidente.lng.toNumber(),
-      intensidad: incidente.prioridad === Prioridad.CRITICA ? 3 : incidente.prioridad === Prioridad.ALTA ? 2 : 1,
+      intensidad:
+        incidente.prioridad === Prioridad.CRITICA
+          ? 3
+          : incidente.prioridad === Prioridad.ALTA
+            ? 2
+            : 1,
     }));
 
     return { puntos };

@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { IncidentesService } from './incidentes.service';
-import { IncidentesController } from './incidentes.controller';
-import { AuditoriaModule } from '../auditoria/auditoria.module';
+import { Module } from "@nestjs/common";
+import { IncidentesService } from "./incidentes.service";
+import { IncidentesController } from "./incidentes.controller";
+import { AuditoriaModule } from "../auditoria/auditoria.module";
 
 @Module({
   imports: [AuditoriaModule],

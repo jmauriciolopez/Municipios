@@ -76,7 +76,7 @@ export default function InventarioPage() {
 
   useEffect(() => { 
     cargar(); 
-    apiFetch<any[]>('/areas').then((d) => setAreas(d.map((a) => ({ id: a.id, nombre: a.nombre })))).catch(() => {}); 
+    apiFetch<any[]>('/areas').then((d) => setAreas(d.map((a) => ({ id: a.id, nombre: a.nombre })))).catch(err => console.error(err)); 
   }, []);
 
   const filtered = useMemo(() => items.filter((i) => {

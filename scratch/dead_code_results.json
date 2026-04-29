@@ -1,0 +1,5789 @@
+{
+  "v2": {
+    "repo": "local/Muni-19990fd9",
+    "dead_symbols": [
+      {
+        "id": "backend/prisma/seed.ts::main#function",
+        "name": "main",
+        "kind": "function",
+        "file": "backend/prisma/seed.ts",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.controller.ts::ActivosController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/activos/activos.controller.ts",
+        "line": 8,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.controller.ts::ActivosController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/activos/activos.controller.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.controller.ts::ActivosController.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/activos/activos.controller.ts",
+        "line": 16,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.controller.ts::ActivosController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/activos/activos.controller.ts",
+        "line": 21,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.controller.ts::ActivosController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/activos/activos.controller.ts",
+        "line": 26,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.controller.ts::ActivosController.findNearby#method",
+        "name": "findNearby",
+        "kind": "method",
+        "file": "backend/src/activos/activos.controller.ts",
+        "line": 31,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.service.ts::ActivosService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/activos/activos.service.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.service.ts::ActivosService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/activos/activos.service.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.service.ts::ActivosService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/activos/activos.service.ts",
+        "line": 32,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.service.ts::ActivosService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/activos/activos.service.ts",
+        "line": 50,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.service.ts::ActivosService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/activos/activos.service.ts",
+        "line": 81,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/activos/activos.service.ts::ActivosService.findNearby#method",
+        "name": "findNearby",
+        "kind": "method",
+        "file": "backend/src/activos/activos.service.ts",
+        "line": 100,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/app.controller.ts::AppController.getHealth#method",
+        "name": "getHealth",
+        "kind": "method",
+        "file": "backend/src/app.controller.ts",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/areas/areas.controller.ts::AreasController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/areas/areas.controller.ts",
+        "line": 8,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/areas/areas.controller.ts::AreasController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/areas/areas.controller.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/areas/areas.controller.ts::AreasController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/areas/areas.controller.ts",
+        "line": 21,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/areas/areas.controller.ts::AreasController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/areas/areas.controller.ts",
+        "line": 26,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/areas/areas.controller.ts::AreasController.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/areas/areas.controller.ts",
+        "line": 31,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/areas/areas.service.ts::AreasService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/areas/areas.service.ts",
+        "line": 8,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/areas/areas.service.ts::AreasService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/areas/areas.service.ts",
+        "line": 10,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/areas/areas.service.ts::AreasService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/areas/areas.service.ts",
+        "line": 23,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/areas/areas.service.ts::AreasService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/areas/areas.service.ts",
+        "line": 37,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/areas/areas.service.ts::AreasService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/areas/areas.service.ts",
+        "line": 55,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/areas/areas.service.ts::AreasService.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/areas/areas.service.ts",
+        "line": 71,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auditoria/auditoria.controller.ts::AuditoriaController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/auditoria/auditoria.controller.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auditoria/auditoria.controller.ts::AuditoriaController.getAll#method",
+        "name": "getAll",
+        "kind": "method",
+        "file": "backend/src/auditoria/auditoria.controller.ts",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auditoria/auditoria.controller.ts::AuditoriaController.getTrail#method",
+        "name": "getTrail",
+        "kind": "method",
+        "file": "backend/src/auditoria/auditoria.controller.ts",
+        "line": 25,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auditoria/auditoria.controller.ts::AuditoriaController.getUserActivity#method",
+        "name": "getUserActivity",
+        "kind": "method",
+        "file": "backend/src/auditoria/auditoria.controller.ts",
+        "line": 30,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auditoria/auditoria.service.ts::AuditoriaService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/auditoria/auditoria.service.ts",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auditoria/auditoria.service.ts::AuditoriaService.logEvent#method",
+        "name": "logEvent",
+        "kind": "method",
+        "file": "backend/src/auditoria/auditoria.service.ts",
+        "line": 8,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auditoria/auditoria.service.ts::AuditoriaService.getAuditTrail#method",
+        "name": "getAuditTrail",
+        "kind": "method",
+        "file": "backend/src/auditoria/auditoria.service.ts",
+        "line": 31,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auditoria/auditoria.service.ts::AuditoriaService.getUserActivity#method",
+        "name": "getUserActivity",
+        "kind": "method",
+        "file": "backend/src/auditoria/auditoria.service.ts",
+        "line": 39,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auditoria/auditoria.service.ts::AuditoriaService.getRecent#method",
+        "name": "getRecent",
+        "kind": "method",
+        "file": "backend/src/auditoria/auditoria.service.ts",
+        "line": 48,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auth/auth.controller.ts::AuthController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/auth/auth.controller.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auth/auth.controller.ts::AuthController.login#method",
+        "name": "login",
+        "kind": "method",
+        "file": "backend/src/auth/auth.controller.ts",
+        "line": 18,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auth/auth.service.ts::AuthService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/auth/auth.service.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auth/auth.service.ts::AuthService.validateUser#method",
+        "name": "validateUser",
+        "kind": "method",
+        "file": "backend/src/auth/auth.service.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auth/auth.service.ts::AuthService.login#method",
+        "name": "login",
+        "kind": "method",
+        "file": "backend/src/auth/auth.service.ts",
+        "line": 33,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auth/auth.service.ts::AuthService.verifyToken#method",
+        "name": "verifyToken",
+        "kind": "method",
+        "file": "backend/src/auth/auth.service.ts",
+        "line": 52,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auth/decorators/roles.decorator.ts::Roles#function",
+        "name": "Roles",
+        "kind": "function",
+        "file": "backend/src/auth/decorators/roles.decorator.ts",
+        "line": 4,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auth/guards/roles.guard.ts::RolesGuard.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/auth/guards/roles.guard.ts",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auth/guards/roles.guard.ts::RolesGuard.canActivate#method",
+        "name": "canActivate",
+        "kind": "method",
+        "file": "backend/src/auth/guards/roles.guard.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auth/jwt-auth.guard.ts::JwtAuthGuard.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/auth/jwt-auth.guard.ts",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/auth/jwt-auth.guard.ts::JwtAuthGuard.canActivate#method",
+        "name": "canActivate",
+        "kind": "method",
+        "file": "backend/src/auth/jwt-auth.guard.ts",
+        "line": 8,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.controller.ts::CategoriasController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.controller.ts",
+        "line": 10,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.controller.ts::CategoriasController.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.controller.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.controller.ts::CategoriasController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.controller.ts",
+        "line": 18,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.controller.ts::CategoriasController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.controller.ts",
+        "line": 23,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.controller.ts::CategoriasController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.controller.ts",
+        "line": 28,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.controller.ts::CategoriasController.toggleActivo#method",
+        "name": "toggleActivo",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.controller.ts",
+        "line": 33,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.controller.ts::CategoriasController.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.controller.ts",
+        "line": 38,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.service.ts::CategoriasService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.service.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.service.ts::CategoriasService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.service.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.service.ts::CategoriasService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.service.ts",
+        "line": 23,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.service.ts::CategoriasService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.service.ts",
+        "line": 29,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.service.ts::CategoriasService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.service.ts",
+        "line": 39,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.service.ts::CategoriasService.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.service.ts",
+        "line": 48,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/categorias/categorias.service.ts::CategoriasService.toggleActivo#method",
+        "name": "toggleActivo",
+        "kind": "method",
+        "file": "backend/src/categorias/categorias.service.ts",
+        "line": 55,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.controller.ts::CuadrillasController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.controller.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.controller.ts::CuadrillasController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.controller.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.controller.ts::CuadrillasController.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.controller.ts",
+        "line": 22,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.controller.ts::CuadrillasController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.controller.ts",
+        "line": 27,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.controller.ts::CuadrillasController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.controller.ts",
+        "line": 33,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.controller.ts::CuadrillasController.setDisponibilidad#method",
+        "name": "setDisponibilidad",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.controller.ts",
+        "line": 39,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.controller.ts::CuadrillasController.getOrdenes#method",
+        "name": "getOrdenes",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.controller.ts",
+        "line": 44,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.controller.ts::CuadrillasController.getMiembros#method",
+        "name": "getMiembros",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.controller.ts",
+        "line": 49,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.controller.ts::CuadrillasController.addMiembro#method",
+        "name": "addMiembro",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.controller.ts",
+        "line": 55,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.controller.ts::CuadrillasController.removeMiembro#method",
+        "name": "removeMiembro",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.controller.ts",
+        "line": 61,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.service.ts::CuadrillasService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.service.ts",
+        "line": 26,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.service.ts::CuadrillasService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.service.ts",
+        "line": 28,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.service.ts::CuadrillasService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.service.ts",
+        "line": 41,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.service.ts::CuadrillasService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.service.ts",
+        "line": 50,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.service.ts::CuadrillasService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.service.ts",
+        "line": 59,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.service.ts::CuadrillasService.updateEstado#method",
+        "name": "updateEstado",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.service.ts",
+        "line": 74,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.service.ts::CuadrillasService.getOrdenes#method",
+        "name": "getOrdenes",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.service.ts",
+        "line": 83,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.service.ts::CuadrillasService.getMiembros#method",
+        "name": "getMiembros",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.service.ts",
+        "line": 88,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.service.ts::CuadrillasService.addMiembro#method",
+        "name": "addMiembro",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.service.ts",
+        "line": 99,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/cuadrillas/cuadrillas.service.ts::CuadrillasService.removeMiembro#method",
+        "name": "removeMiembro",
+        "kind": "method",
+        "file": "backend/src/cuadrillas/cuadrillas.service.ts",
+        "line": 115,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/dashboard/dashboard.controller.ts::DashboardController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/dashboard/dashboard.controller.ts",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/dashboard/dashboard.controller.ts::DashboardController.getMapaCalor#method",
+        "name": "getMapaCalor",
+        "kind": "method",
+        "file": "backend/src/dashboard/dashboard.controller.ts",
+        "line": 29,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/dashboard/dashboard.service.ts::DashboardService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/dashboard/dashboard.service.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/dashboard/dashboard.service.ts::DashboardService.getResumen#method",
+        "name": "getResumen",
+        "kind": "method",
+        "file": "backend/src/dashboard/dashboard.service.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/dashboard/dashboard.service.ts::DashboardService.getIncidentesPorEstado#method",
+        "name": "getIncidentesPorEstado",
+        "kind": "method",
+        "file": "backend/src/dashboard/dashboard.service.ts",
+        "line": 27,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/dashboard/dashboard.service.ts::DashboardService.getOrdenesPorArea#method",
+        "name": "getOrdenesPorArea",
+        "kind": "method",
+        "file": "backend/src/dashboard/dashboard.service.ts",
+        "line": 40,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/dashboard/dashboard.service.ts::DashboardService.getTiemposResolucion#method",
+        "name": "getTiemposResolucion",
+        "kind": "method",
+        "file": "backend/src/dashboard/dashboard.service.ts",
+        "line": 60,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/dashboard/dashboard.service.ts::DashboardService.getMapaCalor#method",
+        "name": "getMapaCalor",
+        "kind": "method",
+        "file": "backend/src/dashboard/dashboard.service.ts",
+        "line": 93,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/evidencias/evidencias.controller.ts::EvidenciasController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/evidencias/evidencias.controller.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/evidencias/evidencias.controller.ts::EvidenciasController.findByEntidad#method",
+        "name": "findByEntidad",
+        "kind": "method",
+        "file": "backend/src/evidencias/evidencias.controller.ts",
+        "line": 12,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/evidencias/evidencias.controller.ts::EvidenciasController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/evidencias/evidencias.controller.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/evidencias/evidencias.controller.ts::EvidenciasController.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/evidencias/evidencias.controller.ts",
+        "line": 20,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/evidencias/evidencias.service.ts::EvidenciasService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/evidencias/evidencias.service.ts",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/evidencias/evidencias.service.ts::EvidenciasService.findByEntidad#method",
+        "name": "findByEntidad",
+        "kind": "method",
+        "file": "backend/src/evidencias/evidencias.service.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/evidencias/evidencias.service.ts::EvidenciasService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/evidencias/evidencias.service.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/evidencias/evidencias.service.ts::EvidenciasService.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/evidencias/evidencias.service.ts",
+        "line": 24,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.controller.ts::IncidentesController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.controller.ts",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.controller.ts::IncidentesController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.controller.ts",
+        "line": 18,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.controller.ts::IncidentesController.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.controller.ts",
+        "line": 23,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.controller.ts::IncidentesController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.controller.ts",
+        "line": 28,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.controller.ts::IncidentesController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.controller.ts",
+        "line": 34,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.controller.ts::IncidentesController.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.controller.ts",
+        "line": 39,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.controller.ts::IncidentesController.convertToOrden#method",
+        "name": "convertToOrden",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.controller.ts",
+        "line": 44,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.controller.ts::IncidentesController.getEvidencias#method",
+        "name": "getEvidencias",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.controller.ts",
+        "line": 49,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.service.ts::IncidentesService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.service.ts",
+        "line": 19,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.service.ts::IncidentesService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.service.ts",
+        "line": 24,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.service.ts::IncidentesService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.service.ts",
+        "line": 51,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.service.ts::IncidentesService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.service.ts",
+        "line": 62,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.service.ts::IncidentesService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.service.ts",
+        "line": 71,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.service.ts::IncidentesService.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.service.ts",
+        "line": 99,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.service.ts::IncidentesService.convertToOrden#method",
+        "name": "convertToOrden",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.service.ts",
+        "line": 113,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/incidentes/incidentes.service.ts::IncidentesService.getEvidencias#method",
+        "name": "getEvidencias",
+        "kind": "method",
+        "file": "backend/src/incidentes/incidentes.service.ts",
+        "line": 137,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.controller.ts::InspeccionesController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.controller.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.controller.ts::InspeccionesController.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.controller.ts",
+        "line": 12,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.controller.ts::InspeccionesController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.controller.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.controller.ts::InspeccionesController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.controller.ts",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.controller.ts::InspeccionesController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.controller.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.controller.ts::InspeccionesController.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.controller.ts",
+        "line": 16,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.service.ts::InspeccionesService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.service.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.service.ts::InspeccionesService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.service.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.service.ts::InspeccionesService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.service.ts",
+        "line": 20,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.service.ts::InspeccionesService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.service.ts",
+        "line": 26,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.service.ts::InspeccionesService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.service.ts",
+        "line": 38,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inspecciones/inspecciones.service.ts::InspeccionesService.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/inspecciones/inspecciones.service.ts",
+        "line": 54,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.controller.ts::InventarioController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.controller.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.controller.ts::InventarioController.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.controller.ts",
+        "line": 12,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.controller.ts::InventarioController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.controller.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.controller.ts::InventarioController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.controller.ts",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.controller.ts::InventarioController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.controller.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.controller.ts::InventarioController.ajustar#method",
+        "name": "ajustar",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.controller.ts",
+        "line": 16,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.controller.ts::InventarioController.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.controller.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.service.ts::InventarioService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.service.ts",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.service.ts::InventarioService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.service.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.service.ts::InventarioService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.service.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.service.ts::InventarioService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.service.ts",
+        "line": 21,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.service.ts::InventarioService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.service.ts",
+        "line": 25,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.service.ts::InventarioService.ajustarCantidad#method",
+        "name": "ajustarCantidad",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.service.ts",
+        "line": 30,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/inventario/inventario.service.ts::InventarioService.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/inventario/inventario.service.ts",
+        "line": 37,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/main.ts::bootstrap#function",
+        "name": "bootstrap",
+        "kind": "function",
+        "file": "backend/src/main.ts",
+        "line": 5,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/municipios/municipios.controller.ts::MunicipiosController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/municipios/municipios.controller.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/municipios/municipios.controller.ts::MunicipiosController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/municipios/municipios.controller.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/municipios/municipios.controller.ts::MunicipiosController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/municipios/municipios.controller.ts",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/municipios/municipios.controller.ts::MunicipiosController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/municipios/municipios.controller.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/municipios/municipios.controller.ts::MunicipiosController.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/municipios/municipios.controller.ts",
+        "line": 16,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/municipios/municipios.service.ts::MunicipiosService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/municipios/municipios.service.ts",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/municipios/municipios.service.ts::MunicipiosService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/municipios/municipios.service.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/municipios/municipios.service.ts::MunicipiosService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/municipios/municipios.service.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/municipios/municipios.service.ts::MunicipiosService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/municipios/municipios.service.ts",
+        "line": 23,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/municipios/municipios.service.ts::MunicipiosService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/municipios/municipios.service.ts",
+        "line": 25,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/municipios/municipios.service.ts::MunicipiosService.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/municipios/municipios.service.ts",
+        "line": 30,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 19,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 24,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 29,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 35,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.asignarCuadrilla#method",
+        "name": "asignarCuadrilla",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 41,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.cambiarEstado#method",
+        "name": "cambiarEstado",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 47,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.evidencias#method",
+        "name": "evidencias",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 52,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.duracion#method",
+        "name": "duracion",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 57,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.getMateriales#method",
+        "name": "getMateriales",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 63,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.addMaterial#method",
+        "name": "addMaterial",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 69,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.updateMaterial#method",
+        "name": "updateMaterial",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 75,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts::OrdenesTrabajoController.removeMaterial#method",
+        "name": "removeMaterial",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.controller.ts",
+        "line": 81,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.normalizeFecha#method",
+        "name": "normalizeFecha",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 20,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 39,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 62,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 75,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.asignarCuadrilla#method",
+        "name": "asignarCuadrilla",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 96,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.cambiarEstado#method",
+        "name": "cambiarEstado",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 108,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.getEvidencias#method",
+        "name": "getEvidencias",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 136,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.calcularDuracion#method",
+        "name": "calcularDuracion",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 147,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.getMateriales#method",
+        "name": "getMateriales",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 154,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.addMaterial#method",
+        "name": "addMaterial",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 159,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.updateMaterial#method",
+        "name": "updateMaterial",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 164,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts::OrdenesTrabajoService.removeMaterial#method",
+        "name": "removeMaterial",
+        "kind": "method",
+        "file": "backend/src/ordenes-trabajo/ordenes-trabajo.service.ts",
+        "line": 168,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.controller.ts::PersonasController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/personas/personas.controller.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.controller.ts::PersonasController.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/personas/personas.controller.ts",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.controller.ts::PersonasController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/personas/personas.controller.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.controller.ts::PersonasController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/personas/personas.controller.ts",
+        "line": 21,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.controller.ts::PersonasController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/personas/personas.controller.ts",
+        "line": 25,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.controller.ts::PersonasController.toggleActivo#method",
+        "name": "toggleActivo",
+        "kind": "method",
+        "file": "backend/src/personas/personas.controller.ts",
+        "line": 29,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.service.ts::PersonasService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/personas/personas.service.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.service.ts::PersonasService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/personas/personas.service.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.service.ts::PersonasService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/personas/personas.service.ts",
+        "line": 30,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.service.ts::PersonasService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/personas/personas.service.ts",
+        "line": 36,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.service.ts::PersonasService.createFromUsuario#method",
+        "name": "createFromUsuario",
+        "kind": "method",
+        "file": "backend/src/personas/personas.service.ts",
+        "line": 44,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.service.ts::PersonasService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/personas/personas.service.ts",
+        "line": 53,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/personas/personas.service.ts::PersonasService.toggleActivo#method",
+        "name": "toggleActivo",
+        "kind": "method",
+        "file": "backend/src/personas/personas.service.ts",
+        "line": 58,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/prisma/prisma.service.ts::PrismaService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/prisma/prisma.service.ts",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/prisma/prisma.service.ts::PrismaService.onModuleInit#method",
+        "name": "onModuleInit",
+        "kind": "method",
+        "file": "backend/src/prisma/prisma.service.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/prisma/prisma.service.ts::PrismaService.enableShutdownHooks#method",
+        "name": "enableShutdownHooks",
+        "kind": "method",
+        "file": "backend/src/prisma/prisma.service.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.controller.ts::RiesgosController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.controller.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.controller.ts::RiesgosController.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.controller.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.controller.ts::RiesgosController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.controller.ts",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.controller.ts::RiesgosController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.controller.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.controller.ts::RiesgosController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.controller.ts",
+        "line": 16,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.controller.ts::RiesgosController.toggleActivo#method",
+        "name": "toggleActivo",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.controller.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.controller.ts::RiesgosController.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.controller.ts",
+        "line": 18,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.service.ts::calcNivel#function",
+        "name": "calcNivel",
+        "kind": "function",
+        "file": "backend/src/riesgos/riesgos.service.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.service.ts::RiesgosService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.service.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.service.ts::RiesgosService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.service.ts",
+        "line": 19,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.service.ts::RiesgosService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.service.ts",
+        "line": 32,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.service.ts::RiesgosService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.service.ts",
+        "line": 41,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.service.ts::RiesgosService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.service.ts",
+        "line": 45,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.service.ts::RiesgosService.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.service.ts",
+        "line": 50,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/riesgos/riesgos.service.ts::RiesgosService.toggleActivo#method",
+        "name": "toggleActivo",
+        "kind": "method",
+        "file": "backend/src/riesgos/riesgos.service.ts",
+        "line": 55,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/tipos-activo/tipos-activo.controller.ts::TiposActivoController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/tipos-activo/tipos-activo.controller.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/tipos-activo/tipos-activo.controller.ts::TiposActivoController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/tipos-activo/tipos-activo.controller.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/tipos-activo/tipos-activo.controller.ts::TiposActivoController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/tipos-activo/tipos-activo.controller.ts",
+        "line": 21,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/tipos-activo/tipos-activo.controller.ts::TiposActivoController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/tipos-activo/tipos-activo.controller.ts",
+        "line": 25,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/tipos-activo/tipos-activo.controller.ts::TiposActivoController.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/tipos-activo/tipos-activo.controller.ts",
+        "line": 29,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/tipos-activo/tipos-activo.service.ts::TiposActivoService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/tipos-activo/tipos-activo.service.ts",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/tipos-activo/tipos-activo.service.ts::TiposActivoService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/tipos-activo/tipos-activo.service.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/tipos-activo/tipos-activo.service.ts::TiposActivoService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/tipos-activo/tipos-activo.service.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/tipos-activo/tipos-activo.service.ts::TiposActivoService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/tipos-activo/tipos-activo.service.ts",
+        "line": 23,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/tipos-activo/tipos-activo.service.ts::TiposActivoService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/tipos-activo/tipos-activo.service.ts",
+        "line": 29,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/tipos-activo/tipos-activo.service.ts::TiposActivoService.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/tipos-activo/tipos-activo.service.ts",
+        "line": 34,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ubicaciones/ubicaciones.controller.ts::UbicacionesController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/ubicaciones/ubicaciones.controller.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ubicaciones/ubicaciones.controller.ts::UbicacionesController.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/ubicaciones/ubicaciones.controller.ts",
+        "line": 10,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ubicaciones/ubicaciones.controller.ts::UbicacionesController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/ubicaciones/ubicaciones.controller.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ubicaciones/ubicaciones.service.ts::UbicacionesService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/ubicaciones/ubicaciones.service.ts",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ubicaciones/ubicaciones.service.ts::UbicacionesService.findByEntidad#method",
+        "name": "findByEntidad",
+        "kind": "method",
+        "file": "backend/src/ubicaciones/ubicaciones.service.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ubicaciones/ubicaciones.service.ts::UbicacionesService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/ubicaciones/ubicaciones.service.ts",
+        "line": 16,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/ubicaciones/ubicaciones.service.ts::UbicacionesService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/ubicaciones/ubicaciones.service.ts",
+        "line": 23,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.controller.ts::UsuariosController.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.controller.ts",
+        "line": 12,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.controller.ts::UsuariosController.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.controller.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.controller.ts::UsuariosController.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.controller.ts",
+        "line": 25,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.controller.ts::UsuariosController.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.controller.ts",
+        "line": 31,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.controller.ts::UsuariosController.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.controller.ts",
+        "line": 37,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.controller.ts::UsuariosController.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.controller.ts",
+        "line": 43,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.controller.ts::UsuariosController.asignarRol#method",
+        "name": "asignarRol",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.controller.ts",
+        "line": 49,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.controller.ts::UsuariosController.quitarRol#method",
+        "name": "quitarRol",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.controller.ts",
+        "line": 55,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.service.ts::UsuariosService.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.service.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.service.ts::UsuariosService.findAll#method",
+        "name": "findAll",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.service.ts",
+        "line": 22,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.service.ts::UsuariosService.findOne#method",
+        "name": "findOne",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.service.ts",
+        "line": 29,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.service.ts::UsuariosService.create#method",
+        "name": "create",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.service.ts",
+        "line": 35,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.service.ts::UsuariosService.update#method",
+        "name": "update",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.service.ts",
+        "line": 53,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.service.ts::UsuariosService.remove#method",
+        "name": "remove",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.service.ts",
+        "line": 66,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.service.ts::UsuariosService.getRoles#method",
+        "name": "getRoles",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.service.ts",
+        "line": 71,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.service.ts::UsuariosService.asignarRol#method",
+        "name": "asignarRol",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.service.ts",
+        "line": 75,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "backend/src/usuarios/usuarios.service.ts::UsuariosService.quitarRol#method",
+        "name": "quitarRol",
+        "kind": "method",
+        "file": "backend/src/usuarios/usuarios.service.ts",
+        "line": 86,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/App.tsx::App#function",
+        "name": "App",
+        "kind": "function",
+        "file": "frontend/src/App.tsx",
+        "line": 4,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/auth/ProtectedRoute.tsx::ProtectedRoute#function",
+        "name": "ProtectedRoute",
+        "kind": "function",
+        "file": "frontend/src/components/auth/ProtectedRoute.tsx",
+        "line": 4,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/layout/AppLayout.tsx::AppLayout#function",
+        "name": "AppLayout",
+        "kind": "function",
+        "file": "frontend/src/components/layout/AppLayout.tsx",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/layout/Header.tsx::parseJwtPayload#function",
+        "name": "parseJwtPayload",
+        "kind": "function",
+        "file": "frontend/src/components/layout/Header.tsx",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/layout/Header.tsx::Header#function",
+        "name": "Header",
+        "kind": "function",
+        "file": "frontend/src/components/layout/Header.tsx",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/layout/Header.tsx::Header.handleLogout#method",
+        "name": "handleLogout",
+        "kind": "method",
+        "file": "frontend/src/components/layout/Header.tsx",
+        "line": 23,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/layout/Sidebar.tsx::Sidebar#function",
+        "name": "Sidebar",
+        "kind": "function",
+        "file": "frontend/src/components/layout/Sidebar.tsx",
+        "line": 43,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/layout/StyleToggle.tsx::StyleToggle#function",
+        "name": "StyleToggle",
+        "kind": "function",
+        "file": "frontend/src/components/layout/StyleToggle.tsx",
+        "line": 19,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/layout/StyleToggle.tsx::StyleToggle.handleClickOutside#method",
+        "name": "handleClickOutside",
+        "kind": "method",
+        "file": "frontend/src/components/layout/StyleToggle.tsx",
+        "line": 54,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/layout/ThemeToggle.tsx::ThemeToggle#function",
+        "name": "ThemeToggle",
+        "kind": "function",
+        "file": "frontend/src/components/layout/ThemeToggle.tsx",
+        "line": 3,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/map/HeatmapLayer.tsx::HeatmapLayer#function",
+        "name": "HeatmapLayer",
+        "kind": "function",
+        "file": "frontend/src/components/map/HeatmapLayer.tsx",
+        "line": 10,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/map/IncidentMap.tsx::createIcon#function",
+        "name": "createIcon",
+        "kind": "function",
+        "file": "frontend/src/components/map/IncidentMap.tsx",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/map/IncidentMap.tsx::FlyToIncidents#function",
+        "name": "FlyToIncidents",
+        "kind": "function",
+        "file": "frontend/src/components/map/IncidentMap.tsx",
+        "line": 21,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/map/IncidentMap.tsx::IncidentMap#function",
+        "name": "IncidentMap",
+        "kind": "function",
+        "file": "frontend/src/components/map/IncidentMap.tsx",
+        "line": 40,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/ConfirmDialog.tsx::ConfirmDialog#function",
+        "name": "ConfirmDialog",
+        "kind": "function",
+        "file": "frontend/src/components/ui/ConfirmDialog.tsx",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/DataTable.tsx::DataTable#function",
+        "name": "DataTable",
+        "kind": "function",
+        "file": "frontend/src/components/ui/DataTable.tsx",
+        "line": 16,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/DetailDrawer.tsx::DetailDrawer#function",
+        "name": "DetailDrawer",
+        "kind": "function",
+        "file": "frontend/src/components/ui/DetailDrawer.tsx",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/EmptyState.tsx::EmptyState#function",
+        "name": "EmptyState",
+        "kind": "function",
+        "file": "frontend/src/components/ui/EmptyState.tsx",
+        "line": 3,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/EvidenciasPanel.tsx::EvidenciasPanel#function",
+        "name": "EvidenciasPanel",
+        "kind": "function",
+        "file": "frontend/src/components/ui/EvidenciasPanel.tsx",
+        "line": 20,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/EvidenciasPanel.tsx::EvidenciasPanel.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/components/ui/EvidenciasPanel.tsx",
+        "line": 28,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/EvidenciasPanel.tsx::EvidenciasPanel.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/components/ui/EvidenciasPanel.tsx",
+        "line": 36,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/EvidenciasPanel.tsx::EvidenciasPanel.handleEliminar#method",
+        "name": "handleEliminar",
+        "kind": "method",
+        "file": "frontend/src/components/ui/EvidenciasPanel.tsx",
+        "line": 61,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/EvidenciasPanel.tsx::EvidenciasPanel.isImage#method",
+        "name": "isImage",
+        "kind": "method",
+        "file": "frontend/src/components/ui/EvidenciasPanel.tsx",
+        "line": 74,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/FilterBar.tsx::FilterBar#function",
+        "name": "FilterBar",
+        "kind": "function",
+        "file": "frontend/src/components/ui/FilterBar.tsx",
+        "line": 18,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/Modal.tsx::Modal#function",
+        "name": "Modal",
+        "kind": "function",
+        "file": "frontend/src/components/ui/Modal.tsx",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/Modal.tsx::Modal.handleEsc#method",
+        "name": "handleEsc",
+        "kind": "method",
+        "file": "frontend/src/components/ui/Modal.tsx",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/StatCard.tsx::StatCard#function",
+        "name": "StatCard",
+        "kind": "function",
+        "file": "frontend/src/components/ui/StatCard.tsx",
+        "line": 12,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/StatusBadge.tsx::StatusBadge#function",
+        "name": "StatusBadge",
+        "kind": "function",
+        "file": "frontend/src/components/ui/StatusBadge.tsx",
+        "line": 43,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/UbicacionHistorial.tsx::UbicacionHistorial#function",
+        "name": "UbicacionHistorial",
+        "kind": "function",
+        "file": "frontend/src/components/ui/UbicacionHistorial.tsx",
+        "line": 8,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/iconMap.tsx::CategoriaIcon#function",
+        "name": "CategoriaIcon",
+        "kind": "function",
+        "file": "frontend/src/components/ui/iconMap.tsx",
+        "line": 48,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/iconMap.tsx::RiesgoIcon#function",
+        "name": "RiesgoIcon",
+        "kind": "function",
+        "file": "frontend/src/components/ui/iconMap.tsx",
+        "line": 55,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/context/AuthContext.tsx::AuthProvider#function",
+        "name": "AuthProvider",
+        "kind": "function",
+        "file": "frontend/src/context/AuthContext.tsx",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/index.css::@keyframes shiver#function",
+        "name": "@keyframes shiver",
+        "kind": "function",
+        "file": "frontend/src/index.css",
+        "line": 667,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ClickHandler#function",
+        "name": "ClickHandler",
+        "kind": "function",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 53,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ActivosPage#function",
+        "name": "ActivosPage",
+        "kind": "function",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 58,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ActivosPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 79,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ActivosPage.handleSelectRow#method",
+        "name": "handleSelectRow",
+        "kind": "method",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 99,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ActivosPage.handleCambiarEstado#method",
+        "name": "handleCambiarEstado",
+        "kind": "method",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 125,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ActivosPage.abrirCrear#method",
+        "name": "abrirCrear",
+        "kind": "method",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 135,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ActivosPage.abrirEditar#method",
+        "name": "abrirEditar",
+        "kind": "method",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 136,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ActivosPage.handleGeocodificar#method",
+        "name": "handleGeocodificar",
+        "kind": "method",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 151,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ActivosPage.abrirMapaPicker#method",
+        "name": "abrirMapaPicker",
+        "kind": "method",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 170,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ActivosPage.confirmarPin#method",
+        "name": "confirmarPin",
+        "kind": "method",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 178,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ActivosPage.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 185,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/ActivosPage.tsx::ActivosPage.handleGenerarIncidente#method",
+        "name": "handleGenerarIncidente",
+        "kind": "method",
+        "file": "frontend/src/pages/ActivosPage.tsx",
+        "line": 214,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/AreasPage.tsx::AreasPage#function",
+        "name": "AreasPage",
+        "kind": "function",
+        "file": "frontend/src/pages/AreasPage.tsx",
+        "line": 42,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/AreasPage.tsx::AreasPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/AreasPage.tsx",
+        "line": 53,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/AreasPage.tsx::AreasPage.abrirCrear#method",
+        "name": "abrirCrear",
+        "kind": "method",
+        "file": "frontend/src/pages/AreasPage.tsx",
+        "line": 81,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/AreasPage.tsx::AreasPage.abrirEditar#method",
+        "name": "abrirEditar",
+        "kind": "method",
+        "file": "frontend/src/pages/AreasPage.tsx",
+        "line": 82,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/AreasPage.tsx::AreasPage.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/pages/AreasPage.tsx",
+        "line": 87,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/AreasPage.tsx::AreasPage.handleEliminar#method",
+        "name": "handleEliminar",
+        "kind": "method",
+        "file": "frontend/src/pages/AreasPage.tsx",
+        "line": 107,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/AreasPage.tsx::AreasPage.MetricLabel#method",
+        "name": "MetricLabel",
+        "kind": "method",
+        "file": "frontend/src/pages/AreasPage.tsx",
+        "line": 124,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/AuditoriaPage.tsx::AuditoriaPage#function",
+        "name": "AuditoriaPage",
+        "kind": "function",
+        "file": "frontend/src/pages/AuditoriaPage.tsx",
+        "line": 45,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CategoriasPage.tsx::CategoriasPage#function",
+        "name": "CategoriasPage",
+        "kind": "function",
+        "file": "frontend/src/pages/CategoriasPage.tsx",
+        "line": 46,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CategoriasPage.tsx::CategoriasPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/CategoriasPage.tsx",
+        "line": 57,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CategoriasPage.tsx::CategoriasPage.abrirCrear#method",
+        "name": "abrirCrear",
+        "kind": "method",
+        "file": "frontend/src/pages/CategoriasPage.tsx",
+        "line": 98,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CategoriasPage.tsx::CategoriasPage.abrirEditar#method",
+        "name": "abrirEditar",
+        "kind": "method",
+        "file": "frontend/src/pages/CategoriasPage.tsx",
+        "line": 103,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CategoriasPage.tsx::CategoriasPage.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/pages/CategoriasPage.tsx",
+        "line": 109,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CategoriasPage.tsx::CategoriasPage.handleToggle#method",
+        "name": "handleToggle",
+        "kind": "method",
+        "file": "frontend/src/pages/CategoriasPage.tsx",
+        "line": 132,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CategoriasPage.tsx::CategoriasPage.handleEliminar#method",
+        "name": "handleEliminar",
+        "kind": "method",
+        "file": "frontend/src/pages/CategoriasPage.tsx",
+        "line": 142,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CuadrillasPage.tsx::CuadrillasPage#function",
+        "name": "CuadrillasPage",
+        "kind": "function",
+        "file": "frontend/src/pages/CuadrillasPage.tsx",
+        "line": 49,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CuadrillasPage.tsx::CuadrillasPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/CuadrillasPage.tsx",
+        "line": 69,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CuadrillasPage.tsx::CuadrillasPage.handleSelect#method",
+        "name": "handleSelect",
+        "kind": "method",
+        "file": "frontend/src/pages/CuadrillasPage.tsx",
+        "line": 116,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CuadrillasPage.tsx::CuadrillasPage.handleCambiarEstado#method",
+        "name": "handleCambiarEstado",
+        "kind": "method",
+        "file": "frontend/src/pages/CuadrillasPage.tsx",
+        "line": 129,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CuadrillasPage.tsx::CuadrillasPage.handleCrear#method",
+        "name": "handleCrear",
+        "kind": "method",
+        "file": "frontend/src/pages/CuadrillasPage.tsx",
+        "line": 145,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CuadrillasPage.tsx::CuadrillasPage.handleAddMiembro#method",
+        "name": "handleAddMiembro",
+        "kind": "method",
+        "file": "frontend/src/pages/CuadrillasPage.tsx",
+        "line": 161,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/CuadrillasPage.tsx::CuadrillasPage.handleRemoveMiembro#method",
+        "name": "handleRemoveMiembro",
+        "kind": "method",
+        "file": "frontend/src/pages/CuadrillasPage.tsx",
+        "line": 187,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/DashboardPage.tsx::DashboardPage#function",
+        "name": "DashboardPage",
+        "kind": "function",
+        "file": "frontend/src/pages/DashboardPage.tsx",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidenteDetallePage.tsx::ClickHandler#function",
+        "name": "ClickHandler",
+        "kind": "function",
+        "file": "frontend/src/pages/IncidenteDetallePage.tsx",
+        "line": 38,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidenteDetallePage.tsx::IncidenteDetallePage#function",
+        "name": "IncidenteDetallePage",
+        "kind": "function",
+        "file": "frontend/src/pages/IncidenteDetallePage.tsx",
+        "line": 43,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidenteDetallePage.tsx::IncidenteDetallePage.abrirEditar#method",
+        "name": "abrirEditar",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidenteDetallePage.tsx",
+        "line": 74,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidenteDetallePage.tsx::IncidenteDetallePage.handleGeocodificar#method",
+        "name": "handleGeocodificar",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidenteDetallePage.tsx",
+        "line": 90,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidenteDetallePage.tsx::IncidenteDetallePage.abrirMapaPicker#method",
+        "name": "abrirMapaPicker",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidenteDetallePage.tsx",
+        "line": 123,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidenteDetallePage.tsx::IncidenteDetallePage.confirmarPinMapa#method",
+        "name": "confirmarPinMapa",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidenteDetallePage.tsx",
+        "line": 128,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidenteDetallePage.tsx::IncidenteDetallePage.handleGuardarEdicion#method",
+        "name": "handleGuardarEdicion",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidenteDetallePage.tsx",
+        "line": 135,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidenteDetallePage.tsx::IncidenteDetallePage.handleCambiarEstado#method",
+        "name": "handleCambiarEstado",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidenteDetallePage.tsx",
+        "line": 164,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidenteDetallePage.tsx::IncidenteDetallePage.handleGenerarOrden#method",
+        "name": "handleGenerarOrden",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidenteDetallePage.tsx",
+        "line": 178,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidentesPage.tsx::ClickHandler#function",
+        "name": "ClickHandler",
+        "kind": "function",
+        "file": "frontend/src/pages/IncidentesPage.tsx",
+        "line": 68,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidentesPage.tsx::IncidentesPage#function",
+        "name": "IncidentesPage",
+        "kind": "function",
+        "file": "frontend/src/pages/IncidentesPage.tsx",
+        "line": 73,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidentesPage.tsx::IncidentesPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidentesPage.tsx",
+        "line": 93,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidentesPage.tsx::IncidentesPage.handleGeocodificar#method",
+        "name": "handleGeocodificar",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidentesPage.tsx",
+        "line": 133,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidentesPage.tsx::IncidentesPage.abrirMapaPicker#method",
+        "name": "abrirMapaPicker",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidentesPage.tsx",
+        "line": 166,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidentesPage.tsx::IncidentesPage.confirmarPinMapa#method",
+        "name": "confirmarPinMapa",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidentesPage.tsx",
+        "line": 171,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/IncidentesPage.tsx::IncidentesPage.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/pages/IncidentesPage.tsx",
+        "line": 178,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/InspeccionesPage.tsx::InspeccionesPage#function",
+        "name": "InspeccionesPage",
+        "kind": "function",
+        "file": "frontend/src/pages/InspeccionesPage.tsx",
+        "line": 53,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/InspeccionesPage.tsx::InspeccionesPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/InspeccionesPage.tsx",
+        "line": 66,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/InspeccionesPage.tsx::InspeccionesPage.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/pages/InspeccionesPage.tsx",
+        "line": 98,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/InventarioPage.tsx::InventarioPage#function",
+        "name": "InventarioPage",
+        "kind": "function",
+        "file": "frontend/src/pages/InventarioPage.tsx",
+        "line": 47,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/InventarioPage.tsx::InventarioPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/InventarioPage.tsx",
+        "line": 61,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/InventarioPage.tsx::InventarioPage.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/pages/InventarioPage.tsx",
+        "line": 89,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/InventarioPage.tsx::InventarioPage.handleAjustar#method",
+        "name": "handleAjustar",
+        "kind": "method",
+        "file": "frontend/src/pages/InventarioPage.tsx",
+        "line": 110,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/InventarioPage.tsx::InventarioPage.handleEliminar#method",
+        "name": "handleEliminar",
+        "kind": "method",
+        "file": "frontend/src/pages/InventarioPage.tsx",
+        "line": 128,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/InventarioPage.tsx::InventarioPage.StockBadge#method",
+        "name": "StockBadge",
+        "kind": "method",
+        "file": "frontend/src/pages/InventarioPage.tsx",
+        "line": 145,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/LoginPage.tsx::LoginPage#function",
+        "name": "LoginPage",
+        "kind": "function",
+        "file": "frontend/src/pages/LoginPage.tsx",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/LoginPage.tsx::LoginPage.handleLogin#method",
+        "name": "handleLogin",
+        "kind": "method",
+        "file": "frontend/src/pages/LoginPage.tsx",
+        "line": 23,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/MapaPage.tsx::MapaPage#function",
+        "name": "MapaPage",
+        "kind": "function",
+        "file": "frontend/src/pages/MapaPage.tsx",
+        "line": 20,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/MunicipiosPage.tsx::MunicipiosPage#function",
+        "name": "MunicipiosPage",
+        "kind": "function",
+        "file": "frontend/src/pages/MunicipiosPage.tsx",
+        "line": 37,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/MunicipiosPage.tsx::MunicipiosPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/MunicipiosPage.tsx",
+        "line": 47,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/MunicipiosPage.tsx::MunicipiosPage.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/pages/MunicipiosPage.tsx",
+        "line": 71,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/MunicipiosPage.tsx::MunicipiosPage.handleEliminar#method",
+        "name": "handleEliminar",
+        "kind": "method",
+        "file": "frontend/src/pages/MunicipiosPage.tsx",
+        "line": 94,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/OrdenDetallePage.tsx::OrdenDetallePage#function",
+        "name": "OrdenDetallePage",
+        "kind": "function",
+        "file": "frontend/src/pages/OrdenDetallePage.tsx",
+        "line": 35,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/OrdenDetallePage.tsx::OrdenDetallePage.handleCambiarEstado#method",
+        "name": "handleCambiarEstado",
+        "kind": "method",
+        "file": "frontend/src/pages/OrdenDetallePage.tsx",
+        "line": 68,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/OrdenDetallePage.tsx::OrdenDetallePage.handleAsignarCuadrilla#method",
+        "name": "handleAsignarCuadrilla",
+        "kind": "method",
+        "file": "frontend/src/pages/OrdenDetallePage.tsx",
+        "line": 84,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/OrdenDetallePage.tsx::OrdenDetallePage.handleAddMaterial#method",
+        "name": "handleAddMaterial",
+        "kind": "method",
+        "file": "frontend/src/pages/OrdenDetallePage.tsx",
+        "line": 99,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/OrdenDetallePage.tsx::OrdenDetallePage.handleRemoveMaterial#method",
+        "name": "handleRemoveMaterial",
+        "kind": "method",
+        "file": "frontend/src/pages/OrdenDetallePage.tsx",
+        "line": 118,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/OrdenesPage.tsx::OrdenesPage#function",
+        "name": "OrdenesPage",
+        "kind": "function",
+        "file": "frontend/src/pages/OrdenesPage.tsx",
+        "line": 49,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/OrdenesPage.tsx::OrdenesPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/OrdenesPage.tsx",
+        "line": 68,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/OrdenesPage.tsx::OrdenesPage.handleAsignarCuadrilla#method",
+        "name": "handleAsignarCuadrilla",
+        "kind": "method",
+        "file": "frontend/src/pages/OrdenesPage.tsx",
+        "line": 112,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/OrdenesPage.tsx::OrdenesPage.handleCrear#method",
+        "name": "handleCrear",
+        "kind": "method",
+        "file": "frontend/src/pages/OrdenesPage.tsx",
+        "line": 129,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/PersonasPage.tsx::PersonasPage#function",
+        "name": "PersonasPage",
+        "kind": "function",
+        "file": "frontend/src/pages/PersonasPage.tsx",
+        "line": 42,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/PersonasPage.tsx::PersonasPage.mapPersona#method",
+        "name": "mapPersona",
+        "kind": "method",
+        "file": "frontend/src/pages/PersonasPage.tsx",
+        "line": 53,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/PersonasPage.tsx::PersonasPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/PersonasPage.tsx",
+        "line": 64,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/PersonasPage.tsx::PersonasPage.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/pages/PersonasPage.tsx",
+        "line": 82,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/PersonasPage.tsx::PersonasPage.handleToggleActivo#method",
+        "name": "handleToggleActivo",
+        "kind": "method",
+        "file": "frontend/src/pages/PersonasPage.tsx",
+        "line": 108,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/RiesgosPage.tsx::calcNivel#function",
+        "name": "calcNivel",
+        "kind": "function",
+        "file": "frontend/src/pages/RiesgosPage.tsx",
+        "line": 47,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/RiesgosPage.tsx::NivelBadge#function",
+        "name": "NivelBadge",
+        "kind": "function",
+        "file": "frontend/src/pages/RiesgosPage.tsx",
+        "line": 64,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/RiesgosPage.tsx::RiesgosPage#function",
+        "name": "RiesgosPage",
+        "kind": "function",
+        "file": "frontend/src/pages/RiesgosPage.tsx",
+        "line": 77,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/RiesgosPage.tsx::RiesgosPage.map#method",
+        "name": "map",
+        "kind": "method",
+        "file": "frontend/src/pages/RiesgosPage.tsx",
+        "line": 92,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/RiesgosPage.tsx::RiesgosPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/RiesgosPage.tsx",
+        "line": 106,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/RiesgosPage.tsx::RiesgosPage.abrirCrear#method",
+        "name": "abrirCrear",
+        "kind": "method",
+        "file": "frontend/src/pages/RiesgosPage.tsx",
+        "line": 129,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/RiesgosPage.tsx::RiesgosPage.abrirEditar#method",
+        "name": "abrirEditar",
+        "kind": "method",
+        "file": "frontend/src/pages/RiesgosPage.tsx",
+        "line": 130,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/RiesgosPage.tsx::RiesgosPage.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/pages/RiesgosPage.tsx",
+        "line": 142,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/RiesgosPage.tsx::RiesgosPage.handleToggle#method",
+        "name": "handleToggle",
+        "kind": "method",
+        "file": "frontend/src/pages/RiesgosPage.tsx",
+        "line": 167,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/RiesgosPage.tsx::RiesgosPage.handleEliminar#method",
+        "name": "handleEliminar",
+        "kind": "method",
+        "file": "frontend/src/pages/RiesgosPage.tsx",
+        "line": 174,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/TiposActivoPage.tsx::TiposActivoPage#function",
+        "name": "TiposActivoPage",
+        "kind": "function",
+        "file": "frontend/src/pages/TiposActivoPage.tsx",
+        "line": 35,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/TiposActivoPage.tsx::TiposActivoPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/TiposActivoPage.tsx",
+        "line": 45,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/TiposActivoPage.tsx::TiposActivoPage.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/pages/TiposActivoPage.tsx",
+        "line": 65,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/TiposActivoPage.tsx::TiposActivoPage.handleEliminar#method",
+        "name": "handleEliminar",
+        "kind": "method",
+        "file": "frontend/src/pages/TiposActivoPage.tsx",
+        "line": 85,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/UsuariosPage.tsx::UsuariosPage#function",
+        "name": "UsuariosPage",
+        "kind": "function",
+        "file": "frontend/src/pages/UsuariosPage.tsx",
+        "line": 23,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/UsuariosPage.tsx::UsuariosPage.mapUsuario#method",
+        "name": "mapUsuario",
+        "kind": "method",
+        "file": "frontend/src/pages/UsuariosPage.tsx",
+        "line": 36,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/UsuariosPage.tsx::UsuariosPage.cargar#method",
+        "name": "cargar",
+        "kind": "method",
+        "file": "frontend/src/pages/UsuariosPage.tsx",
+        "line": 43,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/UsuariosPage.tsx::UsuariosPage.abrirCrear#method",
+        "name": "abrirCrear",
+        "kind": "method",
+        "file": "frontend/src/pages/UsuariosPage.tsx",
+        "line": 63,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/UsuariosPage.tsx::UsuariosPage.abrirEditar#method",
+        "name": "abrirEditar",
+        "kind": "method",
+        "file": "frontend/src/pages/UsuariosPage.tsx",
+        "line": 64,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/UsuariosPage.tsx::UsuariosPage.handleGuardar#method",
+        "name": "handleGuardar",
+        "kind": "method",
+        "file": "frontend/src/pages/UsuariosPage.tsx",
+        "line": 69,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/UsuariosPage.tsx::UsuariosPage.handleEliminar#method",
+        "name": "handleEliminar",
+        "kind": "method",
+        "file": "frontend/src/pages/UsuariosPage.tsx",
+        "line": 84,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/pages/UsuariosPage.tsx::UsuariosPage.handleToggleRol#method",
+        "name": "handleToggleRol",
+        "kind": "method",
+        "file": "frontend/src/pages/UsuariosPage.tsx",
+        "line": 94,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/router.tsx::AppRouter#function",
+        "name": "AppRouter",
+        "kind": "function",
+        "file": "frontend/src/router.tsx",
+        "line": 25,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/services/apiFetch.ts::getToken#function",
+        "name": "getToken",
+        "kind": "function",
+        "file": "frontend/src/services/apiFetch.ts",
+        "line": 3,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/services/auth.service.ts::saveToken#function",
+        "name": "saveToken",
+        "kind": "function",
+        "file": "frontend/src/services/auth.service.ts",
+        "line": 3,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/services/auth.service.ts::getToken#function",
+        "name": "getToken",
+        "kind": "function",
+        "file": "frontend/src/services/auth.service.ts",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/services/auth.service.ts::clearToken#function",
+        "name": "clearToken",
+        "kind": "function",
+        "file": "frontend/src/services/auth.service.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/App.tsx::App#function",
+        "name": "App",
+        "kind": "function",
+        "file": "mobile/App.tsx",
+        "line": 19,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/components/OfflineBanner.tsx::OfflineBanner#function",
+        "name": "OfflineBanner",
+        "kind": "function",
+        "file": "mobile/components/OfflineBanner.tsx",
+        "line": 5,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/components/OrderCard.tsx::OrderCard#function",
+        "name": "OrderCard",
+        "kind": "function",
+        "file": "mobile/components/OrderCard.tsx",
+        "line": 8,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/components/PhotoUploader.tsx::PhotoUploader#function",
+        "name": "PhotoUploader",
+        "kind": "function",
+        "file": "mobile/components/PhotoUploader.tsx",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/components/PhotoUploader.tsx::PhotoUploader.handleAdd#method",
+        "name": "handleAdd",
+        "kind": "method",
+        "file": "mobile/components/PhotoUploader.tsx",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/components/StatusChip.tsx::StatusChip#function",
+        "name": "StatusChip",
+        "kind": "function",
+        "file": "mobile/components/StatusChip.tsx",
+        "line": 5,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/screens/CapturaEvidenciaScreen.tsx::CapturaEvidenciaScreen#function",
+        "name": "CapturaEvidenciaScreen",
+        "kind": "function",
+        "file": "mobile/screens/CapturaEvidenciaScreen.tsx",
+        "line": 8,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/screens/CapturaEvidenciaScreen.tsx::CapturaEvidenciaScreen.guardar#method",
+        "name": "guardar",
+        "kind": "method",
+        "file": "mobile/screens/CapturaEvidenciaScreen.tsx",
+        "line": 12,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/screens/LoginScreen.tsx::LoginScreen#function",
+        "name": "LoginScreen",
+        "kind": "function",
+        "file": "mobile/screens/LoginScreen.tsx",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/screens/LoginScreen.tsx::LoginScreen.handleLogin#method",
+        "name": "handleLogin",
+        "kind": "method",
+        "file": "mobile/screens/LoginScreen.tsx",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/screens/OrdenDetalleScreen.tsx::OrdenDetalleScreen#function",
+        "name": "OrdenDetalleScreen",
+        "kind": "function",
+        "file": "mobile/screens/OrdenDetalleScreen.tsx",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/screens/OrdenesAsignadasScreen.tsx::OrdenesAsignadasScreen#function",
+        "name": "OrdenesAsignadasScreen",
+        "kind": "function",
+        "file": "mobile/screens/OrdenesAsignadasScreen.tsx",
+        "line": 22,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/screens/PerfilScreen.tsx::PerfilScreen#function",
+        "name": "PerfilScreen",
+        "kind": "function",
+        "file": "mobile/screens/PerfilScreen.tsx",
+        "line": 3,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/services/api.ts::handleResponse#function",
+        "name": "handleResponse",
+        "kind": "function",
+        "file": "mobile/services/api.ts",
+        "line": 5,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/services/api.ts::fetchOrdenes#function",
+        "name": "fetchOrdenes",
+        "kind": "function",
+        "file": "mobile/services/api.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/services/api.ts::fetchIncidentes#function",
+        "name": "fetchIncidentes",
+        "kind": "function",
+        "file": "mobile/services/api.ts",
+        "line": 18,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/services/api.ts::uploadEvidence#function",
+        "name": "uploadEvidence",
+        "kind": "function",
+        "file": "mobile/services/api.ts",
+        "line": 23,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/services/localStorage.ts::getToken#function",
+        "name": "getToken",
+        "kind": "function",
+        "file": "mobile/services/localStorage.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/services/localStorage.ts::clearToken#function",
+        "name": "clearToken",
+        "kind": "function",
+        "file": "mobile/services/localStorage.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/services/offlineQueue.ts::enqueueAction#function",
+        "name": "enqueueAction",
+        "kind": "function",
+        "file": "mobile/services/offlineQueue.ts",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/services/offlineQueue.ts::getQueue#function",
+        "name": "getQueue",
+        "kind": "function",
+        "file": "mobile/services/offlineQueue.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/services/offlineQueue.ts::clearQueue#function",
+        "name": "clearQueue",
+        "kind": "function",
+        "file": "mobile/services/offlineQueue.ts",
+        "line": 18,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/activos.api.ts::getActivos#function",
+        "name": "getActivos",
+        "kind": "function",
+        "file": "shared/services/activos.api.ts",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/activos.api.ts::getActivo#function",
+        "name": "getActivo",
+        "kind": "function",
+        "file": "shared/services/activos.api.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/activos.api.ts::createActivo#function",
+        "name": "createActivo",
+        "kind": "function",
+        "file": "shared/services/activos.api.ts",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/activos.api.ts::updateActivo#function",
+        "name": "updateActivo",
+        "kind": "function",
+        "file": "shared/services/activos.api.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/activos.api.ts::getActivosCercanos#function",
+        "name": "getActivosCercanos",
+        "kind": "function",
+        "file": "shared/services/activos.api.ts",
+        "line": 16,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/apiClient.ts::ApiClient.constructor#method",
+        "name": "constructor",
+        "kind": "method",
+        "file": "shared/services/apiClient.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/apiClient.ts::ApiClient.request#method",
+        "name": "request",
+        "kind": "method",
+        "file": "shared/services/apiClient.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/cuadrillas.api.ts::getCuadrillas#function",
+        "name": "getCuadrillas",
+        "kind": "function",
+        "file": "shared/services/cuadrillas.api.ts",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/cuadrillas.api.ts::getCuadrilla#function",
+        "name": "getCuadrilla",
+        "kind": "function",
+        "file": "shared/services/cuadrillas.api.ts",
+        "line": 13,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/cuadrillas.api.ts::createCuadrilla#function",
+        "name": "createCuadrilla",
+        "kind": "function",
+        "file": "shared/services/cuadrillas.api.ts",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/cuadrillas.api.ts::updateCuadrilla#function",
+        "name": "updateCuadrilla",
+        "kind": "function",
+        "file": "shared/services/cuadrillas.api.ts",
+        "line": 15,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/cuadrillas.api.ts::setDisponibilidadCuadrilla#function",
+        "name": "setDisponibilidadCuadrilla",
+        "kind": "function",
+        "file": "shared/services/cuadrillas.api.ts",
+        "line": 16,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/cuadrillas.api.ts::getOrdenesCuadrilla#function",
+        "name": "getOrdenesCuadrilla",
+        "kind": "function",
+        "file": "shared/services/cuadrillas.api.ts",
+        "line": 17,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/dashboard.api.ts::getResumen#function",
+        "name": "getResumen",
+        "kind": "function",
+        "file": "shared/services/dashboard.api.ts",
+        "line": 5,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/dashboard.api.ts::getIncidentesPorEstado#function",
+        "name": "getIncidentesPorEstado",
+        "kind": "function",
+        "file": "shared/services/dashboard.api.ts",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/dashboard.api.ts::getOrdenesPorArea#function",
+        "name": "getOrdenesPorArea",
+        "kind": "function",
+        "file": "shared/services/dashboard.api.ts",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/dashboard.api.ts::getTiemposResolucion#function",
+        "name": "getTiemposResolucion",
+        "kind": "function",
+        "file": "shared/services/dashboard.api.ts",
+        "line": 8,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/dashboard.api.ts::getMapaCalor#function",
+        "name": "getMapaCalor",
+        "kind": "function",
+        "file": "shared/services/dashboard.api.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/incidentes.api.ts::getIncidentes#function",
+        "name": "getIncidentes",
+        "kind": "function",
+        "file": "shared/services/incidentes.api.ts",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/incidentes.api.ts::getIncidente#function",
+        "name": "getIncidente",
+        "kind": "function",
+        "file": "shared/services/incidentes.api.ts",
+        "line": 10,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/incidentes.api.ts::createIncidente#function",
+        "name": "createIncidente",
+        "kind": "function",
+        "file": "shared/services/incidentes.api.ts",
+        "line": 14,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/incidentes.api.ts::updateIncidente#function",
+        "name": "updateIncidente",
+        "kind": "function",
+        "file": "shared/services/incidentes.api.ts",
+        "line": 18,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/incidentes.api.ts::deleteIncidente#function",
+        "name": "deleteIncidente",
+        "kind": "function",
+        "file": "shared/services/incidentes.api.ts",
+        "line": 22,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/ordenes.api.ts::getOrdenes#function",
+        "name": "getOrdenes",
+        "kind": "function",
+        "file": "shared/services/ordenes.api.ts",
+        "line": 6,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/ordenes.api.ts::getOrden#function",
+        "name": "getOrden",
+        "kind": "function",
+        "file": "shared/services/ordenes.api.ts",
+        "line": 7,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/ordenes.api.ts::createOrden#function",
+        "name": "createOrden",
+        "kind": "function",
+        "file": "shared/services/ordenes.api.ts",
+        "line": 8,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/ordenes.api.ts::updateOrden#function",
+        "name": "updateOrden",
+        "kind": "function",
+        "file": "shared/services/ordenes.api.ts",
+        "line": 9,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/ordenes.api.ts::asignarCuadrilla#function",
+        "name": "asignarCuadrilla",
+        "kind": "function",
+        "file": "shared/services/ordenes.api.ts",
+        "line": 10,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/ordenes.api.ts::cambiarEstadoOrden#function",
+        "name": "cambiarEstadoOrden",
+        "kind": "function",
+        "file": "shared/services/ordenes.api.ts",
+        "line": 11,
+        "confidence": 1.0,
+        "signals": [
+          "unreachable_file",
+          "no_callers",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/components/ui/ConfirmDialog.tsx::confirm#function",
+        "name": "confirm",
+        "kind": "function",
+        "file": "frontend/src/components/ui/ConfirmDialog.tsx",
+        "line": 8,
+        "confidence": 0.67,
+        "signals": [
+          "unreachable_file",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/context/AuthContext.tsx::login#function",
+        "name": "login",
+        "kind": "function",
+        "file": "frontend/src/context/AuthContext.tsx",
+        "line": 23,
+        "confidence": 0.67,
+        "signals": [
+          "unreachable_file",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/context/AuthContext.tsx::logout#function",
+        "name": "logout",
+        "kind": "function",
+        "file": "frontend/src/context/AuthContext.tsx",
+        "line": 28,
+        "confidence": 0.67,
+        "signals": [
+          "unreachable_file",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/context/AuthContext.tsx::useAuth#function",
+        "name": "useAuth",
+        "kind": "function",
+        "file": "frontend/src/context/AuthContext.tsx",
+        "line": 36,
+        "confidence": 0.67,
+        "signals": [
+          "unreachable_file",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/services/apiFetch.ts::apiFetch#function",
+        "name": "apiFetch",
+        "kind": "function",
+        "file": "frontend/src/services/apiFetch.ts",
+        "line": 7,
+        "confidence": 0.67,
+        "signals": [
+          "unreachable_file",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "frontend/src/services/geocoding.ts::reverseGeocode#function",
+        "name": "reverseGeocode",
+        "kind": "function",
+        "file": "frontend/src/services/geocoding.ts",
+        "line": 1,
+        "confidence": 0.67,
+        "signals": [
+          "unreachable_file",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "mobile/services/localStorage.ts::saveToken#function",
+        "name": "saveToken",
+        "kind": "function",
+        "file": "mobile/services/localStorage.ts",
+        "line": 5,
+        "confidence": 0.67,
+        "signals": [
+          "unreachable_file",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/apiClient.ts::ApiClient.get#method",
+        "name": "get",
+        "kind": "method",
+        "file": "shared/services/apiClient.ts",
+        "line": 35,
+        "confidence": 0.67,
+        "signals": [
+          "unreachable_file",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/apiClient.ts::ApiClient.post#method",
+        "name": "post",
+        "kind": "method",
+        "file": "shared/services/apiClient.ts",
+        "line": 39,
+        "confidence": 0.67,
+        "signals": [
+          "unreachable_file",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/apiClient.ts::ApiClient.patch#method",
+        "name": "patch",
+        "kind": "method",
+        "file": "shared/services/apiClient.ts",
+        "line": 43,
+        "confidence": 0.67,
+        "signals": [
+          "unreachable_file",
+          "not_barrel_exported"
+        ]
+      },
+      {
+        "id": "shared/services/apiClient.ts::ApiClient.delete#method",
+        "name": "delete",
+        "kind": "method",
+        "file": "shared/services/apiClient.ts",
+        "line": 47,
+        "confidence": 0.67,
+        "signals": [
+          "unreachable_file",
+          "not_barrel_exported"
+        ]
+      }
+    ],
+    "total_analysed": 453,
+    "min_confidence": 0.5,
+    "_meta": {
+      "timing_ms": 15.0,
+      "methodology": "multi_signal",
+      "confidence_level": "medium"
+    },
+    "framework_warning": "No standard entry points detected (e.g. main.py, app.py, __main__.py). Signal 1 (unreachable_file) fires for every symbol, inflating dead code counts. Pass entry_point_patterns to identify framework-specific roots (e.g. handler functions for AWS Lambda, route modules for FastAPI)."
+  }
+}

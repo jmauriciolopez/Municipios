@@ -1,6 +1,6 @@
-import { IsOptional, IsEnum, IsUUID, IsDateString } from 'class-validator';
-import { OrdenEstado } from '../../common/enums/orden-estado.enum';
-import { Prioridad } from '../../common/enums/prioridad.enum';
+import { IsOptional, IsEnum, IsUUID, IsDateString } from "class-validator";
+import { OrdenEstado } from "../../common/enums/orden-estado.enum";
+import { Prioridad } from "../../common/enums/prioridad.enum";
 
 export class FindOrdenesQueryDto {
   @IsEnum(OrdenEstado)

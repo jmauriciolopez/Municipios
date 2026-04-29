@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { AuditoriaService } from '../auditoria/auditoria.service';
-import { CreateIncidenteDto } from './dto/create-incidente.dto';
-import { UpdateIncidenteDto } from './dto/update-incidente.dto';
-import { FindIncidentesQueryDto } from './dto/find-incidentes-query.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { AuditoriaService } from "../auditoria/auditoria.service";
+import { CreateIncidenteDto } from "./dto/create-incidente.dto";
+import { UpdateIncidenteDto } from "./dto/update-incidente.dto";
+import { FindIncidentesQueryDto } from "./dto/find-incidentes-query.dto";
 
 const INCLUDE = {
   area: true,
@@ -25,9 +25,9 @@ export class IncidentesService {
     const incidente = await this.prisma.incidente.create({
       data: {
         tipo: data.tipo,
-        descripcion: data.descripcion ?? '',
-        estado: data.estado ?? 'abierto',
-        prioridad: data.prioridad ?? 'media',
+        descripcion: data.descripcion ?? "",
+        estado: data.estado ?? "abierto",
+        prioridad: data.prioridad ?? "media",
         lat: data.lat,
         lng: data.lng,
         direccion: data.direccion,
@@ -36,13 +36,21 @@ export class IncidentesService {
         riesgoId: data.riesgo_id,
         categoriaId: data.categoria_id,
         reportadoPor: data.reportado_por ?? userId,
-        fechaReporte: data.fecha_reporte ? new Date(data.fecha_reporte) : new Date(),
+        fechaReporte: data.fecha_reporte
+          ? new Date(data.fecha_reporte)
+          : new Date(),
       },
       include: INCLUDE,
     });
 
     if (userId) {
-      await this.auditoria.logEvent('incidente', incidente.id, 'CREATE', userId, data);
+      await this.auditoria.logEvent(
+        "incidente",
+        incidente.id,
+        "CREATE",
+        userId,
+        data,
+      );
     }
 
     return incidente;
@@ -53,8 +61,13 @@ export class IncidentesService {
     if (query.estado) where.estado = query.estado;
     if (query.prioridad) where.prioridad = query.prioridad;
     if (query.area_id) where.areaId = query.area_id;
-    if (query.fecha_desde) where.fechaReporte = { gte: new Date(query.fecha_desde) };
-    if (query.fecha_hasta) where.fechaReporte = { ...where.fechaReporte, lte: new Date(query.fecha_hasta) };
+    if (query.fecha_desde)
+      where.fechaReporte = { gte: new Date(query.fecha_desde) };
+    if (query.fecha_hasta)
+      where.fechaReporte = {
+        ...where.fechaReporte,
+        lte: new Date(query.fecha_hasta),
+      };
 
     return this.prisma.incidente.findMany({ where, include: INCLUDE });
   }
@@ -64,7 +77,7 @@ export class IncidentesService {
       where: { id, deletedAt: null },
       include: INCLUDE,
     });
-    if (!incidente) throw new NotFoundException('Incidente no encontrado');
+    if (!incidente) throw new NotFoundException("Incidente no encontrado");
     return incidente;
   }
 
@@ -80,8 +93,10 @@ export class IncidentesService {
     if (data.area_id !== undefined) payload.areaId = data.area_id;
     if (data.activo_id !== undefined) payload.activoId = data.activo_id;
     if (data.riesgo_id !== undefined) payload.riesgoId = data.riesgo_id;
-    if (data.categoria_id !== undefined) payload.categoriaId = data.categoria_id;
-    if (data.fecha_reporte !== undefined) payload.fechaReporte = new Date(data.fecha_reporte);
+    if (data.categoria_id !== undefined)
+      payload.categoriaId = data.categoria_id;
+    if (data.fecha_reporte !== undefined)
+      payload.fechaReporte = new Date(data.fecha_reporte);
 
     const incidente = await this.prisma.incidente.update({
       where: { id },
@@ -90,7 +105,7 @@ export class IncidentesService {
     });
 
     if (userId) {
-      await this.auditoria.logEvent('incidente', id, 'UPDATE', userId, data);
+      await this.auditoria.logEvent("incidente", id, "UPDATE", userId, data);
     }
 
     return incidente;
@@ -100,11 +115,11 @@ export class IncidentesService {
     await this.findOne(id);
     await this.prisma.incidente.update({
       where: { id },
-      data: { deletedAt: new Date(), estado: 'cancelado' },
+      data: { deletedAt: new Date(), estado: "cancelado" },
     });
 
     if (userId) {
-      await this.auditoria.logEvent('incidente', id, 'DELETE', userId);
+      await this.auditoria.logEvent("incidente", id, "DELETE", userId);
     }
 
     return { deleted: true, id };
@@ -114,12 +129,15 @@ export class IncidentesService {
     const incidente = await this.findOne(id);
 
     const result = await this.prisma.$transaction(async (tx) => {
-      await tx.incidente.update({ where: { id }, data: { estado: 'en_proceso' } });
+      await tx.incidente.update({
+        where: { id },
+        data: { estado: "en_proceso" },
+      });
       return tx.ordenTrabajo.create({
         data: {
           incidenteId: incidente.id,
           areaId: incidente.areaId,
-          estado: 'detectado',
+          estado: "detectado",
           prioridad: incidente.prioridad,
           descripcion: incidente.descripcion,
           codigo: `ORD-${Date.now()}`,
@@ -128,7 +146,13 @@ export class IncidentesService {
     });
 
     if (userId) {
-      await this.auditoria.logEvent('incidente', id, 'CONVERT_TO_ORDER', userId, { ordenId: result.id });
+      await this.auditoria.logEvent(
+        "incidente",
+        id,
+        "CONVERT_TO_ORDER",
+        userId,
+        { ordenId: result.id },
+      );
     }
 
     return result;
@@ -137,7 +161,7 @@ export class IncidentesService {
   async getEvidencias(id: string) {
     await this.findOne(id);
     return this.prisma.evidencia.findMany({
-      where: { entidadTipo: 'incidente', entidadId: id },
+      where: { entidadTipo: "incidente", entidadId: id },
     });
   }
 }

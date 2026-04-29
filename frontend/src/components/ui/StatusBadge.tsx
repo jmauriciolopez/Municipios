@@ -1,6 +1,7 @@
 type StatusBadgeProps = { 
   status: string;
   showLabel?: boolean;
+  size?: 'small' | 'medium' | 'large';
 };
 
 const STATUS_CLASS: Record<string, string> = {
@@ -40,13 +41,19 @@ const STATUS_LABEL: Record<string, string> = {
   dado_de_baja: 'Dado de baja',
 };
 
-export default function StatusBadge({ status, showLabel = true }: StatusBadgeProps) {
+export default function StatusBadge({ status, showLabel = true, size = 'medium' }: StatusBadgeProps) {
   const normalizedStatus = status?.toLowerCase() ?? 'default';
   const cls = STATUS_CLASS[normalizedStatus] ?? 'bg-slate-50 text-slate-600 border-slate-100';
   const label = STATUS_LABEL[normalizedStatus] ?? status?.replace(/_/g, ' ') ?? 'Desconocido';
   
+  const sizeClasses = {
+    small: 'px-1.5 py-0.5 text-[10px]',
+    medium: 'px-2.5 py-0.5 text-xs',
+    large: 'px-3 py-1 text-sm font-black uppercase tracking-tight'
+  };
+  
   return (
-    <span className={`inline-flex items-center ${showLabel ? 'px-2.5 py-0.5' : 'p-1.5'} rounded-full text-xs font-medium border transition-colors duration-200 ${cls}`}>
+    <span className={`inline-flex items-center rounded-full border transition-colors duration-200 ${cls} ${sizeClasses[size]}`}>
       <span className={`w-1.5 h-1.5 rounded-full bg-current opacity-60 ${showLabel ? 'mr-1.5' : ''}`}></span>
       {showLabel && label}
     </span>

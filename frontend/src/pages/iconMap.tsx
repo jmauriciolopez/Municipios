@@ -56,8 +56,7 @@ import {
   Baby,
   Lamp,
   Landmark,
-  Sofa,
-  HelpCircle
+  Sofa
 } from "lucide-react";
 
 const iconMap = {
